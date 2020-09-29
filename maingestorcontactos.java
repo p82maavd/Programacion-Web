@@ -1,11 +1,8 @@
-package practica1entrega;
-
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class maingestorcontactos {
-
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 		GestorContactos gestor = GestorContactos.getInstance();
@@ -58,5 +55,6 @@ public class maingestorcontactos {
 		sc.close();
 
 	}
+
 
 }
