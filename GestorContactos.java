@@ -1,6 +1,8 @@
 package practica1entrega;
 
 import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class GestorContactos {
   private static GestorContactos instance =null;
@@ -143,5 +145,6 @@ public class GestorContactos {
 			this.listaContactos.add(e);
 			
 			this.guardarDatos();
+	}
 
 }
