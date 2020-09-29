@@ -1,4 +1,3 @@
-package practica1entrega;
 
 import java.io.EOFException;
 import java.io.FileInputStream;
