@@ -9,7 +9,12 @@ public class maingestorcontactos {
 	
 		Scanner sc = new Scanner(System.in);
 		Boolean condicion=true;
+		try {
 		gestor.cargarDatos();
+		}catch(FileNotFoundException e) {
+			ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("fich.dat"));
+	        file.close();
+		}
 		int a= 0;
 		
 		while(condicion) {
