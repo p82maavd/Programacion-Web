@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.io.Serializable;
 
 public class Contacto {
-
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private String apellidos;
 	private Date fechanacimiento;
