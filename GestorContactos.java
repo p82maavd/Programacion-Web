@@ -1,5 +1,6 @@
 
 import java.io.EOFException;
+import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +12,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+//Cambiar dependiendo de donde lo tengas guardado
+import practica1entrega.Contacto;
+import practica1entrega.Contacto.Intereses;
 
 public class GestorContactos {
   private static GestorContactos instance =null;
@@ -57,9 +61,9 @@ public class GestorContactos {
 	
 	public void guardarDatos() throws FileNotFoundException, IOException {
 		
-		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream( "patatilla.dat" ));
+		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream( "fich.dat" ));
 		Date auxi= new Date();
-        ArrayList<String> aux=new ArrayList<String>();
+        ArrayList<Intereses> aux=new ArrayList<Intereses>();
 		Contacto auxc=new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
 		
 		for(int i=0; i<this.listaContactos.size();i++) {
@@ -76,7 +80,7 @@ public class GestorContactos {
 		String cadena=new String();
 		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ e.getFechanacimiento());
 		for(int i=0; i<e.getIntereses().size();i++) {
-			cadena=e.getIntereses().get(i);
+			cadena=e.getIntereses().get(i).getInteres();
 			System.out.println(cadena);
 		}
 	}
@@ -123,7 +127,7 @@ public class GestorContactos {
 			}
 			
 			
-			ArrayList<String> intereses=new ArrayList<String>();
+			ArrayList<Intereses> intereses=new ArrayList<Intereses>();
 			Integer neweleccion=0;
 			String newinteres=new String();
 			Boolean condicion=true;
@@ -131,13 +135,29 @@ public class GestorContactos {
 			
 			while(condicion) {
 				
-				System.out.println("Introduzca un nuevo interes: ");
+				System.out.println("Seleccione un nuevo interes: ");
+				
+				for (Intereses myVar : Intereses.values()) {
+					System.out.println(myVar.getId()+" "+myVar.getInteres());
+				}
 				
 				newinteres= alt.nextLine();
 				
-				intereses.add(newinteres);
+				int foo;
+				try {
+				   foo = Integer.parseInt(newinteres);
+				}
+				catch (NumberFormatException e)
+				{
+				   foo = 0;
+				}
 				
-				
+				for (Intereses myVar : Intereses.values()) {
+					if(foo==myVar.getId()) {
+						intereses.add(myVar);
+					}
+				}
+
 				System.out.println("Desea añadir mas intereses: 1. Si 2. No");
 				neweleccion=alt.nextInt();
 				alt.nextLine();
@@ -145,7 +165,6 @@ public class GestorContactos {
 					condicion=false;
 				}
 				
-			
 			}
 			
 			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail,intereses);
@@ -156,8 +175,9 @@ public class GestorContactos {
 	}
 	
 	public void darBaja(int index) {
-		
+		//Esto esta sin implementar. Solo para limpiar el archivo.
 		this.listaContactos.remove(index);
+		this.guardarDatos();
 		
 	}
 
