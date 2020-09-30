@@ -3,14 +3,42 @@ import java.util.Date;
 import java.io.Serializable;
 
 public class Contacto {
+	public enum Intereses {
+		Leer("Leer",1), 
+		Cine("Ir al Cine",2), 
+		Futbol("Jugar al futbol",3), 
+		Programar("Programar",4);
+		
+		private String interes;
+		private int id;
+		
+		Intereses(String string, int i) {
+			this.setInteres(string);
+			this.setId(i);
+		}
+		public String getInteres() {
+			return interes;
+		}
+		public void setInteres(String interes) {
+			this.interes = interes;
+		}
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+
+	}
+	
 	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private String apellidos;
 	private Date fechanacimiento;
 	private String email;
-	private ArrayList <String> intereses;
+	private ArrayList<Intereses> intereses;
 	
-	public Contacto(String nombre, String apellidos, Date fechanacimiento, String email, ArrayList<String> intereses) {
+	public Contacto(String nombre, String apellidos, Date fechanacimiento, String email, ArrayList<Intereses> intereses) {
 		
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -51,11 +79,11 @@ public class Contacto {
 		this.email = email;
 	}
 
-	public ArrayList<String> getIntereses() {
+	public ArrayList<Intereses> getIntereses() {
 		return intereses;
 	}
 
-	public void setIntereses(ArrayList<String> intereses) {
+	public void setIntereses(ArrayList<Intereses> intereses) {
 		this.intereses = intereses;
 	}
 	
