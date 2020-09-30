@@ -17,7 +17,7 @@ import practica1entrega.Contacto;
 import practica1entrega.Contacto.Intereses;
 
 public class GestorContactos {
-  private static GestorContactos instance =null;
+	private static GestorContactos instance =null;
 	
 	private ArrayList <Contacto> listaContactos;
 
@@ -73,7 +73,7 @@ public class GestorContactos {
 			
 		}
         
-        file.close();
+        	file.close();
 	}
 	
 	public void imprimirContacto(Contacto e) {
