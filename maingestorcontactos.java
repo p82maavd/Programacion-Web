@@ -22,7 +22,8 @@ public class maingestorcontactos {
 			System.out.println("1. Añadir Contacto");
 			System.out.println("2. Mostrar Contactos");
 			System.out.println("3. Eliminar Contacto");
-			System.out.println("4.Salir");
+			System.out.println("4. Actualizar Contacto");
+			System.out.println("4. Salir");
 			
 			try {
 				a=sc.nextInt();
@@ -43,7 +44,7 @@ public class maingestorcontactos {
 		
 		
 				else if(a==4) {
-					condicion=false;
+					System.out.println("4.Salir");
 				}
 			
 				else{
