@@ -203,5 +203,113 @@ public class GestorContactos {
 		this.guardarDatos();
 		
 	}
+	
+	public void actualizarContacto() {
+		
+		//Esta para poner de parametro la funcion buscarContacto(), de mientras coge el primero.
+		
+		Contacto e=this.listaContactos.get(0);
+		
+		System.out.println("Que quieres modificar: 1. Nombre 2. Apellidos 3. Email 4. Fecha Nacimiento 5. Intereses");
+		Scanner sc = new Scanner(System.in);
+		Scanner sl = new Scanner(System.in);
+		System.out.print("Introduzca un número entero: ");
+		Integer a = sc.nextInt();
+		
+		
+		if(a==1) {
+			String nuevonombre;
+			System.out.print("Introduzca el nuevo nombre: ");
+			nuevonombre = sl.nextLine();
+			e.setNombre(nuevonombre);
+		}
+		
+		else if(a==2) {
+			String nuevoapellido;
+			System.out.print("Introduzca el nuevo apellido: ");
+			nuevoapellido = sl.nextLine();
+			e.setApellidos(nuevoapellido);
+		}
+		
+		else if(a==3) {
+			String nuevoemail;
+			System.out.print("Introduzca el nuevo email: ");
+			nuevoemail = sl.nextLine();
+			e.setEmail(nuevoemail);
+		}
+		
+		else if(a==4) {
+			String nuevafecha="01/01/1970";
+			System.out.print("Introduzca la nueva fecha de nacimiento(dd/mm/yyyy): ");
+			nuevafecha = sl.nextLine();
+			
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			 
+			Date dnuevafecha = null;
+			try {
+				dnuevafecha = formatter.parse(nuevafecha);
+			} catch (ParseException e1) {
+				
+				e1.printStackTrace();
+			}
+			
+			e.setFechanacimiento(dnuevafecha);
+		}
+		
+		else if(a==5) {
+			ArrayList<Intereses> intereses;
+			intereses=e.getIntereses();
+			
+			Integer eleccion;
+			System.out.println("¿Desea eliminar algun interes? 1.Si 2.No");
+			eleccion = sc.nextInt();
+			
+			
+			if(eleccion==1) {
+				System.out.println("Actuales Intereses");
+				for(int i=1; i<=intereses.size();i++) {
+				
+					System.out.println(i+intereses.get(i-1).getInteres());
+				}
+				
+				System.out.println("Que interes desea eliminar");
+				
+				
+				Integer linea;
+				linea = sc.nextInt();
+				intereses.remove(linea-1);
+			}
+			else {
+				
+				System.out.println("Seleccione un nuevo interes: ");
+				String newinteres=new String();
+				for (Intereses myVar : Intereses.values()) {
+					System.out.println(myVar.getId()+" "+myVar.getInteres());
+				}
+				//Probar, posible fallo por scanner
+				newinteres= sc.nextLine();
+				
+				int foo;
+				try {
+				   foo = Integer.parseInt(newinteres);
+				}
+				catch (NumberFormatException es)
+				{
+				   foo = 0;
+				}
+				
+				for (Intereses myVar : Intereses.values()) {
+					if(foo==myVar.getId()) {
+						intereses.add(myVar);
+					}
+				}
+			}
+			
+			
+		}
+		
+		//sc.close();
+		
+	}
 
 }
