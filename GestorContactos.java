@@ -307,7 +307,7 @@ public class GestorContactos {
 			
 			
 		}
-		
+		this.guardarDatos();
 		//sc.close();
 		
 	}
