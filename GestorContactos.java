@@ -76,7 +76,7 @@ public class GestorContactos {
         	file.close();
 	}
 	
-	public void imprimirContacto(Contacto e) {
+	public void consultarContacto(Contacto e) {
 		String cadena=new String();
 		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ e.getFechanacimiento());
 		for(int i=0; i<e.getIntereses().size();i++) {
@@ -89,7 +89,7 @@ public class GestorContactos {
 		
 		for(int i=0; i<this.listaContactos.size();i++) {
 			
-			imprimirContacto(this.listaContactos.get(i));
+			consultarContacto(this.listaContactos.get(i));
 		}
 	
 	}
@@ -107,9 +107,32 @@ public class GestorContactos {
 			nuevoapellido = sc.nextLine();
 			
 			
-			String nuevoemail;
-			System.out.print("Introduzca el nuevo email: ");
-			nuevoemail = sc.nextLine();
+			Boolean email= true;
+			String nuevoemail=new String();
+			
+			while(email) {
+				
+				System.out.print("Introduzca el email: ");
+				nuevoemail = sc.nextLine();
+				
+				if(this.listaContactos.size()==0) {
+					email=false;
+					continue;
+				}
+				
+				for (Contacto myVar : this.listaContactos) {
+					if(nuevoemail.equals(myVar.getEmail())) {
+							
+					}
+					else {
+						email=false;
+					}
+				}
+				if(email) {
+					System.out.println("Dicho email esta ya en uso");
+				}
+				
+			}
 			
 			
 			String nuevafecha="01/01/1970";
