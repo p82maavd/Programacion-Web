@@ -39,12 +39,10 @@ public class maingestorcontactos {
 		
 				else if(a==3) {
 					gestor.darBaja(0);
-					gestor.guardarDatos();
 				}
 		
-		
 				else if(a==4) {
-					System.out.println("4.Salir");
+					gestor.actualizarContacto();
 				}
 			
 				else{
