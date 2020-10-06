@@ -1,7 +1,7 @@
 /**
  * 
  * @author Damian Martinez
- * @author Daniel Olmo
+ * @author Daniel Ortega
  */
 
 import java.util.ArrayList;
