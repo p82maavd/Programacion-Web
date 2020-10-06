@@ -1,8 +1,14 @@
+/**
+ * 
+ * @author Damian Martinez
+ * @author Daniel Olmo
+ */
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.io.Serializable;
 
-public class Contacto {
+public class Contacto implements Serializable{
 	public enum Intereses {
 		Leer("Leer",1), 
 		Cine("Ir al Cine",2), 
