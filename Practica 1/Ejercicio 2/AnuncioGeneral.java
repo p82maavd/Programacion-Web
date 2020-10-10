@@ -13,11 +13,11 @@ public class AnuncioGeneral extends Anuncio{
 		this.usuario=usuario;
 		this.destinatarios=destinatarios;
 		
-		//Habria que poner algo para que destinatarios contenga a todos los usuarios pero no se como ponerlo :(
+		//Habria que poner algo para que destinatarios contenga a todos los usuarios
 		//Probar con algo como:
 		//this.destinatarios=gestorContactos.getContactos() que dicha funcion devuelva Array de Contactos
 		//Pero deberia de actualizarse cada vez que se publica un anuncio y se registra un usuario y tal. Para que se le muestre a todos.
-		//Que se actualize cuando publicar anuncio quizas?
+		
 		
 	}
 
