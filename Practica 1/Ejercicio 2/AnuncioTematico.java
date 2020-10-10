@@ -2,8 +2,7 @@ package practica1;
 
 import java.util.ArrayList;
 
-import practica1entrega.Contacto;
-import practica1entrega.Contacto.Intereses;
+import practica1.Contacto.Intereses;
 
 
 public class AnuncioTematico extends Anuncio{
