@@ -2,29 +2,28 @@ package practica1;
 
 import java.util.ArrayList;
 
-import practica1.Contacto.Intereses;
-
 
 public class AnuncioTematico extends Anuncio{
 	
-	private ArrayList <Intereses> intereses;
+	private ArrayList <String> intereses;
 
-	public AnuncioTematico(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Contacto> destinatarios, ArrayList<Intereses> intereses) {
-		super(id, titulo, cuerpo, usuario, destinatarios);
+	public AnuncioTematico(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Contacto> destinatarios, ArrayList<String> intereses, Estados estado) {
+		super(id, titulo, cuerpo, usuario, destinatarios, estado);
 		this.intereses=intereses;
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
 		this.destinatarios=destinatarios;
-		//Los destinatarios seran los que tengan los intereses en comun.
+		this.estado=estado;
+		
 	}
 
-	public ArrayList <Intereses> getIntereses() {
+	public ArrayList <String> getIntereses() {
 		return intereses;
 	}
 
-	public void setIntereses(ArrayList <Intereses> intereses) {
+	public void setIntereses(ArrayList <String> intereses) {
 		this.intereses = intereses;
 	}
 

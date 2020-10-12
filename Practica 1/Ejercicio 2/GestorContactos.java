@@ -20,13 +20,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import practica1entrega.Contacto;
-import practica1entrega.Contacto.Intereses;
+import practica1.Contacto;
+import practica1.Intereses;
 
 
 public class GestorContactos {
 	
 	private static GestorContactos instance =null;
+	
+	private Intereses claseintereses=new Intereses();
 	
 	private ArrayList <Contacto> listaContactos;
 
@@ -109,9 +111,10 @@ public class GestorContactos {
 			}
 
 		}
-		
+		/*
+		//Actualizar esto,
 		else if(a==3) {
-			ArrayList<Intereses> intereses;
+			ArrayList<String> intereses;
 			int n = 0;
 			String interesaux;
 			System.out.print("Indique el interes a buscar: ");
@@ -120,7 +123,7 @@ public class GestorContactos {
 			for(int i=0; i<this.listaContactos.size();i++) {
 				intereses=this.listaContactos.get(i).getIntereses();
 				for(int j=1; j<=intereses.size();j++) {
-					if(intereses.get(i).getInteres().equals(interesaux)) {
+					if(intereses.get(i).getIntereses().equals(interesaux)) {
 						n = n + 1;
 						Contacto e=this.listaContactos.get(i);
 						return e;
@@ -132,6 +135,7 @@ public class GestorContactos {
 			}
 
 		}
+		*/
 		
 		else if(a==4) {
 			String fechaaux="01/01/1970";
@@ -224,19 +228,21 @@ public class GestorContactos {
 			}
 			
 			
-			ArrayList<Intereses> intereses=new ArrayList<Intereses>();
+			ArrayList<String> interesesaux=new ArrayList<String>();
 			Integer neweleccion=0;
 			String newinteres=new String();
 			Boolean condicion=true;
 			Scanner alt = new Scanner(System.in);
-			
+			int cont =1;
 			while(condicion) {
 				
 				System.out.println("Seleccione un nuevo interes: ");
 				
-				for (Intereses myVar : Intereses.values()) {
-					System.out.println(myVar.getId()+" "+myVar.getInteres());
+				for (String myVar : claseintereses.getIntereses()) {
+					System.out.println(cont+" "+myVar);
+					cont++;
 				}
+				cont=1;
 				
 				newinteres= alt.nextLine();
 				
@@ -249,9 +255,10 @@ public class GestorContactos {
 				   foo = 0;
 				}
 				
-				for (Intereses myVar : Intereses.values()) {
-					if(foo==myVar.getId()) {
-						intereses.add(myVar);
+				for (int i=1;i<=claseintereses.getIntereses().size();i++) {
+					if(foo==i) {
+						
+						interesesaux.add(claseintereses.getIntereses().get(i-1));
 					}
 				}
 				
@@ -269,7 +276,7 @@ public class GestorContactos {
 			//alt.close();
 			//sc.close();
 			
-			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail,intereses);
+			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail,interesesaux);
 			
 			this.listaContactos.add(e);
 			
@@ -345,7 +352,7 @@ public class GestorContactos {
 		}
 		
 		else if(a==5) {
-			ArrayList<Intereses> intereses;
+			ArrayList<String> intereses;
 			intereses=e.getIntereses();
 			
 			Integer eleccion;
@@ -357,7 +364,7 @@ public class GestorContactos {
 				System.out.println("Actuales Intereses");
 				for(int i=1; i<=intereses.size();i++) {
 				
-					System.out.println(i+intereses.get(i-1).getInteres());
+					System.out.println(i+intereses.get(i-1));
 				}
 				
 				System.out.println("Que interes desea eliminar");
@@ -371,8 +378,10 @@ public class GestorContactos {
 				
 				System.out.println("Seleccione un nuevo interes: ");
 				int newinteres=0;
-				for (Intereses myVar : Intereses.values()) {
-					System.out.println(myVar.getId()+" "+myVar.getInteres());
+				int cont=1;
+				for (String myVar : claseintereses.getIntereses()) {
+					System.out.println(cont+" "+myVar);
+					cont++;
 				}
 				
 				newinteres= sc.nextInt();
@@ -387,9 +396,9 @@ public class GestorContactos {
 				}
 				*/
 				
-				for (Intereses myVar : Intereses.values()) {
-					if(newinteres==myVar.getId()) {
-						intereses.add(myVar);
+				for (int i=1;i<=claseintereses.getIntereses().size();i++) {
+					if(newinteres==i) {
+						intereses.add(claseintereses.getIntereses().get(i-1));
 					}
 				}
 			}
@@ -406,13 +415,15 @@ public class GestorContactos {
 	 * @return Instancia única de GestorContactos.
 	*/
 	public void cargarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream file = new ObjectInputStream(new FileInputStream("fich.dat"));
-		ArrayList<Intereses> aux=new ArrayList<Intereses>();
-		Date auxi= new Date();
-		Contacto clase= new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
 		
-		while(clase!=null) {
-			 try {
+		try {
+		ObjectInputStream file = new ObjectInputStream(new FileInputStream("fich.dat"));
+		//ArrayList<String> aux=new ArrayList<String>();
+		//Date auxi= new Date();
+		//Contacto clase= new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
+		Contacto clase=null;
+		do {
+			try {
 				 clase = (Contacto) file.readObject(); 
 		         } catch (EOFException e) {
 		            System.out.println("");
@@ -420,9 +431,16 @@ public class GestorContactos {
 		            break;
 		         } 
 			
-			this.listaContactos.add(clase);        	
+			this.listaContactos.add(clase);
+			
 		}
+		while(clase!=null) ;
+			         	
+		
 		file.close();
+		}catch(FileNotFoundException e) {
+			guardarDatos();
+		}
 		 
 		
 	}
@@ -433,9 +451,10 @@ public class GestorContactos {
 	public void guardarDatos() throws FileNotFoundException, IOException {
 		
 		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream( "fich.dat" ));
-		Date auxi= new Date();
-        ArrayList<Intereses> aux=new ArrayList<Intereses>();
-		Contacto auxc=new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
+		//Date auxi= new Date();
+        //ArrayList<String> aux=new ArrayList<String>();
+		//Contacto auxc=new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
+		Contacto auxc=null;
 		
 		for(int i=0; i<this.listaContactos.size();i++) {
 			
@@ -466,7 +485,7 @@ public class GestorContactos {
 		String cadena=new String();
 		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ e.getFechanacimiento());
 		for(int i=0; i<e.getIntereses().size();i++) {
-			cadena=e.getIntereses().get(i).getInteres();
+			cadena=e.getIntereses().get(i);
 			
 			System.out.println(cadena);
 		}
