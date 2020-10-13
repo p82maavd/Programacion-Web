@@ -118,6 +118,8 @@ public class GestorContactos {
 		else if(a==3) {
 			Integer cont=0;
 			
+			//Imprime todos los intereses
+			
 			for(String s: intereses) {
 				System.out.println(cont.toString()+s);
 				cont++;
@@ -138,6 +140,8 @@ public class GestorContactos {
 				
 			}
 			
+			//Busca los contactos que tengan el interes seleccionado arriba
+			
 			for(Contacto d: this.listaContactos) {
 				
 				for(int i=0;i<d.getIntereses().size();i++) {
@@ -145,12 +149,15 @@ public class GestorContactos {
 					if(d.getIntereses().get(i).equals(interesaux)) {
 						
 						aux.add(d);
+						break;
 						
 					}
 					
 				}
 				
 			}
+			
+			//Imprime todos los contactos con dicho interes.
 			
 			for(Integer i=0;i<aux.size();i++) {
 				System.out.println(i.toString()+"Nombre: "+aux.get(i).getNombre()+" Email: "+ aux.get(i).getEmail());
@@ -162,9 +169,10 @@ public class GestorContactos {
 			
 			int seleccion2=sc.nextInt();
 			
+			
 			for(int i=0;i<aux.size();i++) {
 				
-				if(i==seleccion) {
+				if(i==seleccion2) {
 					System.out.println("Contacto Seleccionado");
 					buscado=aux.get(i);
 					//Comprobar break
