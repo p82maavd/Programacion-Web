@@ -511,7 +511,7 @@ public class GestorAnuncios {
 		guardarAnuncio();
 	}
 	
-	public Anuncio buscarAnuncio() {
+	public Anuncio buscarAnuncio(ArrayList<String> intereses) {
 		int opcion;
 		Scanner sc= new Scanner(System.in);
 		Scanner sl= new Scanner(System.in);
@@ -532,7 +532,7 @@ public class GestorAnuncios {
         	String interes=new String();
 			System.out.print("Introduzca el interes: ");
 			interes = sl.nextLine();
-        	e=buscarIntereses(interes);
+        	e=buscarIntereses(interes,intereses);
         }
         
         else if (opcion==3) {
@@ -614,37 +614,11 @@ public class GestorAnuncios {
 	}
 	
 	//Sin implementar
-	public Anuncio buscarIntereses(String intereses) {
+	public Anuncio buscarIntereses(String interes,ArrayList<String> intereses) {
 		return null;
 		
 	}
-	/*
-	public Anuncio buscarPropietario(String propietario) {
-		ArrayList<Anuncio> anunciosusuario = null;
-		String email;
-		System.out.println("Introduzca el email del propietario:");
-		Scanner sc = new Scanner(System.in);
-		email = sc.nextLine();
-		Contacto a = null;
-		for(int i=0 ; i<getListaAnuncios().size(); i++) {
-			if(getListaAnuncios().get(i).getUsuario().getEmail()==email) {
-				//a =new Contacto(getListaAnuncios().get(i).getUsuario().getNombre(), getListaAnuncios().get(i).getUsuario().getApellidos(),getListaAnuncios().get(i).getUsuario().getFechanacimiento(),getListaAnuncios().get(i).getUsuario().getEmail(),getListaAnuncios().get(i).getUsuario().getIntereses());
-				//No se puede hacer esto?
-				a=getListaAnuncios().get(i).getUsuario();
-				//¿Porque no se puede añadir al vector directamente aqui?
-				//De hecho, si no lo añades aqui te lo reescribe en la siguiente iteracion del primer for.
-			}
-		}
-		//Esto es explicacion: Buscar todos los anuncios de un propietario.
-		for(int j=0 ; j<getListaAnuncios().size() ; j++) {
-			if(getListaAnuncios().get(j).getUsuario() == a) {
-				 anunciosusuario.add(getListaAnuncios().get(j));
-			}
-		}
-
-		return anunciosusuario;
-		
-	}*/
+	
 	
 	public Anuncio buscarPropietario(String propietario) {
 		ArrayList<Anuncio> anunciosusuario = new ArrayList<Anuncio>();
@@ -656,11 +630,9 @@ public class GestorAnuncios {
 		Anuncio buscado=null;
 		for(int i=0 ; i<getListaAnuncios().size(); i++) {
 			if(getListaAnuncios().get(i).getUsuario().getEmail()==email) {
-				//a =new Contacto(getListaAnuncios().get(i).getUsuario().getNombre(), getListaAnuncios().get(i).getUsuario().getApellidos(),getListaAnuncios().get(i).getUsuario().getFechanacimiento(),getListaAnuncios().get(i).getUsuario().getEmail(),getListaAnuncios().get(i).getUsuario().getIntereses());
-				//No se puede hacer esto?
+				
 				a=getListaAnuncios().get(i);
-				//¿Porque no se puede añadir al vector directamente aqui?
-				//De hecho, si no lo añades aqui te lo reescribe en la siguiente iteracion del primer for.
+				
 				anunciosusuario.add(a);
 			}
 		}
@@ -692,40 +664,7 @@ public class GestorAnuncios {
 		
 	}
 	
-	/*
-	public Anuncio buscarDestinatario(String destinatario) {
-		ArrayList<Anuncio> anunciosusuario = null;
-		String email;
-		System.out.println("Introduzca el email del destinatario:");
-		Scanner sc = new Scanner(System.in);
-		email = sc.nextLine();
-		Contacto a = null;
-		
-		for(int i=0 ; i<getListaAnuncios().size(); i++) {
-			for(int n=0 ; n<getListaAnuncios().get(i).getDestinatarios().size() ; n++) {
-				if(getListaAnuncios().get(i).getDestinatarios().get(n).getEmail()==email) {
-					//a =new Contacto(getListaAnuncios().get(i).getDestinatarios().get(n).getNombre(), getListaAnuncios().get(i).getDestinatarios().get(n).getApellidos(),getListaAnuncios().get(i).getDestinatarios().get(n).getFechanacimiento(),getlistaAnuncios().get(i).getDestinatarios().get(n).getEmail(),getlistaAnuncios().get(i).getDestinatarios().get(n).getIntereses());
-					//Igual que arriba
-					a=getListaAnuncios().get(i).getUsuario();
-					
-				}
-			}
-		}
-		
-		for(int i=0 ; i<getListaAnuncios().size(); i++) {
-			for(int n=0 ; n<getListaAnuncios().get(i).getDestinatarios().size() ; n++) {
-				if(getListaAnuncios().get(i).getDestinatarios().get(n)==a){
-					anunciosusuario.add(getListaAnuncios().get(i));
-				}
-			}
-		}
 
-		return anunciosusuario;
-		
-	}
-	*/
-	
-	//Modificada 
 	public Anuncio buscarDestinatario(String email) {
 		ArrayList<Anuncio> anunciosusuario = new ArrayList<Anuncio>();
 		Anuncio a = null;
@@ -735,13 +674,11 @@ public class GestorAnuncios {
 		for(int i=0 ; i<getListaAnuncios().size(); i++) {
 			for(int n=0 ; n<getListaAnuncios().get(i).getDestinatarios().size() ; n++) {
 				if(getListaAnuncios().get(i).getDestinatarios().get(n).getEmail().equals(email)) {
-					//a =new Contacto(getListaAnuncios().get(i).getDestinatarios().get(n).getNombre(), getListaAnuncios().get(i).getDestinatarios().get(n).getApellidos(),getListaAnuncios().get(i).getDestinatarios().get(n).getFechanacimiento(),getlistaAnuncios().get(i).getDestinatarios().get(n).getEmail(),getlistaAnuncios().get(i).getDestinatarios().get(n).getIntereses());
-					//Igual que arriba
+					
 					a=getListaAnuncios().get(i);
-					//¿Porque no se puede añadir al vector directamente aqui?
+					
 					anunciosusuario.add(a);
-					//Se supone que este break sale solo del segundo for y pasa a la siguiente iteracion del primero
-					//Si no se sale te puede añadir dos veces al destinatario.
+					
 					break;
 				}
 			}

@@ -57,7 +57,10 @@ public class GestorContactos {
 		return this.listaContactos;
 	}
 	
-	public Contacto buscarContacto()  {
+	//Actualizar estas funciones teniendo en cuenta que pueden devolver varios contactos y al final seleccionar uno. Menos en email que es unico y en intereses ya esta creo, falta comprobarlo.
+	public Contacto buscarContacto(ArrayList<String> intereses)  {
+		
+		ArrayList<Contacto> aux=new ArrayList<Contacto>();
 		
 		System.out.println("Elige parametro de busqueda: ");
 		System.out.println("1. Nombre y Apellidos");
@@ -69,7 +72,7 @@ public class GestorContactos {
 		Scanner sv = new Scanner(System.in);
 		System.out.print("Introduzca un número entero: ");
 		Integer a = sc.nextInt();
-		
+		Contacto buscado=null;
 		
 		if(a==1) {
 			
@@ -94,6 +97,7 @@ public class GestorContactos {
 		
 		else if(a==2) {
 			String emailaux;
+			
 			int n = 0;
 			System.out.print("Indique el email a buscar: ");
 			emailaux = sl.nextLine();
@@ -109,32 +113,72 @@ public class GestorContactos {
 			}
 
 		}
-		/*
-		//Actualizar esto,
+		
+		//Comprobar
 		else if(a==3) {
-			ArrayList<String> intereses;
-			int n = 0;
-			String interesaux;
-			System.out.print("Indique el interes a buscar: ");
-		    interesaux = sl.nextLine();
-			System.out.println("¿Desea eliminar algun interes? 1.Si 2.No");
-			for(int i=0; i<this.listaContactos.size();i++) {
-				intereses=this.listaContactos.get(i).getIntereses();
-				for(int j=1; j<=intereses.size();j++) {
-					if(intereses.get(i).getIntereses().equals(interesaux)) {
-						n = n + 1;
-						Contacto e=this.listaContactos.get(i);
-						return e;
+			Integer cont=0;
+			
+			for(String s: intereses) {
+				System.out.println(cont.toString()+s);
+				cont++;
+			}
+			
+			
+			System.out.print("Indique que interes buscar: ");
+		    int seleccion = sc.nextInt();
+		    String interesaux=new String();
+			
+			for(int i=0; i<intereses.size();i++) {
+				
+				if(seleccion==i) {
+					
+					interesaux=intereses.get(i);
+					
+				}
+				
+			}
+			
+			for(Contacto d: this.listaContactos) {
+				
+				for(int i=0;i<d.getIntereses().size();i++) {
+					
+					if(d.getIntereses().get(i).equals(interesaux)) {
+						
+						aux.add(d);
+						
 					}
+					
+				}
+				
+			}
+			
+			for(Integer i=0;i<aux.size();i++) {
+				System.out.println(i.toString()+"Nombre: "+aux.get(i).getNombre()+" Email: "+ aux.get(i).getEmail());
+				
+			}
+			
+			System.out.println("Selecciona el contacto buscado");
+				
+			
+			int seleccion2=sc.nextInt();
+			
+			for(int i=0;i<aux.size();i++) {
+				
+				if(i==seleccion) {
+					System.out.println("Contacto Seleccionado");
+					buscado=aux.get(i);
+					//Comprobar break
+					break;
 				}
 			}
-			if(n==0) {
-				System.out.print("No se ha encontrado ninguna persona con ese interes.");
-			}
+			
+
+			return buscado;
+			
 
 		}
-		*/
 		
+		//Sin revisar
 		else if(a==4) {
 			String fechaaux="01/01/1970";
 			int n = 0;
@@ -235,6 +279,11 @@ public class GestorContactos {
 			while(condicion) {
 				
 				System.out.println("Seleccione un nuevo interes: ");
+				
+				if(intereses.size()==0) {
+					System.out.println("No existen Intereses");
+					break;
+				}
 				
 				for (String myVar : intereses) {
 					System.out.println(cont+" "+myVar);

@@ -57,6 +57,7 @@ public class mainEjercicio2 {
 							if(a==1) {
 								gestorC.darAlta(gestorIntereses.getIntereses());
 								System.out.println("Contacto dado de alta");
+								System.out.println("");
 							}
 						
 							else if(a==2) {
@@ -64,18 +65,18 @@ public class mainEjercicio2 {
 							}
 					
 							else if(a==3) {
-								gestorC.darBaja(gestorC.buscarContacto());
+								gestorC.darBaja(gestorC.buscarContacto(gestorIntereses.getIntereses()));
 						
 							}
 							
 							else if(a==4) {
-								gestorC.actualizarContacto(gestorC.buscarContacto());
+								gestorC.actualizarContacto(gestorC.buscarContacto(gestorIntereses.getIntereses()));
 								
 							}
 							
 							
 							else if(a==5) {
-								gestorC.consultarContacto(gestorC.buscarContacto());
+								gestorC.consultarContacto(gestorC.buscarContacto(gestorIntereses.getIntereses()));
 							}
 					
 					
@@ -114,7 +115,7 @@ public class mainEjercicio2 {
 							a=sc.nextInt();
 							// De todo esto poner como argumento buscar Anuncio.
 							if(a==1) {
-								gestor.modificarAnuncio(gestor.buscarAnuncio(),gestorIntereses.getIntereses(),gestorC.getContactos());
+								gestor.modificarAnuncio(gestor.buscarAnuncio(gestorIntereses.getIntereses()),gestorIntereses.getIntereses(),gestorC.getContactos());
 							}
 						
 							else if(a==2) {
@@ -127,7 +128,7 @@ public class mainEjercicio2 {
 							}
 							
 							else if(a==4) {
-								gestor.consultarAnuncio(gestor.buscarAnuncio());
+								gestor.consultarAnuncio(gestor.buscarAnuncio(gestorIntereses.getIntereses()));
 								
 							}
 							
