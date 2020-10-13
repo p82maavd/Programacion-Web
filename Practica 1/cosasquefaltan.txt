@@ -2,3 +2,4 @@
 2. En mostrar anuncios se tienen que mostrar ordenados por fecha de publicacion o propietario
 3. Implementar bien el singleton en todas las clases. Esto lo hago yo si quieres que me cuesta bastante explicarlo xd
 4. Mirar a ver los // comentarios
+5. Terminar Informe de Practicas.
