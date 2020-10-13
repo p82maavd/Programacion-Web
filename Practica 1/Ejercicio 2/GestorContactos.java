@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import practica1.Contacto;
-import practica1.Intereses;
 
 
 public class GestorContactos {
@@ -174,7 +172,7 @@ public class GestorContactos {
 	 * Este método se encarga de dar de alta a un contacto.
 	*/
 	
-	public void darAlta() throws IOException {
+	public void darAlta(ArrayList<String> intereses) throws IOException {
 		
 			Scanner sc = new Scanner(System.in);
 			String nuevonombre;
@@ -238,7 +236,7 @@ public class GestorContactos {
 				
 				System.out.println("Seleccione un nuevo interes: ");
 				
-				for (String myVar : claseintereses.getIntereses()) {
+				for (String myVar : intereses) {
 					System.out.println(cont+" "+myVar);
 					cont++;
 				}
@@ -255,10 +253,10 @@ public class GestorContactos {
 				   foo = 0;
 				}
 				
-				for (int i=1;i<=claseintereses.getIntereses().size();i++) {
+				for (int i=1;i<=intereses.size();i++) {
 					if(foo==i) {
 						
-						interesesaux.add(claseintereses.getIntereses().get(i-1));
+						interesesaux.add(intereses.get(i-1));
 					}
 				}
 				
@@ -475,6 +473,7 @@ public class GestorContactos {
 			
 			consultarContacto(this.listaContactos.get(i));
 		}
+		System.out.println("");
 	
 	}
 	

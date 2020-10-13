@@ -14,7 +14,9 @@ public class mainEjercicio2 {
 		TablonAnuncios tablon= TablonAnuncios.getInstance();
 		Intereses gestorIntereses= new Intereses();
 		int a;
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
+		@SuppressWarnings("resource")
 		Scanner sl = new Scanner(System.in);
 		boolean condicion=true;
 		boolean condicion2=true;
@@ -22,8 +24,6 @@ public class mainEjercicio2 {
 		boolean condicion4=true;
 		boolean condicion5=true;
 		gestorC.cargarDatos();
-		//He pensado que este main podria ejecutar a uno de los otros dos con una funcion pero asi es
-		//menos lioso creo.
 		
 		while(condicion) {
 			System.out.println("");
@@ -55,7 +55,7 @@ public class mainEjercicio2 {
 							a=sc.nextInt();
 						
 							if(a==1) {
-								gestorC.darAlta();
+								gestorC.darAlta(gestorIntereses.getIntereses());
 								System.out.println("Contacto dado de alta");
 							}
 						
@@ -108,12 +108,13 @@ public class mainEjercicio2 {
 						System.out.println("3. Archivar Anuncio");
 						System.out.println("4. Buscar Anuncio");
 						System.out.println("5. Mostrar todos los anuncios");
+						System.out.println("6. Salir");
 						
 						try {
 							a=sc.nextInt();
 							// De todo esto poner como argumento buscar Anuncio.
 							if(a==1) {
-								gestor.editarAnuncio();
+								gestor.modificarAnuncio(gestor.buscarAnuncio(),gestorIntereses.getIntereses(),gestorC.getContactos());
 							}
 						
 							else if(a==2) {
@@ -163,6 +164,7 @@ public class mainEjercicio2 {
 							System.out.println("1. Inscribirse como usuario a temas de interes");
 							System.out.println("2. Crear Anuncio");
 							System.out.println("3. Mostrar mi tablon");
+							System.out.println("4. Salir");
 							
 							try {
 								a=sc.nextInt();
@@ -175,7 +177,7 @@ public class mainEjercicio2 {
 							
 								else if(a==2) {
 									
-									gestor.addNewAnuncio(tablon.crearAnuncio(gestorC.getContactos(),gestor.getListaAnuncios().size()));
+									gestor.addNewAnuncio(tablon.crearAnuncio(gestorC.getContactos(),gestor.getListaAnuncios().size(), gestorIntereses.getIntereses()));
 									System.out.println("Anuncio creado en estado editado");
 									
 								}
@@ -183,7 +185,6 @@ public class mainEjercicio2 {
 								else if(a==3) {
 									
 									tablon.mostrarAnuncios(tablon.getUsuario(), gestor.getListaAnuncios());
-									
 							
 								}
 								
@@ -215,6 +216,7 @@ public class mainEjercicio2 {
 						
 						System.out.println("Que quieres realizar: ");
 						System.out.println("1. Añadir Interes");
+						System.out.println("2. Salir");
 						
 						
 						try {

@@ -113,7 +113,7 @@ public abstract class Anuncio implements Serializable {
 		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 		String fecha=formatter.format(this.fecha);
 		
-		String anuncioInfo = "Anuncio: " + "Titulo:" + this.titulo + " Cuerpo: " + this.cuerpo + " Propietario: " + this.usuario.getNombre()+ " Fecha: "+fecha; // Another way to concat strings
+		String anuncioInfo = "Id: "+this.id + " Titulo: " + this.titulo + " Cuerpo: " + this.cuerpo + " Propietario: " + this.usuario.getNombre()+ " Fecha: "+fecha; // Another way to concat strings
 		return anuncioInfo;
 	}
 
@@ -132,6 +132,5 @@ public abstract class Anuncio implements Serializable {
 	public void setDestinatarios(ArrayList<Contacto> destinatarios) {
 		this.destinatarios = destinatarios;
 	}
-	
 	
 }

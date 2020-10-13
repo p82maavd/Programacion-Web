@@ -60,8 +60,6 @@ public class GestorAnuncios {
 		this.listaAnuncios = listaAnuncios;
 	}
 
-	
-	//Probar guardar en distintos ficheros cada tipo de anuncio y cargar cada tipo de anuncio.
 	public void guardarAnuncio() throws FileNotFoundException, IOException {
 		
 		
@@ -109,7 +107,8 @@ public class GestorAnuncios {
 		ObjectInputStream individualizado = new ObjectInputStream(new FileInputStream("individualizado.dat"));
 		ObjectInputStream general = new ObjectInputStream(new FileInputStream("general.dat"));
 		
-		ArrayList<String> aux=new ArrayList<String>();
+		//ArrayList<String> aux=new ArrayList<String>();
+		//Esto estaba aqui pero no se porque si falla el programa es esto.
 		
 		Anuncio clase= null;
 		do {
@@ -175,11 +174,8 @@ public class GestorAnuncios {
 	}
 	
 	
-	
 	public void addNewAnuncio(Anuncio a) throws FileNotFoundException, IOException {
 		
-		
-		// Set estado de Anuncio a a editado.
 		this.listaAnuncios.add(a);
 		guardarAnuncio();
 	}
@@ -220,6 +216,260 @@ public class GestorAnuncios {
 			System.out.println("Anuncio no valido");
 		}
 		
+		
+		
+	}
+	
+	public void modificarAnuncio(Anuncio e, ArrayList <String> intereses,ArrayList<Contacto> contactos) {
+		
+		String string = new String();
+		Class<? extends Anuncio> a=e.getClass();
+		string=a.toString();
+		
+		if(e.getEstado().getId()>2) {
+			System.out.println("No se puede modificar un anuncio ya publicado/archivado ");
+		}
+		
+		//System.out.println(string);
+		if(string.equals("class practica1.AnuncioTematico")) {
+			modificarAnuncioTematico(e,intereses);
+		}
+		else if(string.equals("class practica1.AnuncioFlash")) {
+			modificarAnuncioFlash(e);
+		}
+		else if(string.equals("class practica1.AnuncioIndividualizado")) {
+			modificarAnuncioIndividualizado(e,contactos);
+		}
+		else if(string.equals("class practica1.AnuncioGeneral")) {
+			modificarAnuncioGeneral(e);
+		}
+		
+		
+		
+	}
+	
+	public void modificarAnuncioTematico(Anuncio e, ArrayList<String> intereses){
+		
+		Scanner sc=new Scanner(System.in);
+		Scanner sl=new Scanner(System.in);
+		
+		System.out.println("Que quieres modificar: ");
+		System.out.println("1. Titulo ");
+		System.out.println("2. Cuerpo ");
+		System.out.println("3. Intereses");
+		
+		int a=sc.nextInt();
+		
+		if(a==1) {
+			
+			System.out.print("Introduce el nuevo titulo: ");
+			String titulo=new String();
+			titulo=sl.nextLine();
+			e.setTitulo(titulo);
+			
+		}
+		
+		else if(a==2) {
+			System.out.print("Introduce el nuevo Cuerpo: ");
+			String cuerpo=new String();
+			cuerpo=sl.nextLine();
+			e.setCuerpo(cuerpo);
+		}
+		
+		else if(a==3) {
+			ArrayList<String> actuales=new ArrayList<String>();
+			actuales=((AnuncioTematico) e).getIntereses();
+			System.out.print("Que desea eliminar(1) o añadir(2) un intereses del anuncio: "); 
+			a=sc.nextInt();
+			if(a==1) {
+				System.out.println("Cual desea eliminar: ");
+				Integer cont=0;
+				for(String var: actuales) {
+					System.out.println(cont.toString()+var);
+					cont++;
+				}
+				a=sc.nextInt();
+				
+				actuales.remove(a);
+				
+				((AnuncioTematico) e).setIntereses(actuales);
+				
+			}
+			else if(a==2) {
+				
+				System.out.println("Cual desea añadir: ");
+				Integer cont=0;
+				for(String var: intereses) {
+					System.out.println(cont.toString()+var);
+					cont++;
+				}
+				a=sc.nextInt();
+				
+				for(int i=0; i<intereses.size();i++) {
+					
+					if(i==a) {
+						actuales.add(intereses.get(a));
+					}
+				}
+				
+				((AnuncioTematico) e).setIntereses(actuales);
+				
+			}
+			
+			else {
+				System.out.print("Opcion no valida");
+			}
+		}
+		
+		else {
+			System.out.print("Opcion no valida");
+		}
+	}
+	
+	public void modificarAnuncioFlash(Anuncio e){
+		
+		// Fecha publicacion Fecha archivacion.
+		
+		Scanner sc=new Scanner(System.in);
+		Scanner sl=new Scanner(System.in);
+		
+		System.out.println("Que quieres modificar: ");
+		System.out.println("1. Titulo ");
+		System.out.println("2. Cuerpo ");
+		
+		int a=sc.nextInt();
+		
+		if(a==1) {
+			
+			System.out.print("Introduce el nuevo titulo: ");
+			String titulo=new String();
+			titulo=sl.nextLine();
+			e.setTitulo(titulo);
+			
+		}
+		
+		else if(a==2) {
+			System.out.print("Introduce el nuevo Cuerpo: ");
+			String cuerpo=new String();
+			cuerpo=sl.nextLine();
+			e.setCuerpo(cuerpo);
+		}
+		
+		else {
+			System.out.print("Opcion no valida");
+		}
+		
+	}
+
+	public void modificarAnuncioIndividualizado(Anuncio e, ArrayList<Contacto> destinatarios){
+	
+		// Destinatarios
+		
+		Scanner sc=new Scanner(System.in);
+		Scanner sl=new Scanner(System.in);
+		
+		System.out.println("Que quieres modificar: ");
+		System.out.println("1. Titulo ");
+		System.out.println("2. Cuerpo ");
+		System.out.println("3. Destinatarios");
+		
+		int a=sc.nextInt();
+		
+		if(a==1) {
+			
+			System.out.print("Introduce el nuevo titulo: ");
+			String titulo=new String();
+			titulo=sl.nextLine();
+			e.setTitulo(titulo);
+			
+		}
+		
+		else if(a==2) {
+			System.out.print("Introduce el nuevo Cuerpo: ");
+			String cuerpo=new String();
+			cuerpo=sl.nextLine();
+			e.setCuerpo(cuerpo);
+		}
+		
+		else if(a==3) {
+			ArrayList<Contacto> actuales=new ArrayList<Contacto>();
+			actuales=((AnuncioIndividualizado) e).getDestinatarios();
+			System.out.print("Que desea eliminar(1) o añadir(2) un destinatario del anuncio: "); 
+			a=sc.nextInt();
+			if(a==1) {
+				System.out.println("Cual desea eliminar: ");
+				Integer cont=0;
+				for(Contacto var: actuales) {
+					System.out.println(cont.toString()+var.getEmail());
+					cont++;
+				}
+				a=sc.nextInt();
+				
+				actuales.remove(a);
+				
+				((AnuncioTematico) e).setDestinatarios(actuales);
+				
+			}
+			else if(a==2) {
+				
+				System.out.println("Cual desea añadir: ");
+				Integer cont=0;
+				for(Contacto var: destinatarios) {
+					System.out.println(cont.toString()+var.getEmail());
+					cont++;
+				}
+				a=sc.nextInt();
+				
+				for(int i=0; i<destinatarios.size();i++) {
+					
+					if(i==a) {
+						actuales.add(destinatarios.get(a));
+					}
+				}
+				
+				((AnuncioIndividualizado) e).setDestinatarios(actuales);
+				
+			}
+			
+			else {
+				System.out.print("Opcion no valida");
+			}
+		}
+		
+		else {
+			System.out.print("Opcion no valida");
+		}
+	}
+	
+	public void modificarAnuncioGeneral(Anuncio e){
+		Scanner sc=new Scanner(System.in);
+		Scanner sl=new Scanner(System.in);
+		
+		System.out.println("Que quieres modificar: ");
+		System.out.println("1. Titulo ");
+		System.out.println("2. Cuerpo ");
+		
+		int a=sc.nextInt();
+		
+		if(a==1) {
+			
+			System.out.print("Introduce el nuevo titulo: ");
+			String titulo=new String();
+			titulo=sl.nextLine();
+			e.setTitulo(titulo);
+			
+		}
+		
+		else if(a==2) {
+			System.out.print("Introduce el nuevo Cuerpo: ");
+			String cuerpo=new String();
+			cuerpo=sl.nextLine();
+			e.setCuerpo(cuerpo);
+		}
+		
+		else {
+			System.out.print("Opcion no valida");
+		}
 		
 		
 	}
@@ -269,7 +519,7 @@ public class GestorAnuncios {
 		//SI HAY UN NULLPOINTEREXCEPTION, HACER ANUNCIO AUXILIAR;
 		Anuncio e=null;
         opcion = sc.nextInt();
-        //No se puede hacer un nextline() despues de un nextint(), gran lenguaje java
+        //No se puede hacer un nextline() despues de un nextint()
         
         if (opcion==1) {
         	String fecha=new String();
@@ -287,14 +537,14 @@ public class GestorAnuncios {
         
         else if (opcion==3) {
         	String nombre=new String();
-			System.out.print("Introduzca el nombre del propietario: ");
+			System.out.print("Introduzca el email del propietario: ");
 			nombre = sl.nextLine();
         	e=buscarPropietario(nombre);
         }
         
         else if (opcion==4) {
         	String destinatario=new String();
-			System.out.print("Introduzca el nombre del destinatario: ");
+			System.out.print("Introduzca el email del destinatario: ");
 			destinatario = sl.nextLine();
         	e=buscarDestinatario(destinatario);
         }
@@ -311,10 +561,11 @@ public class GestorAnuncios {
 	}
 	
 	//EN ESTAS FUNCIONES COMO PUEDE HABER MAS DE UN ANUNCIO QUE CUMPLA LAS CONDICIONES AÑADIR SELECCION DE CUAL ES.
-	//Yo creo que en estas funciones deben devolver un solo anuncio, para que se puedan usar en las funciones del main(Mirar como esta hecho)
+	//Yo creo que en estas funciones deben devolver un solo anuncio, para que se puedan usar en la funcion del main(Mirar como esta hecho)
 	
+	//Sin comprobar
 	public Anuncio buscarFecha(String fecha) {
-		ArrayList<Anuncio> anunciosusuario = null;
+		ArrayList<Anuncio> anunciosusuario = new ArrayList<Anuncio>();
 		Scanner sc = new Scanner(System.in);
 		String nuevafecha="01/01/1970";
 		System.out.print("Introduzca la fecha de publicacion: ");
@@ -362,6 +613,7 @@ public class GestorAnuncios {
 		return buscado;
 	}
 	
+	//Sin implementar
 	public Anuncio buscarIntereses(String intereses) {
 		return null;
 		
@@ -474,18 +726,15 @@ public class GestorAnuncios {
 	*/
 	
 	//Modificada 
-	public Anuncio buscarDestinatario(String destinatario) {
-		ArrayList<Anuncio> anunciosusuario = null;
-		String email;
-		System.out.println("Introduzca el email del destinatario:");
-		Scanner sc = new Scanner(System.in);
-		email = sc.nextLine();
+	public Anuncio buscarDestinatario(String email) {
+		ArrayList<Anuncio> anunciosusuario = new ArrayList<Anuncio>();
 		Anuncio a = null;
+		Scanner sc=new Scanner(System.in);
 		Anuncio buscado=null;
 		
 		for(int i=0 ; i<getListaAnuncios().size(); i++) {
 			for(int n=0 ; n<getListaAnuncios().get(i).getDestinatarios().size() ; n++) {
-				if(getListaAnuncios().get(i).getDestinatarios().get(n).getEmail()==email) {
+				if(getListaAnuncios().get(i).getDestinatarios().get(n).getEmail().equals(email)) {
 					//a =new Contacto(getListaAnuncios().get(i).getDestinatarios().get(n).getNombre(), getListaAnuncios().get(i).getDestinatarios().get(n).getApellidos(),getListaAnuncios().get(i).getDestinatarios().get(n).getFechanacimiento(),getlistaAnuncios().get(i).getDestinatarios().get(n).getEmail(),getlistaAnuncios().get(i).getDestinatarios().get(n).getIntereses());
 					//Igual que arriba
 					a=getListaAnuncios().get(i);
@@ -499,13 +748,15 @@ public class GestorAnuncios {
 		}
 		
 		//Seleccion del anuncio buscado
+		
+		System.out.println("Anuncios encontrados: ");
 
 		for(int i=0;i<anunciosusuario.size();i++) {
 			System.out.println("Id: "+anunciosusuario.get(i).getId()+" Titulo: "+ anunciosusuario.get(i).getTitulo());
 			
 		}
 		
-		System.out.println("Selecciona el id del anuncio");
+		System.out.print("Selecciona el id del anuncio: ");
 			
 		
 		int seleccion=sc.nextInt();
@@ -524,20 +775,18 @@ public class GestorAnuncios {
 		return buscado;
 		
 	}
-
-	
-	public void editarAnuncio() {
-	}
 	
 	public void consultarAnuncio(Anuncio e) {
 		//Esto mejor en cada clase de Anuncio hacer un metodo toString segun sus atributos y quitar el de la clase Anuncio.
 		String cadena=new String();
 		System.out.println("Id: "+e.getId()+" Titulo: "+ e.getTitulo()+" Cuerpo: "+e.getCuerpo()+" Propietario: "+ e.getUsuario().getEmail());
 		System.out.println("Estado: " + e.getEstado().getEstados());
+		System.out.println("Destinatarios: ");
 		for(int i=0; i<e.getDestinatarios().size();i++) {
 			cadena=e.getDestinatarios().get(i).getEmail();
 			System.out.println(cadena);
 		}
+		System.out.println("");
 		
 	}
 	

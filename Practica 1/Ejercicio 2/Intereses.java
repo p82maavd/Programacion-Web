@@ -2,9 +2,12 @@ package practica1;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class Intereses {
@@ -24,7 +27,7 @@ public class Intereses {
 		
 	}
 	
-	public void cargarIntereses() {
+	/*public void cargarIntereses() {
 		
 		File archivo;
 		FileReader fr=null;
@@ -33,15 +36,16 @@ public class Intereses {
 		try {
 	         // Apertura del fichero y creacion de BufferedReader para poder
 	         // hacer una lectura comoda (disponer del metodo readLine()).
+			 this.intereses=(ArrayList<String>) Files.readAllLines(Paths.get("properties.txt"));
 	         archivo = new File ("properties.txt");
 	         fr = new FileReader (archivo);
 	         br = new BufferedReader(fr);
 
 	         // Lectura del fichero
 	         String linea;
-	         while((linea=br.readLine())!=null)
-	            aux.add(linea);
-	         setIntereses(aux);
+	         //while((linea=br.readLine())!=null)
+	            //aux.add(linea);
+	         //setIntereses(aux);
 	      }
 	      catch(Exception e){
 	         //e.printStackTrace();
@@ -60,15 +64,29 @@ public class Intereses {
 	      }
 		
 		
+	}*/
+	
+	public void cargarIntereses() {
+		
+		try {
+	        
+			 setIntereses((ArrayList<String>) Files.readAllLines(Paths.get("intereses.txt")));
+	        
+	      }
+	      catch(Exception e){
+	         
+	         crearInteresesFile();
+	      }
 	}
 	
-	public void crearProperties() {
+	//Seguramente podria estar optimizado pero no tengo tiempo de mirar como funcionan cada metodo.
+	public void crearInteresesFile() {
 		
         FileWriter fichero = null;
         PrintWriter pw = null;
         try
         {
-            fichero = new FileWriter("properties.txt",true);
+            fichero = new FileWriter("intereses.txt",true);
             pw = new PrintWriter(fichero);
 
             //pw.println(cadena);
@@ -112,10 +130,9 @@ public class Intereses {
             e.printStackTrace();
         } finally {
            try {
-           // Nuevamente aprovechamos el finally para 
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero)
-              fichero.close();
+           
+        	   if (null != fichero)
+        		  fichero.close();
            } catch (Exception e2) {
               e2.printStackTrace();
            }
@@ -125,7 +142,7 @@ public class Intereses {
 	}
 	
 	public ArrayList<String> getIntereses(){
-		cargarIntereses();
+		
 		return intereses;
 	}
 
