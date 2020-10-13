@@ -47,6 +47,12 @@ public class GestorContactos {
 	private GestorContactos() {
 		
 		this.listaContactos = new ArrayList<Contacto>();
+		try {
+		gestor.cargarDatos();
+		}catch(FileNotFoundException e) {
+			ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("fich.dat"));
+	        file.close();
+		}
 		
 	}
 	
