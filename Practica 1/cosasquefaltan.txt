@@ -1,6 +1,6 @@
 1. Comentarios javadoc dentro del codigo
 2. En mostrar anuncios se tienen que mostrar ordenados por fecha de publicacion o propietario
-3. Implementar bien el singleton en todas las clases. Esto lo hago yo si quieres que me cuesta bastante explicarlo xd
+3. Implementar bien el singleton en todas las clases. Esto lo hago yo si quieres que me cuesta bastante explicarlo xd. HACIENDOLO AHORA
 4. Mirar a ver los // comentarios
 5. Terminar Informe de Practicas.
 6. Anuncio Flash y todas las funciones de este y todas las que tengan que ver con fechas para que se vean bien al imprimir
