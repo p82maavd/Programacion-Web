@@ -16,8 +16,7 @@ public class mainEjercicio2 {
 		int a;
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
-		@SuppressWarnings("resource")
-		Scanner sl = new Scanner(System.in);
+		
 		boolean condicion=true;
 		boolean condicion2=true;
 		boolean condicion3=true;
@@ -221,10 +220,12 @@ public class mainEjercicio2 {
 						
 						try {
 							a=sc.nextInt();
+							sc.nextLine();
 						
 							if(a==1) {
 								String linea=new String();
-								linea=sl.nextLine();
+								System.out.print("Introduce un nuevo interes: ");
+								linea=sc.nextLine();
 								gestorIntereses.addInteres(linea);
 								
 							}

@@ -860,13 +860,8 @@ public class GestorAnuncios {
 			fechas.add(a.getFecha());
 		}
 		
-		System.out.println("Antes de ordenar");
-		System.out.println("");
-		imprimirVector(fechas);
 		Collections.sort(fechas);
-		System.out.println("Despues de ordenar");
-		System.out.println("");
-		imprimirVector(fechas);
+		
 		
 		//Revisar
 		
@@ -891,34 +886,10 @@ public class GestorAnuncios {
 		
 		return ordenado;
 		
-		/*SimpleDateFormat objSDF = new SimpleDateFormat("dd-mm-yyyy"); 
-        Date dt_1 = objSDF.parse("20-08-1981"); 
-        Date dt_2 = objSDF.parse("12-10-2012");  
-        System.out.println("Date1:" + objSDF.format(dt_1)); 
-        System.out.println("Date2:" + objSDF.format(dt_2));  
-        if (dt_1.compareTo(dt_2) ) {  
-            System.out.println("La fecha 1 ocurre después de la fecha 2"); 
-        } // el método compareTo devuelve el valor mayor que 0 si esta Fecha está después del argumento Fecha.  
-        else if (dt_1.compareTo(dt_2) ) {  
-            System.out.println("La fecha 1 ocurre antes de la fecha 2"); 
-        } // el método compareTo devuelve el valor menor que 0 si esta Fecha es anterior al argumento Fecha; 
-        else if (dt_1.compareTo(dt_2) == 0) {  
-            System.out.println("Ambas son las mismas fechas"); 
-        } // el método compareTo devuelve el valor 0 si el argumento Fecha es igual a la segunda Fecha;
-        else {  
-            System.out.println("¡Pareces ser un viajero del tiempo!"); 
-        }*/
-        
-        
-		//return getListaAnuncios();
 		
-	}
-	
-	public void imprimirVector(ArrayList<Date> a) {
+        
+  
 		
-		for(int i=0;i<a.size();i++) {
-			System.out.println(a.get(i));
-		}
 	}
 	
 

@@ -58,6 +58,7 @@ public class GestorContactos {
 	}
 	
 	//Actualizar estas funciones teniendo en cuenta que pueden devolver varios contactos y al final seleccionar uno. Menos en email que es unico y en intereses ya esta creo, falta comprobarlo.
+	//Creo que estaria mejor separarlo en funciones. Si sobra tiempo.
 	public Contacto buscarContacto()  {
 		
 		ArrayList<Contacto> aux=new ArrayList<Contacto>();
@@ -68,10 +69,9 @@ public class GestorContactos {
 		System.out.println("3. Intereses");
 		System.out.println("4. Fecha de nacimiento");
 		Scanner sc = new Scanner(System.in);
-		Scanner sl = new Scanner(System.in);
-		Scanner sv = new Scanner(System.in);
 		System.out.print("Introduzca un número entero: ");
 		Integer a = sc.nextInt();
+		sc.nextLine();
 		Contacto buscado=null;
 		
 		if(a==1) {
@@ -80,9 +80,9 @@ public class GestorContactos {
 			String apellidosaux;
 			int n = 0;
 			System.out.print("Introduzca el nombre de la persona a buscar: ");
-			nombreaux = sl.nextLine();
+			nombreaux = sc.nextLine();
 			System.out.print("Introduzca sus apellidos: ");
-			apellidosaux = sv.nextLine();
+			apellidosaux = sc.nextLine();
 			for(int i=0; i<this.listaContactos.size();i++) {
 				 if(this.listaContactos.get(i).getNombre().equals(nombreaux) && this.listaContactos.get(i).getApellidos().equals(apellidosaux)) {
 					 n = n + 1;
@@ -100,7 +100,7 @@ public class GestorContactos {
 			
 			int n = 0;
 			System.out.print("Indique el email a buscar: ");
-			emailaux = sl.nextLine();
+			emailaux = sc.nextLine();
 			for(int i=0; i<this.listaContactos.size();i++) {
 			 if(this.listaContactos.get(i).getEmail().equals(emailaux)) {
 				 n = n + 1;
@@ -128,6 +128,7 @@ public class GestorContactos {
 			
 			System.out.print("Indique que interes buscar: ");
 		    int seleccion = sc.nextInt();
+		    sc.nextLine();
 		    String interesaux=new String();
 			
 			for(int i=0; i<claseintereses.getIntereses().size();i++) {
@@ -168,6 +169,7 @@ public class GestorContactos {
 				
 			
 			int seleccion2=sc.nextInt();
+			sc.nextLine();
 			
 			
 			for(int i=0;i<aux.size();i++) {
@@ -175,7 +177,7 @@ public class GestorContactos {
 				if(i==seleccion2) {
 					System.out.println("Contacto Seleccionado");
 					buscado=aux.get(i);
-					//Comprobar break
+					
 					break;
 				}
 			}
@@ -191,7 +193,7 @@ public class GestorContactos {
 			String fechaaux="01/01/1970";
 			int n = 0;
 			System.out.print("Indique la fecha de nacimiento(dd/mm/yyyy) a buscar: ");
-			fechaaux = sl.nextLine();
+			fechaaux = sc.nextLine();
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			 
 			Date dnuevafecha = null;
@@ -215,8 +217,7 @@ public class GestorContactos {
 
 		}
 		sc.close();
-		sv.close();
-		sl.close();
+		//Try catch en el main.
 		return null;
 	}
 
@@ -284,9 +285,9 @@ public class GestorContactos {
 			
 			ArrayList<String> interesesaux=new ArrayList<String>();
 			Integer neweleccion=0;
-			String newinteres=new String();
+			int newinteres=0;
 			Boolean condicion=true;
-			Scanner alt = new Scanner(System.in);
+			
 			int cont =1;
 			while(condicion) {
 				
@@ -303,27 +304,21 @@ public class GestorContactos {
 				}
 				cont=1;
 				
-				newinteres= alt.nextLine();
+				newinteres= sc.nextInt();
+				sc.nextLine();
 				
-				int foo;
-				try {
-				   foo = Integer.parseInt(newinteres);
-				}
-				catch (NumberFormatException e)
-				{
-				   foo = 0;
-				}
+			
 				
 				for (int i=1;i<=claseintereses.getIntereses().size();i++) {
-					if(foo==i) {
+					if(newinteres==i) {
 						
 						interesesaux.add(claseintereses.getIntereses().get(i-1));
 					}
 				}
 				
 				System.out.println("Desea añadir mas intereses: 1. Si 2. No");
-				neweleccion=alt.nextInt();
-				alt.nextLine();
+				neweleccion=sc.nextInt();
+				sc.nextLine();
 				if(neweleccion!=1) {
 					condicion=false;
 				}
@@ -335,7 +330,7 @@ public class GestorContactos {
 			//alt.close();
 			//sc.close();
 			
-			//Si peta es el toLower Case
+			
 			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail.toLowerCase(),interesesaux);
 			
 			this.listaContactos.add(e);
