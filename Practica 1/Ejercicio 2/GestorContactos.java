@@ -227,15 +227,18 @@ public class GestorContactos {
 	public void darAlta() throws IOException {
 		
 			Scanner sc = new Scanner(System.in);
-			String nuevonombre;
-			
-			System.out.print("Introduzca el nuevo nombre: ");
-			nuevonombre = sc.nextLine();
-			
-			
-			String nuevoapellido;
-			System.out.print("Introduzca el nuevo apellido: ");
-			nuevoapellido = sc.nextLine();
+	        String nuevonombre;
+	        String nombreaux;
+	
+	        System.out.print("Introduzca el nuevo nombre: ");
+	        nombreaux = sc.nextLine();
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
+	
+	        String nuevoapellido;
+	        String apellidoaux;
+	        System.out.print("Introduzca el nuevo apellido: ");
+	        apellidoaux = sc.nextLine();
+	        nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
 			
 			Boolean email= true;
 			String nuevoemail=new String();
@@ -270,10 +273,11 @@ public class GestorContactos {
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			 
-			Date dnuevafecha = null;
+			Date dnuevafecha = new Date();
 			try {
 				dnuevafecha = formatter.parse(nuevafecha);
 			} catch (ParseException e1) {
+				System.out.println("Error con la fecha");
 				e1.printStackTrace();
 			}
 			
@@ -331,7 +335,8 @@ public class GestorContactos {
 			//alt.close();
 			//sc.close();
 			
-			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail,interesesaux);
+			//Si peta es el toLower Case
+			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail.toLowerCase(),interesesaux);
 			
 			this.listaContactos.add(e);
 			
@@ -539,7 +544,10 @@ public class GestorContactos {
 	*/
 	public void consultarContacto(Contacto e) {
 		String cadena=new String();
-		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ e.getFechanacimiento());
+		//Poner esto para cuando quieras imprimir una Date. Fijarse en el println de abajo como esta.
+        SimpleDateFormat objSDF = new SimpleDateFormat("dd/MM/yyyy"); 
+		
+		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento()));
 		for(int i=0; i<e.getIntereses().size();i++) {
 			cadena=e.getIntereses().get(i);
 			

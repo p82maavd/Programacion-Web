@@ -1,6 +1,9 @@
 package practica1;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -26,7 +29,30 @@ public class ConcreteFactory extends AbstractFactory {
 		cuerpo=sc.nextLine();
 		Estados estado=Estados.Editado;
 		
-		AnuncioFlash product = new AnuncioFlash(id, titulo, cuerpo, e, a, estado);
+		Date fechaInicio=new Date();
+		System.out.print("Introduzca la fecha de inicio(dd/mm/yyyy hh:mm:ss): ");
+		String fechain=new String();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		fechain = sc.nextLine();
+		try {
+			fechaInicio = formatter.parse(fechain);
+		} catch (ParseException e1) {
+			System.out.println("Error con la fecha");
+			e1.printStackTrace();
+		}
+		
+		Date fechaFinal=new Date();
+		System.out.print("Introduzca la fecha final(dd/mm/yyyy hh:mm:ss): ");
+		String fechafin=new String();
+		fechafin = sc.nextLine();
+		try {
+			fechaFinal = formatter.parse(fechafin);
+		} catch (ParseException e2) {
+			System.out.println("Error con la fecha");
+			e2.printStackTrace();
+		}
+		
+		AnuncioFlash product = new AnuncioFlash(id, titulo, cuerpo, e, a, estado, fechaInicio, fechaFinal);
 		return product;
 	}
 

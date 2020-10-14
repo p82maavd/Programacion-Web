@@ -1,8 +1,11 @@
 package practica1;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import practica1.Anuncio.Estados;
 
 
 
@@ -111,12 +114,41 @@ public class TablonAnuncios {
 		System.out.println("Numero total de anuncios: " + anuncios.size());
 		int cont=0;
 		for(Anuncio a: anuncios) {
-			
+			//Te pone el anuncio en archivado directamente. Ya deberia estar arreglado.
 			System.out.println("");
-			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado.
-			if((a.getDestinatarios().get(cont).getEmail().equals(e.getEmail())) & (a.getEstado().getId()==3)){
+			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado o en espera.
+			if((a.getDestinatarios().get(cont).getEmail().equals(e.getEmail())) & (a.getEstado().getId()>=2) & (a.getEstado().getId()<=3) ){
 				
-				System.out.println(a.tooString());
+				if(!(a.getClass().toString().equals("class practica1.AnuncioFlash"))) {
+					System.out.println(a.tooString());
+					
+				}
+				
+				else {
+					//Hacer algo para cambiar estados
+					Date fechaActual=new Date();
+					//Puede ser que este al reves. Camiar < >.
+					if( (fechaActual.compareTo(((AnuncioFlash) a).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) a).getFechaFinal())<0) ){
+						
+						//Esto creo que no es una buena practica.
+						Estados estado=Estados.Publicado;
+						a.setEstado(estado);
+						System.out.println(a.tooString());
+						
+					}
+					
+					else {
+						
+						if(fechaActual.compareTo(((AnuncioFlash) a).getFechaFinal())>0) {
+							Estados estado=Estados.Archivado;
+							a.setEstado(estado);
+						}
+						
+					}
+					
+				}
+				
+				
 			}
 		}
 	}

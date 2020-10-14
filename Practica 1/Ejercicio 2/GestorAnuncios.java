@@ -10,7 +10,9 @@ import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import practica1.Anuncio.Estados;
@@ -71,7 +73,7 @@ public class GestorAnuncios {
 		String string=new String();
 		
 		Anuncio auxc=null;
-		
+		//Esto habria que hacer algo por que si no se llama practica 1 fallara, no se si el jar hace que siempre se llame practica 1.
 		for(int i=0; i<this.listaAnuncios.size();i++) {
 			
 			auxc=this.listaAnuncios.get(i);
@@ -205,11 +207,29 @@ public class GestorAnuncios {
 			if(listaAnuncios.get(i).getId()==seleccion) {
 				System.out.println("Anuncio seleccionado");
 				buscado=this.listaAnuncios.get(i);
-				//Comprobar break
-				break;
+				
 			}
 		}
-		Estados estado=Estados.Publicado;
+		
+		Estados estado;
+		if(!(buscado.getClass().toString().equals("class practica1.AnuncioFlash"))) {
+			estado=Estados.Publicado;
+		}
+		
+		else {
+			//Hacer algo para cambiar estados
+			Date fechaActual=new Date();
+			//Puede ser que este al reves. Camiar < >.
+			if( (fechaActual.compareTo(((AnuncioFlash) buscado).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) buscado).getFechaFinal())<0) ){
+				 estado=Estados.Publicado;
+			}
+			else {
+				 estado=Estados.En_espera;
+			}
+			
+		}
+		
+		
 		try {
 		buscado.setEstado(estado);
 		guardarAnuncio();
@@ -337,6 +357,8 @@ public class GestorAnuncios {
 		System.out.println("Que quieres modificar: ");
 		System.out.println("1. Titulo ");
 		System.out.println("2. Cuerpo ");
+		System.out.println("3. Fecha Inicio");
+		System.out.println("4. Fecha Final");
 		
 		int a=sc.nextInt();
 		
@@ -354,6 +376,40 @@ public class GestorAnuncios {
 			String cuerpo=new String();
 			cuerpo=sl.nextLine();
 			e.setCuerpo(cuerpo);
+		}
+		
+		else if(a==3) {
+			
+			Date fechaInicio=new Date();
+			System.out.print("Introduzca la fecha de inicio(dd/mm/yyyy hh:mm:ss): ");
+			String fechain=new String();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			fechain = sc.nextLine();
+			try {
+				fechaInicio = formatter.parse(fechain);
+			} catch (ParseException e1) {
+				System.out.println("Error con la fecha");
+				e1.printStackTrace();
+			}
+			((AnuncioFlash) e).setFechaInicio(fechaInicio);
+			
+		}
+		
+		else if(a==4) {
+			
+			Date fechaFinal=new Date();
+			System.out.print("Introduzca la fecha final(dd/mm/yyyy hh:mm:ss): ");
+			String fechafin=new String();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			fechafin = sc.nextLine();
+			try {
+				fechaFinal = formatter.parse(fechafin);
+			} catch (ParseException e2) {
+				System.out.println("Error con la fecha");
+				e2.printStackTrace();
+			}
+			
+			((AnuncioFlash) e).setFechaFinal(fechaFinal);
 		}
 		
 		else {
@@ -715,7 +771,9 @@ public class GestorAnuncios {
 	}
 	
 	public void consultarAnuncio(Anuncio e) {
+		
 		//Esto mejor en cada clase de Anuncio hacer un metodo toString segun sus atributos y quitar el de la clase Anuncio.
+		
 		String cadena=new String();
 		System.out.println("Id: "+e.getId()+" Titulo: "+ e.getTitulo()+" Cuerpo: "+e.getCuerpo()+" Propietario: "+ e.getUsuario().getEmail());
 		System.out.println("Estado: " + e.getEstado().getEstados());
@@ -765,7 +823,6 @@ public class GestorAnuncios {
 		}
 		Collections.sort(propietarios);
 		
-		//Creo que es superpoco eficiente
 		//Revisar
 		
 		while(aux.size()!=0) {
@@ -792,8 +849,76 @@ public class GestorAnuncios {
 	
 	public ArrayList<Anuncio> ordenarFecha() {
 		//Esto hay que implementarlo como arriba, si lo de arriba esta bien seria solo cambiar el primer for
-		return getListaAnuncios();
 		
+		ArrayList<Anuncio> aux= new ArrayList<Anuncio>();
+		ArrayList<Date> fechas= new ArrayList<Date>();
+		ArrayList<Anuncio> ordenado= new ArrayList<Anuncio>();
+		
+		aux= getListaAnuncios();
+		int i=0;
+		for(Anuncio a: aux) {
+			fechas.add(a.getFecha());
+		}
+		
+		System.out.println("Antes de ordenar");
+		System.out.println("");
+		imprimirVector(fechas);
+		Collections.sort(fechas);
+		System.out.println("Despues de ordenar");
+		System.out.println("");
+		imprimirVector(fechas);
+		
+		//Revisar
+		
+		while(aux.size()!=0) {
+			for(int j=0; j<getListaAnuncios().size();) {
+				//Para depurar :)
+				//System.out.println("Valor de i: "+i+"Valor de j: "+j+"Valor de prop: "+propietarios.get(i)+ "Valor de aux: "+aux.get(j).getUsuario().getNombre());
+				if(fechas.get(i).equals(aux.get(j).getFecha())) {
+					ordenado.add(aux.get(j));
+					
+					fechas.remove(i);
+					aux.remove(j);
+					j=0;
+					
+				}
+				else {
+					j++;
+				}
+				
+			}
+		}
+		
+		return ordenado;
+		
+		/*SimpleDateFormat objSDF = new SimpleDateFormat("dd-mm-yyyy"); 
+        Date dt_1 = objSDF.parse("20-08-1981"); 
+        Date dt_2 = objSDF.parse("12-10-2012");  
+        System.out.println("Date1:" + objSDF.format(dt_1)); 
+        System.out.println("Date2:" + objSDF.format(dt_2));  
+        if (dt_1.compareTo(dt_2) ) {  
+            System.out.println("La fecha 1 ocurre después de la fecha 2"); 
+        } // el método compareTo devuelve el valor mayor que 0 si esta Fecha está después del argumento Fecha.  
+        else if (dt_1.compareTo(dt_2) ) {  
+            System.out.println("La fecha 1 ocurre antes de la fecha 2"); 
+        } // el método compareTo devuelve el valor menor que 0 si esta Fecha es anterior al argumento Fecha; 
+        else if (dt_1.compareTo(dt_2) == 0) {  
+            System.out.println("Ambas son las mismas fechas"); 
+        } // el método compareTo devuelve el valor 0 si el argumento Fecha es igual a la segunda Fecha;
+        else {  
+            System.out.println("¡Pareces ser un viajero del tiempo!"); 
+        }*/
+        
+        
+		//return getListaAnuncios();
+		
+	}
+	
+	public void imprimirVector(ArrayList<Date> a) {
+		
+		for(int i=0;i<a.size();i++) {
+			System.out.println(a.get(i));
+		}
 	}
 	
 
