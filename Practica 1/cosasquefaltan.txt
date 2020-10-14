@@ -6,3 +6,4 @@
 6. Anuncio Flash y todas las funciones de este y todas las que tengan que ver con fechas para que se vean bien al imprimir
 7. Fichero Properties. Explicacion en el guion de la practica.
 8. Crear JARs. Explicacion en el guion de la practica.
+9.Falta alguna funcion del tablon que es como modificarContacto para añadirle un interes. 
