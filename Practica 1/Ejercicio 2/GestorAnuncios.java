@@ -730,10 +730,70 @@ public class GestorAnuncios {
 	
 	public void mostrarAnuncios() {
 		
+		//Si se joden los ids o algo hacerlo cambiando un auxiliar en vez del genral.
+		
+		Scanner sc=new Scanner(System.in);
+		
+		System.out.println("Como quiere que esten ordenados los anuncios: 1. Fecha 2. Propietario");
+		int seleccion=sc.nextInt();
+		
+		if(seleccion==1) {
+			setListaAnuncios(ordenarFecha());
+		}
+		else if(seleccion==2) {
+			setListaAnuncios(ordenarPropietario());
+		}
+		else {
+			System.out.println("Opcion no valida");
+		}
+		
 		for(Anuncio a: getListaAnuncios()) {
 			System.out.println("");
 			consultarAnuncio(a);
 		}
+	}
+	
+	public ArrayList<Anuncio> ordenarPropietario() {
+		ArrayList<Anuncio> aux= new ArrayList<Anuncio>();
+		ArrayList<String> propietarios= new ArrayList<String>();
+		ArrayList<Anuncio> ordenado= new ArrayList<Anuncio>();
+		
+		aux= getListaAnuncios();
+		int i=0;
+		for(Anuncio a: aux) {
+			propietarios.add(a.getUsuario().getNombre());
+		}
+		Collections.sort(propietarios);
+		
+		//Creo que es superpoco eficiente
+		//Revisar
+		
+		while(aux.size()!=0) {
+			for(int j=0; j<getListaAnuncios().size();) {
+				//Para depurar :)
+				//System.out.println("Valor de i: "+i+"Valor de j: "+j+"Valor de prop: "+propietarios.get(i)+ "Valor de aux: "+aux.get(j).getUsuario().getNombre());
+				if(propietarios.get(i).equals(aux.get(j).getUsuario().getNombre())) {
+					ordenado.add(aux.get(j));
+					
+					propietarios.remove(i);
+					aux.remove(j);
+					j=0;
+					
+				}
+				else {
+					j++;
+				}
+				
+			}
+		}
+		
+		return ordenado;
+	}
+	
+	public ArrayList<Anuncio> ordenarFecha() {
+		//Esto hay que implementarlo como arriba, si lo de arriba esta bien seria solo cambiar el primer for
+		return getListaAnuncios();
+		
 	}
 	
 
