@@ -1,5 +1,6 @@
 1. Comentarios javadoc dentro del codigo
 2. consultarAnuncio en cada tipo de anuncio con sus atributos especificos.
+3. En el catch de las fechas en vez de print... que se escriba hasta que este bien
 4. Mirar a ver los // comentarios
 5. Terminar Informe de Practicas.
 6. Anuncio Flash y todas las funciones de este y todas las que tengan que ver con fechas para que se vean bien al imprimir
