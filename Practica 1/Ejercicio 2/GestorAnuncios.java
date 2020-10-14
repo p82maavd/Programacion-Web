@@ -20,7 +20,6 @@ public class GestorAnuncios {
 	private static GestorAnuncios instance =null;
 	
 	
-	//Mejor separarlo por estado del anuncio.
 	private ArrayList <Anuncio> listaAnuncios;
 	
 
