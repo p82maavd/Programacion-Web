@@ -12,7 +12,7 @@ public class mainEjercicio2 {
 		GestorContactos gestorC = GestorContactos.getInstance();
 		
 		TablonAnuncios tablon= TablonAnuncios.getInstance();
-		Intereses gestorIntereses= new Intereses();
+		Intereses gestorIntereses= Intereses.getInstance();
 		int a;
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -55,7 +55,7 @@ public class mainEjercicio2 {
 							a=sc.nextInt();
 						
 							if(a==1) {
-								gestorC.darAlta(gestorIntereses.getIntereses());
+								gestorC.darAlta();
 								System.out.println("Contacto dado de alta");
 								System.out.println("");
 							}
@@ -65,18 +65,18 @@ public class mainEjercicio2 {
 							}
 					
 							else if(a==3) {
-								gestorC.darBaja(gestorC.buscarContacto(gestorIntereses.getIntereses()));
+								gestorC.darBaja(gestorC.buscarContacto());
 						
 							}
 							
 							else if(a==4) {
-								gestorC.actualizarContacto(gestorC.buscarContacto(gestorIntereses.getIntereses()));
+								gestorC.actualizarContacto(gestorC.buscarContacto());
 								
 							}
 							
 							
 							else if(a==5) {
-								gestorC.consultarContacto(gestorC.buscarContacto(gestorIntereses.getIntereses()));
+								gestorC.consultarContacto(gestorC.buscarContacto());
 							}
 					
 					
@@ -115,7 +115,7 @@ public class mainEjercicio2 {
 							a=sc.nextInt();
 							// De todo esto poner como argumento buscar Anuncio.
 							if(a==1) {
-								gestor.modificarAnuncio(gestor.buscarAnuncio(gestorIntereses.getIntereses()),gestorIntereses.getIntereses(),gestorC.getContactos());
+								gestor.modificarAnuncio(gestor.buscarAnuncio());
 							}
 						
 							else if(a==2) {
@@ -128,7 +128,7 @@ public class mainEjercicio2 {
 							}
 							
 							else if(a==4) {
-								gestor.consultarAnuncio(gestor.buscarAnuncio(gestorIntereses.getIntereses()));
+								gestor.consultarAnuncio(gestor.buscarAnuncio());
 								
 							}
 							
@@ -136,7 +136,6 @@ public class mainEjercicio2 {
 								gestor.mostrarAnuncios();
 							}
 							
-						
 							else{
 								condicion3=false;
 							}
@@ -178,7 +177,7 @@ public class mainEjercicio2 {
 							
 								else if(a==2) {
 									
-									gestor.addNewAnuncio(tablon.crearAnuncio(gestorC.getContactos(),gestor.getListaAnuncios().size(), gestorIntereses.getIntereses()));
+									gestor.addNewAnuncio(tablon.crearAnuncio(gestor.getListaAnuncios().size()));
 									System.out.println("Anuncio creado en estado editado");
 									
 								}

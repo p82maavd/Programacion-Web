@@ -26,7 +26,7 @@ public class GestorContactos {
 	
 	private static GestorContactos instance =null;
 	
-	private Intereses claseintereses=new Intereses();
+	private Intereses claseintereses=Intereses.getInstance();
 	
 	private ArrayList <Contacto> listaContactos;
 
@@ -58,7 +58,7 @@ public class GestorContactos {
 	}
 	
 	//Actualizar estas funciones teniendo en cuenta que pueden devolver varios contactos y al final seleccionar uno. Menos en email que es unico y en intereses ya esta creo, falta comprobarlo.
-	public Contacto buscarContacto(ArrayList<String> intereses)  {
+	public Contacto buscarContacto()  {
 		
 		ArrayList<Contacto> aux=new ArrayList<Contacto>();
 		
@@ -120,7 +120,7 @@ public class GestorContactos {
 			
 			//Imprime todos los intereses
 			
-			for(String s: intereses) {
+			for(String s: claseintereses.getIntereses()) {
 				System.out.println(cont.toString()+s);
 				cont++;
 			}
@@ -130,11 +130,11 @@ public class GestorContactos {
 		    int seleccion = sc.nextInt();
 		    String interesaux=new String();
 			
-			for(int i=0; i<intereses.size();i++) {
+			for(int i=0; i<claseintereses.getIntereses().size();i++) {
 				
 				if(seleccion==i) {
 					
-					interesaux=intereses.get(i);
+					interesaux=claseintereses.getIntereses().get(i);
 					
 				}
 				
@@ -224,7 +224,7 @@ public class GestorContactos {
 	 * Este método se encarga de dar de alta a un contacto.
 	*/
 	
-	public void darAlta(ArrayList<String> intereses) throws IOException {
+	public void darAlta() throws IOException {
 		
 			Scanner sc = new Scanner(System.in);
 			String nuevonombre;
@@ -288,12 +288,12 @@ public class GestorContactos {
 				
 				System.out.println("Seleccione un nuevo interes: ");
 				
-				if(intereses.size()==0) {
+				if(claseintereses.getIntereses().size()==0) {
 					System.out.println("No existen Intereses");
 					break;
 				}
 				
-				for (String myVar : intereses) {
+				for (String myVar : claseintereses.getIntereses()) {
 					System.out.println(cont+" "+myVar);
 					cont++;
 				}
@@ -310,10 +310,10 @@ public class GestorContactos {
 				   foo = 0;
 				}
 				
-				for (int i=1;i<=intereses.size();i++) {
+				for (int i=1;i<=claseintereses.getIntereses().size();i++) {
 					if(foo==i) {
 						
-						interesesaux.add(intereses.get(i-1));
+						interesesaux.add(claseintereses.getIntereses().get(i-1));
 					}
 				}
 				

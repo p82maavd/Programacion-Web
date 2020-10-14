@@ -20,6 +20,9 @@ public class TablonAnuncios {
 
 	private static TablonAnuncios instance =null;
 	
+	private Intereses claseintereses=Intereses.getInstance();
+	private GestorContactos clasecontactos=GestorContactos.getInstance();
+	
 	
 	public static TablonAnuncios getInstance() {
 		
@@ -50,7 +53,7 @@ public class TablonAnuncios {
 	public void inscribirseInteres() {
 	}
 	
-	public Anuncio crearAnuncio(ArrayList<Contacto> a, int id,ArrayList<String> intereses) {
+	public Anuncio crearAnuncio(int id) {
 		
 		//añadir en el main cuando se le llame un try/catch de nullPointerException de cuando el else.
 		ConcreteFactory anuncioFactory = new ConcreteFactory();
@@ -69,28 +72,28 @@ public class TablonAnuncios {
 		
 		if(as==1) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),a,id);
+			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),clasecontactos.getContactos(),id);
 			
 			return anuncio;
 		}
 		
 		else if(as==2) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),a,id);
+			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),clasecontactos.getContactos(),id);
 			
 			return anuncio;
 		}
 		
 		else if(as==3) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),a,id);
+			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),clasecontactos.getContactos(),id);
 			
 			return anuncio;
 		}
 		
 		else if(as==4) {
 		
-			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),intereses,a,id);
+			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),claseintereses.getIntereses(),clasecontactos.getContactos(),id);
 			
 			return anuncio;
 		}
@@ -98,6 +101,7 @@ public class TablonAnuncios {
 		else {
 			
 			System.out.println("Opcion no valida");
+			//Try catch en el main
 			return null;
 		}
 		
@@ -109,6 +113,7 @@ public class TablonAnuncios {
 		for(Anuncio a: anuncios) {
 			
 			System.out.println("");
+			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado.
 			if((a.getDestinatarios().get(cont).getEmail().equals(e.getEmail())) & (a.getEstado().getId()==3)){
 				
 				System.out.println(a.tooString());

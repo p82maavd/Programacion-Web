@@ -19,7 +19,9 @@ public class GestorAnuncios {
 	
 	private static GestorAnuncios instance =null;
 	
-	
+	private Intereses claseintereses=Intereses.getInstance();
+	private GestorContactos clasecontactos=GestorContactos.getInstance();
+
 	private ArrayList <Anuncio> listaAnuncios;
 	
 
@@ -219,7 +221,7 @@ public class GestorAnuncios {
 		
 	}
 	
-	public void modificarAnuncio(Anuncio e, ArrayList <String> intereses,ArrayList<Contacto> contactos) {
+	public void modificarAnuncio(Anuncio e) {
 		
 		String string = new String();
 		Class<? extends Anuncio> a=e.getClass();
@@ -231,13 +233,13 @@ public class GestorAnuncios {
 		
 		//System.out.println(string);
 		if(string.equals("class practica1.AnuncioTematico")) {
-			modificarAnuncioTematico(e,intereses);
+			modificarAnuncioTematico(e,claseintereses.getIntereses());
 		}
 		else if(string.equals("class practica1.AnuncioFlash")) {
 			modificarAnuncioFlash(e);
 		}
 		else if(string.equals("class practica1.AnuncioIndividualizado")) {
-			modificarAnuncioIndividualizado(e,contactos);
+			modificarAnuncioIndividualizado(e,clasecontactos.getContactos());
 		}
 		else if(string.equals("class practica1.AnuncioGeneral")) {
 			modificarAnuncioGeneral(e);
@@ -510,7 +512,7 @@ public class GestorAnuncios {
 		guardarAnuncio();
 	}
 	
-	public Anuncio buscarAnuncio(ArrayList<String> intereses) {
+	public Anuncio buscarAnuncio() {
 		int opcion;
 		Scanner sc= new Scanner(System.in);
 		Scanner sl= new Scanner(System.in);
@@ -531,7 +533,7 @@ public class GestorAnuncios {
         	String interes=new String();
 			System.out.print("Introduzca el interes: ");
 			interes = sl.nextLine();
-        	e=buscarIntereses(interes,intereses);
+        	e=buscarIntereses(interes,claseintereses.getIntereses());
         }
         
         else if (opcion==3) {
@@ -613,7 +615,7 @@ public class GestorAnuncios {
 	}
 	
 	//Sin implementar
-	public Anuncio buscarIntereses(String interes,ArrayList<String> intereses) {
+	public Anuncio buscarIntereses(String interes, ArrayList<String> intereses) {
 		return null;
 		
 	}

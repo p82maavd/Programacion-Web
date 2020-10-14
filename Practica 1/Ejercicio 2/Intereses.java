@@ -1,6 +1,5 @@
 package practica1;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,11 +13,21 @@ public class Intereses {
 	
 	private ArrayList<String> intereses;
 	
+	private static Intereses instance=null;
 	
-	public Intereses() {
+	private Intereses() {
 		
 		this.intereses=new ArrayList<String>();
 		cargarIntereses();
+	}
+	
+	public static Intereses getInstance() {
+		
+		
+		if(instance==null) {
+			instance=new Intereses();
+		}
+		return instance;
 	}
 	
 	private void setIntereses(ArrayList<String> aux) {
