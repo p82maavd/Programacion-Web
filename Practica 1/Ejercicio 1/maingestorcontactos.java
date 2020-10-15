@@ -1,9 +1,9 @@
-package practica1entrega;
+package Ejercicio1;
 
 /**
  * 
  * @author Damian Martinez
- * @author Daniel Olmo
+ * @author Daniel Ortega
  */
 
 import java.io.FileNotFoundException;
@@ -18,15 +18,13 @@ public class maingestorcontactos {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
 		GestorContactos gestor = GestorContactos.getInstance();
+		String ubicacion=new String();
+		ubicacion=args[0];
+		Configuracion config=Configuracion.getInstance(ubicacion);
 	
 		Scanner sc = new Scanner(System.in);
 		Boolean condicion=true;
-		try {
-		gestor.cargarDatos();
-		}catch(FileNotFoundException e) {
-			ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("fichej1.dat"));
-	        file.close();
-		}
+	
 		int a= 0;
 		
 		while(condicion) {

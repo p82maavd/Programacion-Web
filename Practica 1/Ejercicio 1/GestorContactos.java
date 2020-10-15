@@ -1,4 +1,4 @@
-package practica1entrega;
+package Ejercicio1;
 
 /**
  * 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import practica1entrega.Contacto.Intereses;
+import Ejercicio1.Contacto.Intereses;
 
 
 public class GestorContactos {
@@ -29,12 +29,15 @@ public class GestorContactos {
 	private static GestorContactos instance =null;
 	
 	private ArrayList <Contacto> listaContactos;
-
+	
+	//Configuracion config = new Configuracion();
 	/**
 	 * Este método se encarga de crear una instancia en el caso de que no haya una ya creada. Patron de diseño Singleton
 	 * @return Instancia única de GestorContactos.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	*/
-	public static GestorContactos getInstance() {
+	public static GestorContactos getInstance() throws ClassNotFoundException, IOException {
 		
 		if(instance==null) {
 			instance=new GestorContactos();
@@ -44,10 +47,20 @@ public class GestorContactos {
 	
 	/**
 	 * Constructor de la clase GestorContactos.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	*/
-	private GestorContactos() {
+	private GestorContactos() throws ClassNotFoundException, IOException {
 		
 		this.listaContactos = new ArrayList<Contacto>();
+		try {
+			cargarDatos();
+			}catch(FileNotFoundException e) {
+				String ubicacion=new String();
+				Configuracion config=Configuracion.getInstance(ubicacion);
+				ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(config.getProperty("DATA_FILE") ));
+		        file.close();
+			}
 		
 	}
 		
@@ -133,31 +146,20 @@ public class GestorContactos {
 
 		}
 
-		//Intereses en enum. Actua
-		/*
+		
 			else if(a==3) {
 				Integer cont=0;
 
 				//Imprime todos los intereses
 
-				for(String s: claseintereses.getIntereses()) {
-					System.out.println(cont.toString()+s);
-					cont++;
+				for (Intereses myVar : Intereses.values()) {
+					System.out.println(myVar.getId()+" "+myVar.getInteres());
 				}
-
-
+				
 				System.out.print("Indique que interes buscar: ");
-			    int seleccion = sc.nextInt();
-			    sc.nextLine();
-			    String interesaux=new String();
-
-				for(int i=0; i<claseintereses.getIntereses().size();i++) {
-
-					if(seleccion==i) {
-						interesaux=claseintereses.getIntereses().get(i);		
-					}
-
-				}
+				int newinteres= sc.nextInt();
+				sc.nextLine();
+				
 
 				//Busca los contactos que tengan el interes seleccionado arriba
 
@@ -165,9 +167,9 @@ public class GestorContactos {
 
 					for(int i=0;i<d.getIntereses().size();i++) {
 
-						if(d.getIntereses().get(i).equals(interesaux)) {	
+						if(d.getIntereses().get(i).getId()==newinteres); {	
 							aux.add(d);
-							break;
+							
 						}
 					}
 
@@ -205,9 +207,8 @@ public class GestorContactos {
 				}
 				return buscado;
 
-			}*/
+			}
 
-		//Cambiar try catch y actualizar.
 		else if(a==4) {
 			String fechaaux=new String();
 			int n = 0;
@@ -275,9 +276,10 @@ public class GestorContactos {
 	
 	/**
 	 * Este método se encarga de dar de alta a un contacto.
+	 * @throws ClassNotFoundException 
 	*/
 
-	public void darAlta() throws IOException {
+	public void darAlta() throws IOException, ClassNotFoundException {
 		
 			Scanner sc = new Scanner(System.in);
 			String nuevonombre;
@@ -383,8 +385,9 @@ public class GestorContactos {
 	/**
 	 * Este método se encarga de dar de baja a un contacto.
 	 * @param Contacto que desea dar de baja
+	 * @throws ClassNotFoundException 
 	*/
-	public void darBaja(Contacto e) throws FileNotFoundException, IOException {
+	public void darBaja(Contacto e) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		for(int i=0; i<this.listaContactos.size();i++) {
 			if(e.getEmail().equals(this.listaContactos.get(i).getEmail())) {
@@ -507,33 +510,41 @@ public class GestorContactos {
 	 * @return Instancia única de GestorContactos.
 	*/
 	public void cargarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ObjectInputStream file = new ObjectInputStream(new FileInputStream("fichej1.dat"));
-		ArrayList<Intereses> aux=new ArrayList<Intereses>();
-		Date auxi= new Date();
-		Contacto clase= new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
-		
-		while(clase!=null) {
-			 try {
-				 clase = (Contacto) file.readObject(); 
-		         } catch (EOFException e) {
-		            System.out.println("");
-		            System.out.println("Contactos cargados correctamente");
-		            break;
-		         } 
+		try {
+			String ubicacion=new String();
+			Configuracion config=Configuracion.getInstance(ubicacion);
+			ObjectInputStream file = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE")));
+			ArrayList<Intereses> aux=new ArrayList<Intereses>();
+			Date auxi= new Date();
+			Contacto clase= new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
 			
-			this.listaContactos.add(clase);        	
-		}
-		file.close();
+			while(clase!=null) {
+				 try {
+					 clase = (Contacto) file.readObject(); 
+			         } catch (EOFException e) {
+			            System.out.println("");
+			            System.out.println("Contactos cargados correctamente");
+			            break;
+			         } 
+				
+				this.listaContactos.add(clase);        	
+			}
+			file.close();
+			}catch (EOFException e) {
+				
+			}
 		 
 		
 	}
 	
 	/**
 	 * Este método se encarga de guardar los contactos en el fichero de datos.
+	 * @throws ClassNotFoundException 
 	*/
-	public void guardarDatos() throws FileNotFoundException, IOException {
-		
-		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream( "fichej1.dat" ));
+	public void guardarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
+		String ubicacion=new String();
+		Configuracion config=Configuracion.getInstance(ubicacion);
+		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(config.getProperty("DATA_FILE")));
 		Date auxi= new Date();
         ArrayList<Intereses> aux=new ArrayList<Intereses>();
 		Contacto auxc=new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);

@@ -1,4 +1,4 @@
-package practica1entrega;
+package Ejercicio1;
 
 
 /**
