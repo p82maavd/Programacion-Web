@@ -362,36 +362,35 @@ public class GestorContactos {
 		
 		System.out.println("Que quieres modificar: 1. Nombre 2. Apellidos 3. Email 4. Fecha Nacimiento 5. Intereses");
 		Scanner sc = new Scanner(System.in);
-		Scanner sl = new Scanner(System.in);
 		System.out.print("Introduzca un número entero: ");
 		Integer a = sc.nextInt();
-		
+		sc.nextLine();
 		
 		if(a==1) {
 			String nuevonombre;
 			System.out.print("Introduzca el nuevo nombre: ");
-			nuevonombre = sl.nextLine();
+			nuevonombre = sc.nextLine();
 			e.setNombre(nuevonombre);
 		}
 		
 		else if(a==2) {
 			String nuevoapellido;
 			System.out.print("Introduzca el nuevo apellido: ");
-			nuevoapellido = sl.nextLine();
+			nuevoapellido = sc.nextLine();
 			e.setApellidos(nuevoapellido);
 		}
 		
 		else if(a==3) {
 			String nuevoemail;
 			System.out.print("Introduzca el nuevo email: ");
-			nuevoemail = sl.nextLine();
+			nuevoemail = sc.nextLine();
 			e.setEmail(nuevoemail);
 		}
 		
 		else if(a==4) {
 			String nuevafecha="01/01/1970";
 			System.out.print("Introduzca la nueva fecha de nacimiento(dd/mm/yyyy): ");
-			nuevafecha = sl.nextLine();
+			nuevafecha = sc.nextLine();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			 
@@ -427,6 +426,7 @@ public class GestorContactos {
 				
 				Integer linea;
 				linea = sc.nextInt();
+				sc.nextLine();
 				intereses.remove(linea-1);
 			}
 			else {
@@ -440,16 +440,7 @@ public class GestorContactos {
 				}
 				
 				newinteres= sc.nextInt();
-				/*
-				int foo;
-				try {
-				   foo = Integer.parseInt(newinteres);
-				}
-				catch (NumberFormatException es)
-				{
-				   foo = 0;
-				}
-				*/
+				sc.nextLine();
 				
 				for (int i=1;i<=claseintereses.getIntereses().size();i++) {
 					if(newinteres==i) {
@@ -473,9 +464,6 @@ public class GestorContactos {
 		
 		try {
 		ObjectInputStream file = new ObjectInputStream(new FileInputStream("fich.dat"));
-		//ArrayList<String> aux=new ArrayList<String>();
-		//Date auxi= new Date();
-		//Contacto clase= new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
 		Contacto clase=null;
 		do {
 			try {
@@ -506,9 +494,7 @@ public class GestorContactos {
 	public void guardarDatos() throws FileNotFoundException, IOException {
 		
 		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream( "fich.dat" ));
-		//Date auxi= new Date();
-        //ArrayList<String> aux=new ArrayList<String>();
-		//Contacto auxc=new Contacto("Auxiliar","Auxiliar",auxi, "auxiliar@hotmail.es",aux);
+		
 		Contacto auxc=null;
 		
 		for(int i=0; i<this.listaContactos.size();i++) {

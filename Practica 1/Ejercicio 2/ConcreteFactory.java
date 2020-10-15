@@ -14,8 +14,6 @@ import practica1.Anuncio.Estados;
 public class ConcreteFactory extends AbstractFactory {
 
 	// Implementation of creation methods
-	//Comprobar argumentos de los new, sin terminar.
-	//VER COMO CONFIGURAR ID, posiblemente cuando guarde o cargue datos.
 	
 	@Override
 	public AnuncioFlash createAnuncioFlash(Contacto e,ArrayList <Contacto> a, int ids) {
@@ -116,7 +114,6 @@ public class ConcreteFactory extends AbstractFactory {
 		Integer neweleccion=0;
 		Integer newinteres;
 		Scanner sc = new Scanner(System.in);
-		Scanner sl = new Scanner(System.in);
 		Boolean condicion=true;
 		int cont =1;
 		while(condicion) {
@@ -129,7 +126,8 @@ public class ConcreteFactory extends AbstractFactory {
 			}
 			cont=1;
 			
-			newinteres= sl.nextInt();
+			newinteres= sc.nextInt();
+			sc.nextLine();
 			
 			for (int i=1;i<=intereses.size();i++) {
 				if(newinteres==i) {
@@ -139,7 +137,8 @@ public class ConcreteFactory extends AbstractFactory {
 			}
 			
 			System.out.println("Desea añadir mas intereses: 1. Si 2. No");
-			neweleccion=sl.nextInt();
+			neweleccion=sc.nextInt();
+			sc.nextLine();
 			
 			if(neweleccion!=1) {
 				condicion=false;

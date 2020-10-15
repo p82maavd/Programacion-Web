@@ -61,7 +61,7 @@ public class TablonAnuncios {
 		//añadir en el main cuando se le llame un try/catch de nullPointerException de cuando el else.
 		ConcreteFactory anuncioFactory = new ConcreteFactory();
 		Scanner sc=new Scanner(System.in);
-		Scanner sl=new Scanner(System.in);
+		
 		
 		//REVISAR ESTO.
 		

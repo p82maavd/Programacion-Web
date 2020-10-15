@@ -586,6 +586,7 @@ public class GestorAnuncios {
         }
         
         else if (opcion==2) {
+        	//Aqui hacer que seleccione el interes en vez de escribirlo. Mirar alguna funcion.
         	String interes=new String();
 			System.out.print("Introduzca el interes: ");
 			interes = sl.nextLine();
@@ -610,15 +611,13 @@ public class GestorAnuncios {
         else {
         	
         	System.out.println("Opcion no valida");
+        	//Try catch.
         	return null;
         }
         
         return e;
  
 	}
-	
-	//EN ESTAS FUNCIONES COMO PUEDE HABER MAS DE UN ANUNCIO QUE CUMPLA LAS CONDICIONES AÑADIR SELECCION DE CUAL ES.
-	//Yo creo que en estas funciones deben devolver un solo anuncio, para que se puedan usar en la funcion del main(Mirar como esta hecho)
 	
 	//Sin comprobar
 	public Anuncio buscarFecha(String fecha) {
@@ -639,6 +638,7 @@ public class GestorAnuncios {
 			e1.printStackTrace();
 		}
 		for(int i=0 ; i<getListaAnuncios().size() ; i++) {
+			//Esto puede estar mal, se arregla cambiando igual por compareTo(dnuevafecha)==0
 			if(getListaAnuncios().get(i).getFecha() == dnuevafecha) {
 				 anunciosusuario.add(getListaAnuncios().get(i));
 			}
@@ -661,7 +661,7 @@ public class GestorAnuncios {
 			if(anunciosusuario.get(i).getId()==seleccion) {
 				System.out.println("Anuncio seleccionado");
 				buscado=anunciosusuario.get(i);
-				//Comprobar break
+				
 				break;
 			}
 		}
@@ -670,9 +670,49 @@ public class GestorAnuncios {
 		return buscado;
 	}
 	
-	//Sin implementar
+	
 	public Anuncio buscarIntereses(String interes, ArrayList<String> intereses) {
-		return null;
+		ArrayList <Anuncio> anunciosusuario=new ArrayList<Anuncio>();
+		Anuncio buscado= null;
+		Scanner sc = new Scanner(System.in);
+		for(Anuncio d: getListaAnuncios()) {
+			
+			for(String s: intereses) {
+				
+				if(((AnuncioTematico) d).getIntereses().contains(s)) {
+					anunciosusuario.add(d);
+					
+					break;
+				}
+				
+			}
+			
+		}
+		
+		for(int i=0;i<anunciosusuario.size();i++) {
+			System.out.println("Id: "+anunciosusuario.get(i).getId()+" Titulo: "+ anunciosusuario.get(i).getTitulo());
+			
+		}
+		
+		System.out.println("Selecciona el id del anuncio");
+			
+		
+		int seleccion=sc.nextInt();
+		
+		for(int i=0;i<anunciosusuario.size();i++) {
+			
+			if(anunciosusuario.get(i).getId()==seleccion) {
+				System.out.println("Anuncio seleccionado");
+				buscado=anunciosusuario.get(i);
+				
+				break;
+			}
+		}
+		
+
+		return buscado;
+		
+		
 		
 	}
 	
@@ -694,12 +734,13 @@ public class GestorAnuncios {
 			}
 		}
 		
-		//Aqui seleccion de cual es.
 		
 		for(int i=0;i<anunciosusuario.size();i++) {
 			System.out.println("Id: "+anunciosusuario.get(i).getId()+" Titulo: "+ anunciosusuario.get(i).getTitulo());
 			
 		}
+		
+		//Aqui seleccion de cual es.
 		
 		System.out.println("Selecciona el id del anuncio");
 			
@@ -711,7 +752,6 @@ public class GestorAnuncios {
 			if(anunciosusuario.get(i).getId()==seleccion) {
 				System.out.println("Anuncio seleccionado");
 				buscado=anunciosusuario.get(i);
-				//Comprobar break
 				break;
 			}
 		}
@@ -741,14 +781,14 @@ public class GestorAnuncios {
 			}
 		}
 		
-		//Seleccion del anuncio buscado
-		
 		System.out.println("Anuncios encontrados: ");
 
 		for(int i=0;i<anunciosusuario.size();i++) {
 			System.out.println("Id: "+anunciosusuario.get(i).getId()+" Titulo: "+ anunciosusuario.get(i).getTitulo());
 			
 		}
+		
+		//Seleccion del anuncio buscado
 		
 		System.out.print("Selecciona el id del anuncio: ");
 			
@@ -760,7 +800,6 @@ public class GestorAnuncios {
 			if(anunciosusuario.get(i).getId()==seleccion) {
 				System.out.println("Anuncio seleccionado");
 				buscado=anunciosusuario.get(i);
-				//Comprobar break
 				break;
 			}
 		}
@@ -787,8 +826,6 @@ public class GestorAnuncios {
 	}
 	
 	public void mostrarAnuncios() {
-		
-		//Si se joden los ids o algo hacerlo cambiando un auxiliar en vez del genral.
 		
 		Scanner sc=new Scanner(System.in);
 		
@@ -823,12 +860,9 @@ public class GestorAnuncios {
 		}
 		Collections.sort(propietarios);
 		
-		//Revisar
-		
 		while(aux.size()!=0) {
 			for(int j=0; j<getListaAnuncios().size();) {
-				//Para depurar :)
-				//System.out.println("Valor de i: "+i+"Valor de j: "+j+"Valor de prop: "+propietarios.get(i)+ "Valor de aux: "+aux.get(j).getUsuario().getNombre());
+				
 				if(propietarios.get(i).equals(aux.get(j).getUsuario().getNombre())) {
 					ordenado.add(aux.get(j));
 					
@@ -848,7 +882,6 @@ public class GestorAnuncios {
 	}
 	
 	public ArrayList<Anuncio> ordenarFecha() {
-		//Esto hay que implementarlo como arriba, si lo de arriba esta bien seria solo cambiar el primer for
 		
 		ArrayList<Anuncio> aux= new ArrayList<Anuncio>();
 		ArrayList<Date> fechas= new ArrayList<Date>();
