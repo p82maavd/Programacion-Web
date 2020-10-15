@@ -15,7 +15,7 @@ public class AnuncioFlash extends Anuncio{
 
 	public AnuncioFlash(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Contacto> destinatarios, Estados estado,Date fechaInicio, Date fechaFinal) {
 		super(id, titulo, cuerpo, usuario, destinatarios, estado);
-		// TODO Auto-generated constructor stub
+		
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
@@ -24,7 +24,7 @@ public class AnuncioFlash extends Anuncio{
 		this.estado=estado;
 		this.fechaInicio=fechaInicio;
 		this.fechaFinal=fechaFinal;
-		//Poner fecha inicio y final.
+		
 	}
 
 	public Date getFechaInicio() {

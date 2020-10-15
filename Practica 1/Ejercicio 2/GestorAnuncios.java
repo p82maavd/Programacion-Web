@@ -61,7 +61,7 @@ public class GestorAnuncios {
 		
 		listaAnuncios=new ArrayList<Anuncio>();
 		cargarAnuncios();
-		//Cargar del .dat.
+		
 	}
 	
 	public ArrayList<Anuncio> getListaAnuncios() {
@@ -89,7 +89,6 @@ public class GestorAnuncios {
 			Class<? extends Anuncio> a=auxc.getClass();
 			string=a.toString();
 			
-			//System.out.println(string);
 			if(string.equals("class practica1.AnuncioTematico")) {
 				tematico.writeObject(auxc);
 			}
@@ -118,9 +117,6 @@ public class GestorAnuncios {
 		ObjectInputStream flash = new ObjectInputStream(new FileInputStream("flash.dat"));
 		ObjectInputStream individualizado = new ObjectInputStream(new FileInputStream("individualizado.dat"));
 		ObjectInputStream general = new ObjectInputStream(new FileInputStream("general.dat"));
-		
-		//ArrayList<String> aux=new ArrayList<String>();
-		//Esto estaba aqui pero no se porque si falla el programa es esto.
 		
 		Anuncio clase= null;
 		do {
@@ -226,9 +222,9 @@ public class GestorAnuncios {
 		}
 		
 		else {
-			//Hacer algo para cambiar estados
+			
 			Date fechaActual=new Date();
-			//Puede ser que este al reves. Camiar < >.
+			//Si la fecha actual entre inicio y fin pasa a publicado, sino a espera. Si la fecha es mayor que la final se cambia al mostrarAnuncios
 			if( (fechaActual.compareTo(((AnuncioFlash) buscado).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) buscado).getFechaFinal())<0) ){
 				 estado=Estados.Publicado;
 			}
@@ -438,8 +434,6 @@ public class GestorAnuncios {
 	}
 
 	public void modificarAnuncioIndividualizado(Anuncio e, ArrayList<Contacto> destinatarios){
-	
-		// Destinatarios
 		
 		Scanner sc=new Scanner(System.in);
 		
@@ -580,7 +574,7 @@ public class GestorAnuncios {
 			if(listaAnuncios.get(i).getId()==seleccion) {
 				System.out.println("Anuncio seleccionado");
 				buscado=this.listaAnuncios.get(i);
-				//Comprobar break
+				
 				break;
 			}
 		}
@@ -594,12 +588,10 @@ public class GestorAnuncios {
 		int opcion;
 		Scanner sc= new Scanner(System.in);
 		System.out.println("Buscar por: 1. Fecha 2.Interes 3. Propietario 4. Destinatario");
-		//SI HAY UN NULLPOINTEREXCEPTION, HACER ANUNCIO AUXILIAR;
 		Anuncio e=null;
         opcion = sc.nextInt();
         sc.nextLine();
-        //No se puede hacer un nextline() despues de un nextint()
-        
+                
         if (opcion==1) {
         	String fecha=new String();
 			System.out.print("Introduzca la fecha: ");
@@ -608,10 +600,25 @@ public class GestorAnuncios {
         }
         
         else if (opcion==2) {
-        	//Aqui hacer que seleccione el interes en vez de escribirlo. Mirar alguna funcion.
+        	
         	String interes=new String();
-			System.out.print("Introduzca el interes: ");
-			interes = sc.nextLine();
+        	int cont=0;
+        	for (String myVar : claseintereses.getIntereses()) {
+				System.out.println(cont+" "+myVar);
+				cont++;
+			}
+			System.out.print("Seleccionar Interes: ");
+			int newinteres= sc.nextInt();
+			sc.nextLine();
+			
+			
+        	for (int i=0; i<claseintereses.getIntereses().size();i++) {
+				if(newinteres==i) {
+					interes=claseintereses.getIntereses().get(i);
+				}
+				
+			}
+			
         	e=buscarIntereses(interes,claseintereses.getIntereses());
         }
         

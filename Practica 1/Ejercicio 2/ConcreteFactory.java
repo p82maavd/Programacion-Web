@@ -69,7 +69,6 @@ public class ConcreteFactory extends AbstractFactory {
 	@Override
 	public AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, ArrayList<Contacto> a,int ids) {
 		Scanner sc=new Scanner(System.in);
-		Scanner sl=new Scanner(System.in);
 		int as=0;
 		int id=ids;
 		String titulo=new String();
@@ -95,22 +94,24 @@ public class ConcreteFactory extends AbstractFactory {
 				for(Contacto d: a) {
 					if(d.getEmail().equals(linea)) {
 						destinatarios.add(d);
-						//Comprobar este break;
+						
 						break;
 					}
 				}
 				System.out.println("Quieres añadir otro destinatario: 1. Si 2.No");
-				as=sl.nextInt();
+				as=sc.nextInt();
+				sc.nextLine();
 				
 				if(as!=1) {
 					condicion=false;
 				}
 				
 			} catch (NoSuchElementException w) {
-				//Comprobar si coge el del nextLine o del nextInt
+				
                 System.out.println("Debes insertar un numero");
 	             
-               as=sl.nextInt();
+               as=sc.nextInt();
+               sc.nextLine();
 
             }
 		}
@@ -173,7 +174,7 @@ public class ConcreteFactory extends AbstractFactory {
 				
 				if(intereses.contains(s)) {
 					destinatarios.add(d);
-					//Comprobar como funciona el break este.
+					
 					break;
 				}
 				

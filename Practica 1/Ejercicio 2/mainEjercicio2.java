@@ -7,7 +7,6 @@ import java.util.Scanner;
 public class mainEjercicio2 {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		// TODO Auto-generated method stub
 		GestorAnuncios gestor = GestorAnuncios.getInstance();
 		GestorContactos gestorC = GestorContactos.getInstance();
 		
@@ -112,7 +111,6 @@ public class mainEjercicio2 {
 						
 						try {
 							a=sc.nextInt();
-							// De todo esto poner como argumento buscar Anuncio.
 							if(a==1) {
 								gestor.modificarAnuncio(gestor.buscarAnuncio());
 							}

@@ -73,7 +73,7 @@ public class GestorContactos {
 		Integer a = sc.nextInt();
 		sc.nextLine();
 		Contacto buscado=null;
-		
+		//Falta por actualizar
 		if(a==1) {
 			
 			String nombreaux;
@@ -95,6 +95,7 @@ public class GestorContactos {
 			}
 		}
 		
+		//Falta por actulizar
 		else if(a==2) {
 			String emailaux;
 			
@@ -114,7 +115,7 @@ public class GestorContactos {
 
 		}
 		
-		//Comprobar
+		//Esta bien comprobar ejecutandolo
 		else if(a==3) {
 			Integer cont=0;
 			
@@ -188,7 +189,7 @@ public class GestorContactos {
 
 		}
 		
-		//Sin revisar
+		//Cambiar try catch y actualizar.
 		else if(a==4) {
 			String fechaaux="01/01/1970";
 			int n = 0;
@@ -270,16 +271,21 @@ public class GestorContactos {
 			
 			String nuevafecha="01/01/1970";
 			System.out.print("Introduzca la nueva fecha de nacimiento(dd/mm/yyyy): ");
-			nuevafecha = sc.nextLine();
-			
+		
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			 
-			Date dnuevafecha = new Date();
-			try {
-				dnuevafecha = formatter.parse(nuevafecha);
-			} catch (ParseException e1) {
-				System.out.println("Error con la fecha");
-				e1.printStackTrace();
+			Date dnuevafecha = new Date();	
+			
+			int conta=1;
+			while(conta!=0) {
+				conta=0;
+				try {
+					nuevafecha = sc.nextLine();
+					dnuevafecha = formatter.parse(nuevafecha);
+				} catch (ParseException e1) {
+					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
+					
+					conta++;
+				}
 			}
 			
 			
