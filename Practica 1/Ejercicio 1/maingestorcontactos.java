@@ -24,7 +24,7 @@ public class maingestorcontactos {
 		try {
 		gestor.cargarDatos();
 		}catch(FileNotFoundException e) {
-			ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("fich.dat"));
+			ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("fichej1.dat"));
 	        file.close();
 		}
 		int a= 0;

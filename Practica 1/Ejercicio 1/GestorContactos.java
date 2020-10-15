@@ -319,15 +319,20 @@ public class GestorContactos {
 			
 			String nuevafecha="01/01/1970";
 			System.out.print("Introduzca la nueva fecha de nacimiento(dd/mm/yyyy): ");
-			nuevafecha = sc.nextLine();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			 
-			Date dnuevafecha = null;
-			try {
-				dnuevafecha = formatter.parse(nuevafecha);
-			} catch (ParseException e1) {
-				e1.printStackTrace();
+			Date dnuevafecha=new Date();
+			int conta=1;
+			while(conta!=0) {
+				conta=0;
+				try {
+					nuevafecha = sc.nextLine();
+					dnuevafecha = formatter.parse(nuevafecha);
+				} catch (ParseException e1) {
+					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
+					
+					conta++;
+				}
 			}
 			
 			
