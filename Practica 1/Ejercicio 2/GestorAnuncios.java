@@ -432,7 +432,6 @@ public class GestorAnuncios {
 		// Destinatarios
 		
 		Scanner sc=new Scanner(System.in);
-		Scanner sl=new Scanner(System.in);
 		
 		System.out.println("Que quieres modificar: ");
 		System.out.println("1. Titulo ");
@@ -440,12 +439,13 @@ public class GestorAnuncios {
 		System.out.println("3. Destinatarios");
 		
 		int a=sc.nextInt();
+		sc.nextLine();
 		
 		if(a==1) {
 			
 			System.out.print("Introduce el nuevo titulo: ");
 			String titulo=new String();
-			titulo=sl.nextLine();
+			titulo=sc.nextLine();
 			e.setTitulo(titulo);
 			
 		}
@@ -453,7 +453,7 @@ public class GestorAnuncios {
 		else if(a==2) {
 			System.out.print("Introduce el nuevo Cuerpo: ");
 			String cuerpo=new String();
-			cuerpo=sl.nextLine();
+			cuerpo=sc.nextLine();
 			e.setCuerpo(cuerpo);
 		}
 		
@@ -462,6 +462,7 @@ public class GestorAnuncios {
 			actuales=((AnuncioIndividualizado) e).getDestinatarios();
 			System.out.print("Que desea eliminar(1) o añadir(2) un destinatario del anuncio: "); 
 			a=sc.nextInt();
+			sc.nextLine();
 			if(a==1) {
 				System.out.println("Cual desea eliminar: ");
 				Integer cont=0;
@@ -470,6 +471,7 @@ public class GestorAnuncios {
 					cont++;
 				}
 				a=sc.nextInt();
+				sc.nextLine();
 				
 				actuales.remove(a);
 				
@@ -485,6 +487,7 @@ public class GestorAnuncios {
 					cont++;
 				}
 				a=sc.nextInt();
+				sc.nextLine();
 				
 				for(int i=0; i<destinatarios.size();i++) {
 					
@@ -509,19 +512,19 @@ public class GestorAnuncios {
 	
 	public void modificarAnuncioGeneral(Anuncio e){
 		Scanner sc=new Scanner(System.in);
-		Scanner sl=new Scanner(System.in);
 		
 		System.out.println("Que quieres modificar: ");
 		System.out.println("1. Titulo ");
 		System.out.println("2. Cuerpo ");
 		
 		int a=sc.nextInt();
+		sc.nextLine();
 		
 		if(a==1) {
 			
 			System.out.print("Introduce el nuevo titulo: ");
 			String titulo=new String();
-			titulo=sl.nextLine();
+			titulo=sc.nextLine();
 			e.setTitulo(titulo);
 			
 		}
@@ -529,7 +532,7 @@ public class GestorAnuncios {
 		else if(a==2) {
 			System.out.print("Introduce el nuevo Cuerpo: ");
 			String cuerpo=new String();
-			cuerpo=sl.nextLine();
+			cuerpo=sc.nextLine();
 			e.setCuerpo(cuerpo);
 		}
 		
@@ -580,17 +583,17 @@ public class GestorAnuncios {
 	public Anuncio buscarAnuncio() {
 		int opcion;
 		Scanner sc= new Scanner(System.in);
-		Scanner sl= new Scanner(System.in);
 		System.out.println("Buscar por: 1. Fecha 2.Interes 3. Propietario 4. Destinatario");
 		//SI HAY UN NULLPOINTEREXCEPTION, HACER ANUNCIO AUXILIAR;
 		Anuncio e=null;
         opcion = sc.nextInt();
+        sc.nextLine();
         //No se puede hacer un nextline() despues de un nextint()
         
         if (opcion==1) {
         	String fecha=new String();
 			System.out.print("Introduzca la fecha: ");
-			fecha = sl.nextLine();
+			fecha = sc.nextLine();
         	e=buscarFecha(fecha);
         }
         
@@ -598,21 +601,21 @@ public class GestorAnuncios {
         	//Aqui hacer que seleccione el interes en vez de escribirlo. Mirar alguna funcion.
         	String interes=new String();
 			System.out.print("Introduzca el interes: ");
-			interes = sl.nextLine();
+			interes = sc.nextLine();
         	e=buscarIntereses(interes,claseintereses.getIntereses());
         }
         
         else if (opcion==3) {
         	String nombre=new String();
 			System.out.print("Introduzca el email del propietario: ");
-			nombre = sl.nextLine();
+			nombre = sc.nextLine();
         	e=buscarPropietario(nombre);
         }
         
         else if (opcion==4) {
         	String destinatario=new String();
 			System.out.print("Introduzca el email del destinatario: ");
-			destinatario = sl.nextLine();
+			destinatario = sc.nextLine();
         	e=buscarDestinatario(destinatario);
         }
         
@@ -632,16 +635,13 @@ public class GestorAnuncios {
 	public Anuncio buscarFecha(String fecha) {
 		ArrayList<Anuncio> anunciosusuario = new ArrayList<Anuncio>();
 		Scanner sc = new Scanner(System.in);
-		String nuevafecha="01/01/1970";
-		System.out.print("Introduzca la fecha de publicacion: ");
-		nuevafecha = sc.nextLine();
 		Anuncio buscado= null;
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		 
 		Date dnuevafecha = null;
 		try {
-			dnuevafecha = formatter.parse(nuevafecha);
+			dnuevafecha = formatter.parse(fecha);
 		} catch (ParseException e1) {
 			
 			e1.printStackTrace();
@@ -729,13 +729,13 @@ public class GestorAnuncios {
 	public Anuncio buscarPropietario(String propietario) {
 		ArrayList<Anuncio> anunciosusuario = new ArrayList<Anuncio>();
 		String email;
-		System.out.println("Introduzca el email del propietario:");
+		
 		Scanner sc = new Scanner(System.in);
-		email = sc.nextLine();
+		
 		Anuncio a = null;
 		Anuncio buscado=null;
 		for(int i=0 ; i<getListaAnuncios().size(); i++) {
-			if(getListaAnuncios().get(i).getUsuario().getEmail()==email) {
+			if(getListaAnuncios().get(i).getUsuario().getEmail().equals(propietario)) {
 				
 				a=getListaAnuncios().get(i);
 				
@@ -857,18 +857,28 @@ public class GestorAnuncios {
 		}
 	}
 	
+	/**
+	 * Metodo que ordena los anuncios por el nombre del propietario.
+	 * @return El ArrayList de Anuncios ordenados.
+	*/
+	
 	public ArrayList<Anuncio> ordenarPropietario() {
 		ArrayList<Anuncio> aux= new ArrayList<Anuncio>();
 		ArrayList<String> propietarios= new ArrayList<String>();
 		ArrayList<Anuncio> ordenado= new ArrayList<Anuncio>();
 		
+		//Coge todos los nombres de los propietarios de todos los anuncios.
 		aux= getListaAnuncios();
 		int i=0;
 		for(Anuncio a: aux) {
 			propietarios.add(a.getUsuario().getNombre());
 		}
+		
+		//Ordena los nombres.
 		Collections.sort(propietarios);
 		
+		//Va comparando los nombres ordenados extraidos anteriormente con los que coge del vector principal hasta que sean iguales. Si coinciden pues los añade a otro vector y los elimina de los otros dos.
+	
 		while(aux.size()!=0) {
 			for(int j=0; j<getListaAnuncios().size();) {
 				
@@ -890,27 +900,34 @@ public class GestorAnuncios {
 		return ordenado;
 	}
 	
+	/**
+	 * Metodo que ordena los anuncios por fecha de publicacion.
+	 * @return El ArrayList de Anuncios ordenados.
+	*/
+	
 	public ArrayList<Anuncio> ordenarFecha() {
 		
 		ArrayList<Anuncio> aux= new ArrayList<Anuncio>();
 		ArrayList<Date> fechas= new ArrayList<Date>();
 		ArrayList<Anuncio> ordenado= new ArrayList<Anuncio>();
 		
+		//Coge la fecha de publicacion de todos los anuncios.
 		aux= getListaAnuncios();
 		int i=0;
 		for(Anuncio a: aux) {
 			fechas.add(a.getFecha());
 		}
 		
+		//Ordena las fechas
 		Collections.sort(fechas);
 		
 		
-		//Revisar
+		//Va comparando las fechas ordenadas extraidas anteriormente con las que coge del vector principal hasta que sean iguales. Si coinciden pues las añade a otro vector y las elimina de los otros dos.
+
 		
 		while(aux.size()!=0) {
 			for(int j=0; j<getListaAnuncios().size();) {
-				//Para depurar :)
-				//System.out.println("Valor de i: "+i+"Valor de j: "+j+"Valor de prop: "+propietarios.get(i)+ "Valor de aux: "+aux.get(j).getUsuario().getNombre());
+				
 				if(fechas.get(i).equals(aux.get(j).getFecha())) {
 					ordenado.add(aux.get(j));
 					
