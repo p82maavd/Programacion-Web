@@ -7,15 +7,31 @@ import java.util.Scanner;
 
 import practica1.Anuncio.Estados;
 
-
+/**
+ * 
+ * @author Damian Martinez
+ * @author Daniel Ortega
+ * Declaracion de la clase TablonAnuncios
+ *
+ */
 
 public class TablonAnuncios {
 	
 	private Contacto usuario;
 	
+	/**
+	 * Metodo get del usuario del tablon.
+	 * @return Usuario propietario del tablon.
+	*/
+	
 	public Contacto getUsuario() {
 		return usuario;
 	}
+	
+	/**
+	 * Metodo set del usuario del tablon.
+	 * @param Usuario propietario del tablon.
+	*/
 
 	public void setUsuario(Contacto e) {
 		this.usuario = e;
@@ -26,7 +42,6 @@ public class TablonAnuncios {
 	private Intereses claseintereses=Intereses.getInstance();
 	private GestorContactos clasecontactos=GestorContactos.getInstance();
 	
-	
 	public static TablonAnuncios getInstance() {
 		
 		if(instance==null) {
@@ -34,6 +49,12 @@ public class TablonAnuncios {
 		}
 		return instance;
 	}
+	
+	/**
+	 * Metodo que asigna un usuario a la instancia unica de tablon.
+	 * @param Lista de todos los contactos.
+	 * @return boolean true si el usuario introducido existe y false en el caso contrario.
+	*/
 	
 	public boolean identificarUsuario(ArrayList<Contacto> usuarios) {
 		//Con correo electronico ya que es unico
@@ -54,7 +75,14 @@ public class TablonAnuncios {
 	}
 	
 	public void inscribirseInteres() {
+		
+		//Mirar actualizarContacto de la clase gestorContactos.
 	}
+	
+	/**
+	 * Metodo que crea un auncio mediante llamadas a los metodos de la factoria
+	 * @param Identificador del anuncio. Desde el main se le pasa el size del vector anuncios por lo que no se repite.
+	*/
 	
 	public Anuncio crearAnuncio(int id) {
 		
@@ -62,8 +90,6 @@ public class TablonAnuncios {
 		ConcreteFactory anuncioFactory = new ConcreteFactory();
 		Scanner sc=new Scanner(System.in);
 		
-		
-		//REVISAR ESTO.
 		
 		System.out.println("Que tipo de anuncio quieres crear: ");
 		System.out.println("1. Anuncio General");
@@ -110,6 +136,12 @@ public class TablonAnuncios {
 		
 	}
 	
+	/**
+	 * Metodo que muestra los anuncios del contacto identificado en el tablon
+	 * @param Usuario propietario del tablon.
+	 * @param Lista de anuncios.
+	*/
+	
 	public void mostrarAnuncios(Contacto e, ArrayList<Anuncio> anuncios) {
 		System.out.println("Numero total de anuncios: " + anuncios.size());
 		int cont=0;
@@ -125,12 +157,12 @@ public class TablonAnuncios {
 				}
 				
 				else {
-					//Hacer algo para cambiar estados
+					
 					Date fechaActual=new Date();
-					//Puede ser que este al reves. Camiar < >.
+					
 					if( (fechaActual.compareTo(((AnuncioFlash) a).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) a).getFechaFinal())<0) ){
 						
-						//Esto creo que no es una buena practica.
+						
 						Estados estado=Estados.Publicado;
 						a.setEstado(estado);
 						System.out.println(a.tooString());

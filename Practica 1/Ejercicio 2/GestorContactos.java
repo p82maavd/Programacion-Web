@@ -356,8 +356,11 @@ public class GestorContactos {
 	
 	/**
 	 * Este método se encarga de actualizar un contacto.
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	*/
-	public void actualizarContacto(Contacto e) {
+	//Separarlos por funciones para ponerlo en tablon anuncios en inscribirIntereses.
+	public void actualizarContacto(Contacto e) throws FileNotFoundException, IOException {
 		
 		
 		System.out.println("Que quieres modificar: 1. Nombre 2. Apellidos 3. Email 4. Fecha Nacimiento 5. Intereses");
@@ -451,6 +454,8 @@ public class GestorContactos {
 			
 			
 		}
+		
+		guardarDatos();
 		
 		//sc.close();
 		

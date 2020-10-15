@@ -1,6 +1,7 @@
 package practica1;
 
 import java.io.EOFException;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,14 @@ import java.util.List;
 import java.util.Scanner;
 
 import practica1.Anuncio.Estados;
+
+/**
+ * 
+ * @author Damian Martinez
+ * @author Daniel Ortega
+ * Declaracion de la clase GestorAnuncios
+ *
+ */
 
 public class GestorAnuncios {
 	
