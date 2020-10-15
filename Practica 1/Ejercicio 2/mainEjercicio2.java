@@ -170,7 +170,7 @@ public class mainEjercicio2 {
 							
 								if(a==1) {
 									
-									//Copia pega de la parte de actualizar contacto de los intereses de añadir.
+									tablon.inscribirseInteres();
 									
 								}
 							

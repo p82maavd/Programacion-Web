@@ -359,7 +359,7 @@ public class GestorContactos {
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	*/
-	//Separarlos por funciones para ponerlo en tablon anuncios en inscribirIntereses.
+	
 	public void actualizarContacto(Contacto e) throws FileNotFoundException, IOException {
 		
 		
@@ -391,18 +391,26 @@ public class GestorContactos {
 		}
 		
 		else if(a==4) {
-			String nuevafecha="01/01/1970";
+			String nuevafecha=new String();
 			System.out.print("Introduzca la nueva fecha de nacimiento(dd/mm/yyyy): ");
 			nuevafecha = sc.nextLine();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			 
-			Date dnuevafecha = null;
-			try {
-				dnuevafecha = formatter.parse(nuevafecha);
-			} catch (ParseException e1) {
-				
-				e1.printStackTrace();
+			Date dnuevafecha = new Date();
+			
+			
+			int cont=1;
+			while(cont!=0) {
+				cont=0;
+				try {
+					nuevafecha = sc.nextLine();
+					dnuevafecha = formatter.parse(nuevafecha);
+				} catch (ParseException e1) {
+					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
+					
+					cont++;
+				}
 			}
 			
 			e.setFechanacimiento(dnuevafecha);
@@ -413,7 +421,7 @@ public class GestorContactos {
 			intereses=e.getIntereses();
 			
 			Integer eleccion;
-			System.out.println("¿Desea eliminar algun inter			es? 1.Si 2.No");
+			System.out.println("¿Desea eliminar algun interes? 1.Si 2.No");
 			eleccion = sc.nextInt();
 			
 			
@@ -431,25 +439,11 @@ public class GestorContactos {
 				linea = sc.nextInt();
 				sc.nextLine();
 				intereses.remove(linea-1);
+				e.setIntereses(intereses);
 			}
 			else {
 				
-				System.out.println("Seleccione un nuevo interes: ");
-				int newinteres=0;
-				int cont=1;
-				for (String myVar : claseintereses.getIntereses()) {
-					System.out.println(cont+" "+myVar);
-					cont++;
-				}
-				
-				newinteres= sc.nextInt();
-				sc.nextLine();
-				
-				for (int i=1;i<=claseintereses.getIntereses().size();i++) {
-					if(newinteres==i) {
-						intereses.add(claseintereses.getIntereses().get(i-1));
-					}
-				}
+				añadirIntereses(e);
 			}
 			
 			
@@ -459,6 +453,30 @@ public class GestorContactos {
 		
 		//sc.close();
 		
+	}
+	
+	public void añadirIntereses(Contacto e) {
+		
+			ArrayList<String> intereses;
+			intereses=e.getIntereses();
+			Scanner sc=new Scanner(System.in);
+			System.out.println("Seleccione un nuevo interes: ");
+			int newinteres=0;
+			int cont=1;
+			for (String myVar : claseintereses.getIntereses()) {
+				System.out.println(cont+" "+myVar);
+				cont++;
+			}
+			
+			newinteres= sc.nextInt();
+			sc.nextLine();
+			
+			for (int i=1;i<=claseintereses.getIntereses().size();i++) {
+				if(newinteres==i) {
+					intereses.add(claseintereses.getIntereses().get(i-1));
+				}
+			}
+			e.setIntereses(intereses);
 	}
 	
 	/**

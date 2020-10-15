@@ -76,7 +76,7 @@ public class TablonAnuncios {
 	
 	public void inscribirseInteres() {
 		
-		//Mirar actualizarContacto de la clase gestorContactos.
+		clasecontactos.añadirIntereses(getUsuario());
 	}
 	
 	/**

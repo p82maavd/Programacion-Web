@@ -31,24 +31,36 @@ public class ConcreteFactory extends AbstractFactory {
 		System.out.print("Introduzca la fecha de inicio(dd/mm/yyyy hh:mm:ss): ");
 		String fechain=new String();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-		fechain = sc.nextLine();
-		try {
-			fechaInicio = formatter.parse(fechain);
-		} catch (ParseException e1) {
-			System.out.println("Error con la fecha");
-			e1.printStackTrace();
+		int cont=1;
+		while(cont!=0) {
+			cont=0;
+			try {
+				fechain = sc.nextLine();
+				fechaInicio = formatter.parse(fechain);
+			} catch (ParseException e1) {
+				System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
+				
+				cont++;
+			}
 		}
 		
 		Date fechaFinal=new Date();
 		System.out.print("Introduzca la fecha final(dd/mm/yyyy hh:mm:ss): ");
 		String fechafin=new String();
-		fechafin = sc.nextLine();
-		try {
-			fechaFinal = formatter.parse(fechafin);
-		} catch (ParseException e2) {
-			System.out.println("Error con la fecha");
-			e2.printStackTrace();
+		
+		cont=1;
+		while(cont!=0) {
+			cont=0;
+			try {
+				fechafin = sc.nextLine();
+				fechaFinal = formatter.parse(fechafin);
+			} catch (ParseException e2) {
+				System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
+				
+				cont++;
+			}
 		}
+		
 		
 		AnuncioFlash product = new AnuncioFlash(id, titulo, cuerpo, e, a, estado, fechaInicio, fechaFinal);
 		return product;
