@@ -4,6 +4,7 @@ package practica1;
  * 
  * @author Damian Martinez
  * @author Daniel Ortega
+ * Declaracion de la clase GestorContactos
  */
 
 
@@ -57,8 +58,7 @@ public class GestorContactos {
 		return this.listaContactos;
 	}
 	
-	//Actualizar estas funciones teniendo en cuenta que pueden devolver varios contactos y al final seleccionar uno. Menos en email que es unico y en intereses ya esta creo, falta comprobarlo.
-	//Creo que estaria mejor separarlo en funciones. Si sobra tiempo.
+	//Creo que estaria mejor separarlo en funciones. Si sobra tiempo. Mirar buscarAnuncios o alguno de esos.
 	public Contacto buscarContacto()  {
 		
 		ArrayList<Contacto> aux=new ArrayList<Contacto>();
@@ -73,11 +73,12 @@ public class GestorContactos {
 		Integer a = sc.nextInt();
 		sc.nextLine();
 		Contacto buscado=null;
-		//Falta por actualizar
+		
 		if(a==1) {
 			
 			String nombreaux;
 			String apellidosaux;
+			
 			int n = 0;
 			System.out.print("Introduzca el nombre de la persona a buscar: ");
 			nombreaux = sc.nextLine();
@@ -86,19 +87,42 @@ public class GestorContactos {
 			for(int i=0; i<this.listaContactos.size();i++) {
 				 if(this.listaContactos.get(i).getNombre().equals(nombreaux) && this.listaContactos.get(i).getApellidos().equals(apellidosaux)) {
 					 n = n + 1;
-					 Contacto e=this.listaContactos.get(i);
-					 return e;
+					 aux.add(this.listaContactos.get(i));
 				 }
-				}
+			}
 			if(n==0) {
 				System.out.print("No se ha encontrado ninguna persona que se llame así ");
+				return null;
 			}
-		}
-		
-		//Falta por actulizar
+			
+			if(n==1) {
+				return aux.get(0);
+			}
+			
+			for(Integer i=0;i<aux.size();i++) {
+				System.out.println(i.toString()+"Nombre: "+aux.get(i).getNombre()+" Email: "+ aux.get(i).getEmail());
+			}
+			
+			System.out.println("Selecciona el contacto buscado");
+				
+			int seleccion2=sc.nextInt();
+			sc.nextLine();
+			
+			for(int i=0;i<aux.size();i++) {
+				
+				if(i==seleccion2) {
+					System.out.println("Contacto Seleccionado");
+					buscado=aux.get(i);		
+					break;
+				}
+			}
+			
+			return buscado;
+				
+		}	
+	
 		else if(a==2) {
 			String emailaux;
-			
 			int n = 0;
 			System.out.print("Indique el email a buscar: ");
 			emailaux = sc.nextLine();
@@ -111,6 +135,7 @@ public class GestorContactos {
 			}
 			if(n==0) {
 				System.out.print("No se ha encontrado ninguna persona con ese email.");
+				return null;
 			}
 
 		}
@@ -135,9 +160,7 @@ public class GestorContactos {
 			for(int i=0; i<claseintereses.getIntereses().size();i++) {
 				
 				if(seleccion==i) {
-					
-					interesaux=claseintereses.getIntereses().get(i);
-					
+					interesaux=claseintereses.getIntereses().get(i);		
 				}
 				
 			}
@@ -148,15 +171,22 @@ public class GestorContactos {
 				
 				for(int i=0;i<d.getIntereses().size();i++) {
 					
-					if(d.getIntereses().get(i).equals(interesaux)) {
-						
+					if(d.getIntereses().get(i).equals(interesaux)) {	
 						aux.add(d);
 						break;
-						
 					}
-					
 				}
 				
+			}
+			
+			if(aux.size()==0) {
+				System.out.println("No existe ningun contacto con dichos intereses");
+				return null;
+			}
+			
+			if(aux.size()==1) {
+				
+				return aux.get(0);
 			}
 			
 			//Imprime todos los contactos con dicho interes.
@@ -164,6 +194,66 @@ public class GestorContactos {
 			for(Integer i=0;i<aux.size();i++) {
 				System.out.println(i.toString()+"Nombre: "+aux.get(i).getNombre()+" Email: "+ aux.get(i).getEmail());
 				
+			}
+			
+			System.out.println("Selecciona el contacto buscado");
+				
+			int seleccion2=sc.nextInt();
+			sc.nextLine();
+			
+			for(int i=0;i<aux.size();i++) {
+				
+				if(i==seleccion2) {
+					System.out.println("Contacto Seleccionado");
+					buscado=aux.get(i);		
+					break;
+				}
+			}
+			return buscado;
+
+		}
+		
+		//Cambiar try catch y actualizar.
+		else if(a==4) {
+			String fechaaux=new String();
+			int n = 0;
+			System.out.print("Indique la fecha de nacimiento(dd/mm/yyyy) a buscar: ");
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+			Date dnuevafecha = new Date();
+			int cont=1;
+			while(cont!=0) {
+				cont=0;
+				try {
+					fechaaux = sc.nextLine();
+					dnuevafecha = formatter.parse(fechaaux);
+				} catch (ParseException e1) {
+					cont++;
+					System.out.print("Fecha mal introducida. Vuelva a introducirla(dd/MM/yyyy): ");
+				}
+			}
+			//Busca los contactos que tengan el interes seleccionado arriba
+			
+			for(Contacto d: this.listaContactos) {
+				if(d.getFechanacimiento().equals(dnuevafecha)) {
+					aux.add(d);			
+				}
+			}
+				
+			
+			if(aux.size()==0) {
+				System.out.println("No existe ningun contacto con dicha fecha de nacimiento");
+				return null;
+			
+			}
+			
+			if(aux.size()==1) {
+				return aux.get(0);
+			}
+			
+			//Imprime todos los contactos con dicha fecha.
+			
+			for(Integer i=0;i<aux.size();i++) {
+				System.out.println(i.toString()+"Nombre: "+aux.get(i).getNombre()+" Email: "+ aux.get(i).getEmail());
 			}
 			
 			System.out.println("Selecciona el contacto buscado");
@@ -183,40 +273,11 @@ public class GestorContactos {
 				}
 			}
 			
-
 			return buscado;
-			
 
 		}
+
 		
-		//Cambiar try catch y actualizar.
-		else if(a==4) {
-			String fechaaux="01/01/1970";
-			int n = 0;
-			System.out.print("Indique la fecha de nacimiento(dd/mm/yyyy) a buscar: ");
-			fechaaux = sc.nextLine();
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-			 
-			Date dnuevafecha = null;
-			try {
-				dnuevafecha = formatter.parse(fechaaux);
-			} catch (ParseException e1) {
-				
-				e1.printStackTrace();
-			}
-			for(int i=0; i<this.listaContactos.size();i++) {
-				 if(this.listaContactos.get(i).getFechanacimiento().equals(dnuevafecha)) {
-					 n = n + 1;
-					 Contacto e=this.listaContactos.get(i);
-					 return e;
-					 
-				 }
-				}
-			if(n==0) {
-				System.out.print("No se ha encontrado ninguna persona que naciera ese día.");
-			}
-
-		}
 		sc.close();
 		//Try catch en el main.
 		return null;
@@ -404,8 +465,6 @@ public class GestorContactos {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			 
 			Date dnuevafecha = new Date();
-			
-			
 			int cont=1;
 			while(cont!=0) {
 				cont=0;
@@ -414,7 +473,6 @@ public class GestorContactos {
 					dnuevafecha = formatter.parse(nuevafecha);
 				} catch (ParseException e1) {
 					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
-					
 					cont++;
 				}
 			}
@@ -492,24 +550,25 @@ public class GestorContactos {
 	public void cargarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		try {
-		ObjectInputStream file = new ObjectInputStream(new FileInputStream("fich.dat"));
-		Contacto clase=null;
-		do {
-			try {
-				 clase = (Contacto) file.readObject(); 
-		         } catch (EOFException e) {
-		            System.out.println("");
-		            System.out.println("Contactos cargados correctamente");
-		            break;
-		         } 
+			Configuracion config=new Configuracion();
+			ObjectInputStream file = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_CONTACTO")));
+			Contacto clase=null;
+			do {
+				try {
+					 clase = (Contacto) file.readObject(); 
+			         } catch (EOFException e) {
+			            System.out.println("");
+			            System.out.println("Contactos cargados correctamente");
+			            break;
+			         } 
+				
+				this.listaContactos.add(clase);
+				
+			}
+			while(clase!=null) ;
+				         	
 			
-			this.listaContactos.add(clase);
-			
-		}
-		while(clase!=null) ;
-			         	
-		
-		file.close();
+			file.close();
 		}catch(FileNotFoundException e) {
 			guardarDatos();
 		}
@@ -522,7 +581,9 @@ public class GestorContactos {
 	*/
 	public void guardarDatos() throws FileNotFoundException, IOException {
 		
-		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream( "fich.dat" ));
+		Configuracion config= new Configuracion();
+		
+		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(config.getProperty("DATA_FILE_CONTACTO")));
 		
 		Contacto auxc=null;
 		

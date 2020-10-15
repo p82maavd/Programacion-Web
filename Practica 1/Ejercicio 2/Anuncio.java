@@ -107,7 +107,7 @@ public abstract class Anuncio implements Serializable {
 	public void setEstado(Estados estado) {
 		this.estado = estado;
 	}
-
+	//Esto ver como administrarlo luego.
 	public String tooString() {
 		
 		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");

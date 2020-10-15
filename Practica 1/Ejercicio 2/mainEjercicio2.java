@@ -12,6 +12,7 @@ public class mainEjercicio2 {
 		
 		TablonAnuncios tablon= TablonAnuncios.getInstance();
 		Intereses gestorIntereses= Intereses.getInstance();
+		
 		int a;
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);

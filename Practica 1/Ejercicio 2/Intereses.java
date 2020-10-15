@@ -1,8 +1,5 @@
 package practica1;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -39,8 +36,8 @@ public class Intereses {
 	public void cargarIntereses() {
 		
 		try {
-	        
-			 setIntereses((ArrayList<String>) Files.readAllLines(Paths.get("intereses.txt")));
+	        Configuracion config=new Configuracion();
+			setIntereses((ArrayList<String>) Files.readAllLines(Paths.get(config.getProperty("DATA_FILE_INTERESES"))));
 	        
 	      }
 	      catch(Exception e){
@@ -56,7 +53,8 @@ public class Intereses {
         PrintWriter pw = null;
         try
         {
-            fichero = new FileWriter("intereses.txt",true);
+        	Configuracion config=new Configuracion();
+            fichero = new FileWriter(config.getProperty("DATA_FILE_INTERESES"),true);
             pw = new PrintWriter(fichero);
 
             //pw.println(cadena);
@@ -90,7 +88,8 @@ public class Intereses {
         PrintWriter pw = null;
         try
         {
-            fichero = new FileWriter("properties.txt",true);
+        	Configuracion config=new Configuracion();
+            fichero = new FileWriter(config.getProperty("DATA_FILE_INTERESES"),true);
             pw = new PrintWriter(fichero);
 
             pw.println(cadena);

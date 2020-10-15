@@ -74,11 +74,11 @@ public class GestorAnuncios {
 
 	public void guardarAnuncio() throws FileNotFoundException, IOException {
 		
-		
-		ObjectOutputStream general = new ObjectOutputStream(new FileOutputStream( "general.dat" ));
-		ObjectOutputStream tematico = new ObjectOutputStream(new FileOutputStream( "tematico.dat" ));
-		ObjectOutputStream flash = new ObjectOutputStream(new FileOutputStream( "flash.dat" ));
-		ObjectOutputStream individualizado = new ObjectOutputStream(new FileOutputStream( "individualizado.dat" ));
+		Configuracion config=new Configuracion();
+		ObjectOutputStream general = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_GENERAL") ));
+		ObjectOutputStream tematico = new ObjectOutputStream(new FileOutputStream(config.getProperty("DATA_FILE_TEMATICO") ));
+		ObjectOutputStream flash = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_FLASH") ));
+		ObjectOutputStream individualizado = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_INDIVIDUALIZADO") ));
 		String string=new String();
 		
 		Anuncio auxc=null;
@@ -113,67 +113,68 @@ public class GestorAnuncios {
 	
 	public void cargarAnuncios() throws FileNotFoundException, IOException, ClassNotFoundException {
 		try {
-		ObjectInputStream tematico = new ObjectInputStream(new FileInputStream("tematico.dat"));
-		ObjectInputStream flash = new ObjectInputStream(new FileInputStream("flash.dat"));
-		ObjectInputStream individualizado = new ObjectInputStream(new FileInputStream("individualizado.dat"));
-		ObjectInputStream general = new ObjectInputStream(new FileInputStream("general.dat"));
-		
-		Anuncio clase= null;
-		do {
-			try {
-				 clase = (AnuncioTematico) tematico.readObject(); 
-		         } catch (EOFException e) {
-		            System.out.println("");
-		            System.out.println("Anuncios Tematicos cargados correctamente");
-		            break;
-		         } 
+			Configuracion config=new Configuracion();
+			ObjectInputStream tematico = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_TEMATICO")));
+			ObjectInputStream flash = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_FLASH")));
+			ObjectInputStream individualizado = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_INDIVIDUALIZADO")));
+			ObjectInputStream general = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_GENERAL")));
 			
-			this.listaAnuncios.add(clase);
-		}
-		while(clase!=null); 
-		tematico.close();
-		
-		do {
-			try {
-				 clase = (AnuncioFlash) flash.readObject(); 
-		         } catch (EOFException e) {
-		            System.out.println("");
-		            System.out.println("Anuncios Flash cargados correctamente");
-		            break;
-		         } 
+			Anuncio clase= null;
+			do {
+				try {
+					 clase = (AnuncioTematico) tematico.readObject(); 
+			         } catch (EOFException e) {
+			            System.out.println("");
+			            System.out.println("Anuncios Tematicos cargados correctamente");
+			            break;
+			         } 
+				
+				this.listaAnuncios.add(clase);
+			}
+			while(clase!=null); 
+			tematico.close();
 			
-			this.listaAnuncios.add(clase);
-		}
-		while(clase!=null); 
-		flash.close();
-		
-		do {
-			try {
-				 clase = (AnuncioIndividualizado) individualizado.readObject(); 
-		         } catch (EOFException e) {
-		            System.out.println("");
-		            System.out.println("Anuncios Individualizados cargados correctamente");
-		            break;
-		         } 
+			do {
+				try {
+					 clase = (AnuncioFlash) flash.readObject(); 
+			         } catch (EOFException e) {
+			            System.out.println("");
+			            System.out.println("Anuncios Flash cargados correctamente");
+			            break;
+			         } 
+				
+				this.listaAnuncios.add(clase);
+			}
+			while(clase!=null); 
+			flash.close();
 			
-			this.listaAnuncios.add(clase);
-		}
-		while(clase!=null); 
-		individualizado.close();
-		
-		do {
-			try {
-				 clase = (AnuncioGeneral) general.readObject(); 
-		         } catch (EOFException e) {
-		            System.out.println("");
-		            System.out.println("Anuncios Generales cargados correctamente");
-		            break;
-		         } 
+			do {
+				try {
+					 clase = (AnuncioIndividualizado) individualizado.readObject(); 
+			         } catch (EOFException e) {
+			            System.out.println("");
+			            System.out.println("Anuncios Individualizados cargados correctamente");
+			            break;
+			         } 
+				
+				this.listaAnuncios.add(clase);
+			}
+			while(clase!=null); 
+			individualizado.close();
 			
-			this.listaAnuncios.add(clase);
-		}
-		while(clase!=null); 
-		general.close();
+			do {
+				try {
+					 clase = (AnuncioGeneral) general.readObject(); 
+			         } catch (EOFException e) {
+			            System.out.println("");
+			            System.out.println("Anuncios Generales cargados correctamente");
+			            break;
+			         } 
+				
+				this.listaAnuncios.add(clase);
+			}
+			while(clase!=null); 
+			general.close();
 		
 		}catch(FileNotFoundException e) {
 			guardarAnuncio();
@@ -937,10 +938,8 @@ public class GestorAnuncios {
 		
 		//Ordena las fechas
 		Collections.sort(fechas);
-		
-		
+			
 		//Va comparando las fechas ordenadas extraidas anteriormente con las que coge del vector principal hasta que sean iguales. Si coinciden pues las añade a otro vector y las elimina de los otros dos.
-
 		
 		while(aux.size()!=0) {
 			for(int j=0; j<getListaAnuncios().size();) {
@@ -962,11 +961,6 @@ public class GestorAnuncios {
 		
 		return ordenado;
 		
-		
-        
-  
-		
 	}
 	
-
 }

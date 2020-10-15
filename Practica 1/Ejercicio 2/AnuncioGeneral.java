@@ -27,5 +27,7 @@ public class AnuncioGeneral extends Anuncio{
 		//CREO QUE YA ESTA ARREGLADO
 		
 	}
+	
+	
 
 }
