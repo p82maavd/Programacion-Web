@@ -1,4 +1,4 @@
-package practica1;
+package Ejercicio2;
 
 /**
  * 
@@ -285,9 +285,10 @@ public class GestorContactos {
 
 	/**
 	 * Este método se encarga de dar de alta a un contacto.
+	 * @throws ClassNotFoundException 
 	*/
 	
-	public void darAlta() throws IOException {
+	public void darAlta() throws IOException, ClassNotFoundException {
 		
 			Scanner sc = new Scanner(System.in);
 	        String nuevonombre;
@@ -409,8 +410,9 @@ public class GestorContactos {
 	/**
 	 * Este método se encarga de dar de baja a un contacto.
 	 * @param Contacto que desea dar de baja
+	 * @throws ClassNotFoundException 
 	*/
-	public void darBaja(Contacto e) throws FileNotFoundException, IOException {
+	public void darBaja(Contacto e) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		for(int i=0; i<this.listaContactos.size();i++) {
 			if(e.getEmail().equals(this.listaContactos.get(i).getEmail())) {
@@ -425,9 +427,10 @@ public class GestorContactos {
 	 * Este método se encarga de actualizar un contacto.
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
+	 * @throws ClassNotFoundException 
 	*/
 	
-	public void actualizarContacto(Contacto e) throws FileNotFoundException, IOException {
+	public void actualizarContacto(Contacto e) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		
 		System.out.println("Que quieres modificar: 1. Nombre 2. Apellidos 3. Email 4. Fecha Nacimiento 5. Intereses");
@@ -550,7 +553,7 @@ public class GestorContactos {
 	public void cargarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		try {
-			Configuracion config=new Configuracion();
+			Configuracion config=Configuracion.getInstance(null);
 			ObjectInputStream file = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_CONTACTO")));
 			Contacto clase=null;
 			do {
@@ -578,10 +581,11 @@ public class GestorContactos {
 	
 	/**
 	 * Este método se encarga de guardar los contactos en el fichero de datos.
+	 * @throws ClassNotFoundException 
 	*/
-	public void guardarDatos() throws FileNotFoundException, IOException {
+	public void guardarDatos() throws FileNotFoundException, IOException, ClassNotFoundException {
 		
-		Configuracion config= new Configuracion();
+		Configuracion config=Configuracion.getInstance(null);
 		
 		ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream(config.getProperty("DATA_FILE_CONTACTO")));
 		

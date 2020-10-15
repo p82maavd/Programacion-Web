@@ -1,4 +1,4 @@
-package practica1;
+package Ejercicio2;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,19 +6,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-
-
 public class Configuracion {
 
 	Properties properties=null;
 	InputStream entrada=null;
 	
-	//private static Configuracion instance =null;
+	private static Configuracion instance =null;
 	        
-	public Configuracion() throws FileNotFoundException {
+	public Configuracion(String ubicacion) throws FileNotFoundException {
 		this.properties = new Properties();
 		//Hacer que se cree si no existe.
-	    entrada = new FileInputStream("datos2.properties");
+	    entrada = new FileInputStream(ubicacion);
 	    try {
 	    	properties.load(entrada);
 	    } catch (FileNotFoundException ex) {
@@ -27,13 +25,13 @@ public class Configuracion {
 	    } 
 	}
 	
-	/*public static Configuracion getInstance() throws ClassNotFoundException, IOException {
+	public static Configuracion getInstance(String ubicacion) throws ClassNotFoundException, IOException {
 		
 		if(instance==null) {
-			instance=new Configuracion();
+			instance=new Configuracion(ubicacion);
 		}
 		return instance;
-	}*/
+	}
 	       
 
 	public String getProperty(String key) {

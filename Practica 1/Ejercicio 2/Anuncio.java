@@ -1,4 +1,4 @@
-package practica1;
+package Ejercicio2;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;

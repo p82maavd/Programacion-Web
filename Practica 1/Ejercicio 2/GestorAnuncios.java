@@ -1,4 +1,4 @@
-package practica1;
+package Ejercicio2;
 
 import java.io.EOFException;
 
@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import practica1.Anuncio.Estados;
+import Ejercicio2.Anuncio.Estados;
 
 /**
  * 
@@ -72,9 +72,9 @@ public class GestorAnuncios {
 		this.listaAnuncios = listaAnuncios;
 	}
 
-	public void guardarAnuncio() throws FileNotFoundException, IOException {
+	public void guardarAnuncio() throws FileNotFoundException, IOException, ClassNotFoundException {
 		
-		Configuracion config=new Configuracion();
+		Configuracion config=Configuracion.getInstance(null);
 		ObjectOutputStream general = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_GENERAL") ));
 		ObjectOutputStream tematico = new ObjectOutputStream(new FileOutputStream(config.getProperty("DATA_FILE_TEMATICO") ));
 		ObjectOutputStream flash = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_FLASH") ));
@@ -113,7 +113,7 @@ public class GestorAnuncios {
 	
 	public void cargarAnuncios() throws FileNotFoundException, IOException, ClassNotFoundException {
 		try {
-			Configuracion config=new Configuracion();
+			Configuracion config=Configuracion.getInstance(null);
 			ObjectInputStream tematico = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_TEMATICO")));
 			ObjectInputStream flash = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_FLASH")));
 			ObjectInputStream individualizado = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_INDIVIDUALIZADO")));
@@ -183,13 +183,13 @@ public class GestorAnuncios {
 	}
 	
 	
-	public void addNewAnuncio(Anuncio a) throws FileNotFoundException, IOException {
+	public void addNewAnuncio(Anuncio a) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		this.listaAnuncios.add(a);
 		guardarAnuncio();
 	}
 	
-	public void publicarAnuncio() throws FileNotFoundException, IOException {
+	public void publicarAnuncio() throws FileNotFoundException, IOException, ClassNotFoundException {
 		Scanner sc=new Scanner(System.in);
 		Anuncio buscado = null;
 		int cont=0;
@@ -548,7 +548,7 @@ public class GestorAnuncios {
 		
 	}
 	
-	public void archivarAnuncio() throws FileNotFoundException, IOException {
+	public void archivarAnuncio() throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		Scanner sc=new Scanner(System.in);
 		Anuncio buscado = null;

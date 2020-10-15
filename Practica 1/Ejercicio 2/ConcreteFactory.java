@@ -1,4 +1,4 @@
-package practica1;
+package Ejercicio2;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import practica1.Anuncio.Estados;
+import Ejercicio2.Anuncio.Estados;
 
 
 

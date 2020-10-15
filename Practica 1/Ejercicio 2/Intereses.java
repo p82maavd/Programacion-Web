@@ -1,4 +1,4 @@
-package practica1;
+package Ejercicio2;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -36,7 +36,7 @@ public class Intereses {
 	public void cargarIntereses() {
 		
 		try {
-	        Configuracion config=new Configuracion();
+	        Configuracion config=Configuracion.getInstance(null);
 			setIntereses((ArrayList<String>) Files.readAllLines(Paths.get(config.getProperty("DATA_FILE_INTERESES"))));
 	        
 	      }
@@ -53,7 +53,7 @@ public class Intereses {
         PrintWriter pw = null;
         try
         {
-        	Configuracion config=new Configuracion();
+        	Configuracion config=Configuracion.getInstance(null);
             fichero = new FileWriter(config.getProperty("DATA_FILE_INTERESES"),true);
             pw = new PrintWriter(fichero);
 
@@ -88,7 +88,7 @@ public class Intereses {
         PrintWriter pw = null;
         try
         {
-        	Configuracion config=new Configuracion();
+        	Configuracion config=Configuracion.getInstance(null);
             fichero = new FileWriter(config.getProperty("DATA_FILE_INTERESES"),true);
             pw = new PrintWriter(fichero);
 
