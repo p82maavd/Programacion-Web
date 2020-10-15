@@ -5,11 +5,13 @@ package practica1entrega;
  * 
  * @author Damian Martinez
  * @author Daniel Ortega
+ * 
+ * Declaracion de la clase Contacto.
  */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-//Comentar lo de Serializable
+
 public class Contacto implements Serializable{
 	
 	public enum Intereses {
