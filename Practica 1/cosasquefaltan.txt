@@ -1,6 +1,6 @@
 1. Comentarios javadoc dentro del codigo
 2. consultarAnuncio en cada tipo de anuncio con sus atributos especificos. Cuidado con las fechas.
-4. Mirar a ver los // comentarios
+4. Mirar a ver los // comentarios (Actualizar buscarContacto clase gestorContactos)
 5. Terminar Informe de Practicas.
 7. Fichero Properties. Explicacion en el guion de la practica.
 8. Crear JARs. Explicacion en el guion de la practica. (Revisar GuardarAnuncios cuando se haga, tambien mostrarAnuncios)
