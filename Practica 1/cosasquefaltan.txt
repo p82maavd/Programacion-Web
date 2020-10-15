@@ -6,5 +6,5 @@
 6. Revisar que este todas las funciones del Flash y  las que tengan que ver con fechas para que se vean bien al imprimir
 7. Fichero Properties. Explicacion en el guion de la practica.
 8. Crear JARs. Explicacion en el guion de la practica. (Revisar GuardarAnuncios cuando se haga, tambien mostrarAnuncios)
-9. Falta alguna funcion del tablon que es como modificarContacto para añadirle un interes. 
-10. Habria que cambiar los scanneres pero es un coñazo, solo si sobra tiempo solo dejar uno por funcion y despues de cada nextInt() poner un nextLine()
+9. Falta alguna funcion del tablon que es como modificarContacto para añadirle un interes. (inscribirIntereses en TablonAnuncios)
+10. Habria que cambiar los scanneres, solo si sobra tiempo solo dejar uno por funcion y despues de cada nextInt() poner un nextLine(), creo que ya estan todos.
