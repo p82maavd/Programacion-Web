@@ -1,9 +1,6 @@
 1. Comentarios javadoc dentro del codigo y comentar partes dificiles del codigo(mostrarAnuncios)
 2. Cambiar consultar anuncio por mostrarAnuncio de cada anuncio
-
 4. Mirar a ver los // comentarios. No se si falta alguno.
 5. Terminar Informe de Practicas.
-6. Intentar arreglar el singleton de configuracion y asegurarse de cambiarlo en todas las funciones, no es prioritario
 7. Fichero Properties. Explicacion en el guion de la practica.
-8. Crear JARs. Explicacion en el guion de la practica. (Revisar GuardarAnuncios cuando se haga, tambien mostrarAnuncios)
 10. Habria que cambiar los scanneres, solo si sobra tiempo solo dejar uno por funcion y despues de cada nextInt() poner un nextLine(), creo que ya estan todos.
