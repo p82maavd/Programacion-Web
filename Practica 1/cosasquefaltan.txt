@@ -3,4 +3,4 @@
 4. Mirar a ver los // comentarios. No se si falta alguno.
 5. Revisar Informe de Practicas.
 7. Explicacion en el guion de la practica de Properties.
-10. Comprobar si funciona el programa si cierro los Scanner.
+
