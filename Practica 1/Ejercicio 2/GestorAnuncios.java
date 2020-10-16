@@ -218,6 +218,10 @@ public class GestorAnuncios {
 		}
 		
 		Estados estado;
+		
+		if(!(buscado.getClass().toString().equals("class practica1.AnuncioIndividualizado"))) {
+			buscado.setDestinatarios(clasecontactos.getContactos());
+		}
 		if(!(buscado.getClass().toString().equals("class practica1.AnuncioFlash"))) {
 			estado=Estados.Publicado;
 		}
@@ -359,6 +363,7 @@ public class GestorAnuncios {
 		
 		Scanner sc=new Scanner(System.in);
 		Scanner sl=new Scanner(System.in);
+		ControlDeErrores control=new ControlDeErrores();
 		
 		System.out.println("Que quieres modificar: ");
 		System.out.println("1. Titulo ");
@@ -395,6 +400,11 @@ public class GestorAnuncios {
 				cont=0;
 				try {
 					fechain = sc.nextLine();
+					while(!(control.esFecha(fechain))) {
+						System.out.println("Formato de la fecha (dd/mm/yyyy)");
+						System.out.print("Vuelva a introducir la fecha: ");
+						fechain=sc.nextLine();
+					}
 					fechaInicio = formatter.parse(fechain);
 				} catch (ParseException e1) {
 					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
@@ -417,6 +427,11 @@ public class GestorAnuncios {
 				cont=0;
 				try {
 					fechafin = sc.nextLine();
+					while(!(control.esFecha(fechafin))) {
+						System.out.println("Formato de la fecha (dd/mm/yyyy)");
+						System.out.print("Vuelva a introducir la fecha: ");
+						fechafin=sc.nextLine();
+					}
 					fechaFinal = formatter.parse(fechafin);
 				} catch (ParseException e2) {
 					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
@@ -836,22 +851,6 @@ public class GestorAnuncios {
 		
 	}
 	
-	public void consultarAnuncio(Anuncio e) {
-		
-		//Esto mejor en cada clase de Anuncio hacer un metodo toString segun sus atributos y quitar el de la clase Anuncio.
-		
-		String cadena=new String();
-		System.out.println("Id: "+e.getId()+" Titulo: "+ e.getTitulo()+" Cuerpo: "+e.getCuerpo()+" Propietario: "+ e.getUsuario().getEmail());
-		System.out.println("Estado: " + e.getEstado().getEstados());
-		System.out.println("Destinatarios: ");
-		for(int i=0; i<e.getDestinatarios().size();i++) {
-			cadena=e.getDestinatarios().get(i).getEmail();
-			System.out.println(cadena);
-		}
-		System.out.println("");
-		
-	}
-	
 	public void mostrarAnuncios() {
 		
 		Scanner sc=new Scanner(System.in);
@@ -871,7 +870,21 @@ public class GestorAnuncios {
 		
 		for(Anuncio a: getListaAnuncios()) {
 			System.out.println("");
-			consultarAnuncio(a);
+			if(a.getClass().toString().equals("class practica1.AnuncioGeneral")) {
+				System.out.println(((AnuncioGeneral) a).tooString());
+			}
+			
+			else if(a.getClass().toString().equals("class practica1.AnuncioTematico")) {
+				System.out.println(((AnuncioTematico) a).tooString());
+			}
+			else if(a.getClass().toString().equals("class practica1.AnuncioIndividualizado")) {
+				System.out.println(((AnuncioIndividualizado) a).tooString());
+			}
+			
+			else {
+				System.out.println(((AnuncioFlash) a).tooString());
+			}
+			
 		}
 	}
 	

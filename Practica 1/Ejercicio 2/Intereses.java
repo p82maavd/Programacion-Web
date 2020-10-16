@@ -2,6 +2,7 @@ package Ejercicio2;
 
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class Intereses {
 		
 		try {
 	        Configuracion config=Configuracion.getInstance(null);
-			setIntereses((ArrayList<String>) Files.readAllLines(Paths.get(config.getProperty("DATA_FILE_INTERESES"))));
+			setIntereses((ArrayList<String>) Files.readAllLines(Paths.get(config.getProperty("DATA_FILE_INTERESES")), Charset.forName("UTF-8") ));
 	        
 	      }
 	      catch(Exception e){

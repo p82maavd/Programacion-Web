@@ -17,6 +17,7 @@ public class ConcreteFactory extends AbstractFactory {
 	
 	@Override
 	public AnuncioFlash createAnuncioFlash(Contacto e,ArrayList <Contacto> a, int ids) {
+		ControlDeErrores control=new ControlDeErrores();
 		Scanner sc=new Scanner(System.in);
 		int id=ids;
 		String titulo=new String();
@@ -36,6 +37,11 @@ public class ConcreteFactory extends AbstractFactory {
 			cont=0;
 			try {
 				fechain = sc.nextLine();
+				while(!(control.esFecha(fechain))) {
+					System.out.println("Formato de la fecha (dd/mm/yyyy)");
+					System.out.print("Vuelva a introducir la fecha: ");
+					fechain=sc.nextLine();
+				}
 				fechaInicio = formatter.parse(fechain);
 			} catch (ParseException e1) {
 				System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
@@ -53,6 +59,11 @@ public class ConcreteFactory extends AbstractFactory {
 			cont=0;
 			try {
 				fechafin = sc.nextLine();
+				while(!(control.esFecha(fechafin))) {
+					System.out.println("Formato de la fecha (dd/mm/yyyy)");
+					System.out.print("Vuelva a introducir la fecha: ");
+					fechafin=sc.nextLine();
+				}
 				fechaFinal = formatter.parse(fechafin);
 			} catch (ParseException e2) {
 				System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
@@ -92,7 +103,7 @@ public class ConcreteFactory extends AbstractFactory {
 				linea=sc.nextLine();
 				
 				for(Contacto d: a) {
-					if(d.getEmail().equals(linea)) {
+					if(d.getEmail().equals(linea.toLowerCase())) {
 						destinatarios.add(d);
 						
 						break;
