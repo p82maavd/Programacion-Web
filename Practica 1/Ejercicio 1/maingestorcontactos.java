@@ -6,10 +6,7 @@ package Ejercicio1;
  * @author Daniel Ortega
  */
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -41,7 +38,7 @@ public class maingestorcontactos {
 			
 				if(a==1) {
 					gestor.darAlta();
-					System.out.println("Contacto dado de alta");
+					
 				}
 			
 				else if(a==2) {

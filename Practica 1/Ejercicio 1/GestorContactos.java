@@ -28,6 +28,8 @@ public class GestorContactos {
 	
 	private static GestorContactos instance =null;
 	
+	private ControlDeErrores control=new ControlDeErrores();
+	
 	private ArrayList <Contacto> listaContactos;
 	
 	//Configuracion config = new Configuracion();
@@ -281,40 +283,61 @@ public class GestorContactos {
 
 	public void darAlta() throws IOException, ClassNotFoundException {
 		
+		
 			Scanner sc = new Scanner(System.in);
 			String nuevonombre;
 			
 			System.out.print("Introduzca el nuevo nombre: ");
 			nuevonombre = sc.nextLine();
 			
+			while(!(control.esNombre(nuevonombre))) {
+				System.out.println("No se pueden introducir numeros en el nombre");
+				System.out.print("Vuelva a introducir el nombre: ");
+				nuevonombre=sc.nextLine();
+			}
 			
 			String nuevoapellido;
 			System.out.print("Introduzca el nuevo apellido: ");
 			nuevoapellido = sc.nextLine();
+			
+			while(!(control.esNombre(nuevoapellido))) {
+				System.out.println("No se pueden introducir numeros en el apellido");
+				System.out.print("Vuelva a introducir el apellido: ");
+				nuevoapellido=sc.nextLine();
+			}
 			
 			Boolean email= true;
 			String nuevoemail=new String();
 			
 			while(email) {
 				
-				System.out.print("Introduzca el email: ");
+				System.out.print("Introduzca el nuevo email: ");
 				nuevoemail = sc.nextLine();
+				
+				while(!(control.esEmail(nuevoemail))) {
+					System.out.println("El email debe tener @");
+					System.out.print("Vuelva a introducir el email: ");
+					nuevoemail=sc.nextLine();
+				}
 				
 				if(this.listaContactos.size()==0) {
 					email=false;
 					continue;
 				}
-				
+				int cont=0;
 				for (Contacto myVar : this.listaContactos) {
 					if(nuevoemail.equals(myVar.getEmail())) {
-							
+						cont++;
 					}
-					else {
-						email=false;
-					}
+					
 				}
-				if(email) {
+				if(cont>0) {
 					System.out.println("Dicho email esta ya en uso");
+					email=true;
+				}
+				
+				else {
+					email=false;
 				}
 				
 			}
@@ -329,9 +352,15 @@ public class GestorContactos {
 				conta=0;
 				try {
 					nuevafecha = sc.nextLine();
+					//Este control es necesario porque la fecha se parsea aunque no tenga el formato de arriba. Por ejemplo no salta error si pones dd/mmm/yyy
+					while(!(control.esFecha(nuevafecha))) {
+						System.out.println("Formato de la fecha (dd/mm/yyyy)");
+						System.out.print("Vuelva a introducir la fecha: ");
+						nuevafecha=sc.nextLine();
+					}
 					dnuevafecha = formatter.parse(nuevafecha);
 				} catch (ParseException e1) {
-					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
+					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy): ");
 					
 					conta++;
 				}
@@ -379,7 +408,8 @@ public class GestorContactos {
 			this.listaContactos.add(e);
 			
 			this.guardarDatos();
-		
+			
+			System.out.println("Contacto dado de alta");
 	}
 	
 	/**
@@ -400,42 +430,88 @@ public class GestorContactos {
 	
 	/**
 	 * Este método se encarga de actualizar un contacto.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	*/
-	public void actualizarContacto(Contacto e) {
-		
+	public void actualizarContacto(Contacto e) throws FileNotFoundException, ClassNotFoundException, IOException {
 		
 		System.out.println("Que quieres modificar: 1. Nombre 2. Apellidos 3. Email 4. Fecha Nacimiento 5. Intereses");
 		Scanner sc = new Scanner(System.in);
-		Scanner sl = new Scanner(System.in);
 		System.out.print("Introduzca un número entero: ");
 		Integer a = sc.nextInt();
+		sc.nextLine();
 		
 		
 		if(a==1) {
 			String nuevonombre;
 			System.out.print("Introduzca el nuevo nombre: ");
-			nuevonombre = sl.nextLine();
+			nuevonombre = sc.nextLine();
+			
+			while(!(control.esNombre(nuevonombre))) {
+				System.out.println("No se pueden introducir numeros en el nombre");
+				System.out.print("Vuelva a introducir el nombre: ");
+				nuevonombre=sc.nextLine();
+			}
 			e.setNombre(nuevonombre);
 		}
 		
 		else if(a==2) {
 			String nuevoapellido;
 			System.out.print("Introduzca el nuevo apellido: ");
-			nuevoapellido = sl.nextLine();
+			nuevoapellido = sc.nextLine();
+			
+			while(!(control.esNombre(nuevoapellido))) {
+				System.out.println("No se pueden introducir numeros en el apellido");
+				System.out.print("Vuelva a introducir el apellido: ");
+				nuevoapellido=sc.nextLine();
+			}
 			e.setApellidos(nuevoapellido);
 		}
 		
 		else if(a==3) {
-			String nuevoemail;
-			System.out.print("Introduzca el nuevo email: ");
-			nuevoemail = sl.nextLine();
+			Boolean email= true;
+			String nuevoemail=new String();
+			
+			while(email) {
+				
+				System.out.print("Introduzca el nuevo email: ");
+				nuevoemail = sc.nextLine();
+				
+				while(!(control.esEmail(nuevoemail))) {
+					System.out.println("El email debe tener @");
+					System.out.print("Vuelva a introducir el email: ");
+					nuevoemail=sc.nextLine();
+				}
+				
+				if(this.listaContactos.size()==0) {
+					email=false;
+					continue;
+				}
+				int cont=0;
+				for (Contacto myVar : this.listaContactos) {
+					if(nuevoemail.equals(myVar.getEmail())) {
+						cont++;
+					}
+					
+				}
+				if(cont>0) {
+					System.out.println("Dicho email esta ya en uso");
+					email=true;
+				}
+				
+				else {
+					email=false;
+				}
+				
+			}
 			e.setEmail(nuevoemail);
 		}
 		
 		else if(a==4) {
 			String nuevafecha="01/01/1970";
 			System.out.print("Introduzca la nueva fecha de nacimiento(dd/mm/yyyy): ");
-			nuevafecha = sl.nextLine();
+			nuevafecha = sc.nextLine();
 			
 			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 			 
@@ -445,6 +521,11 @@ public class GestorContactos {
 				cont=0;
 				try {
 					nuevafecha = sc.nextLine();
+					while(!(control.esFecha(nuevafecha))) {
+						System.out.println("Formato de la fecha (dd/mm/yyyy)");
+						System.out.print("Vuelva a introducir la fecha: ");
+						nuevafecha=sc.nextLine();
+					}
 					dnuevafecha = formatter.parse(nuevafecha);
 				} catch (ParseException e1) {
 					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
@@ -502,6 +583,7 @@ public class GestorContactos {
 		}
 		
 		//sc.close();
+		guardarDatos();
 		
 	}
 	
