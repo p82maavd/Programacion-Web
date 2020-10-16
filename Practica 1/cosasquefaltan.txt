@@ -1,6 +1,6 @@
 1. Comentarios javadoc dentro del codigo y comentar partes dificiles del codigo(mostrarAnuncios)
 2. Falta añadir tooString de los 4 tipos de anuncios cuando me lo pases y eliminar el del principal.
 4. Mirar a ver los // comentarios. No se si falta alguno.
-5. Revisar Informe de Practicas.
-7. Explicacion en el guion de la practica de Properties.
+5. Revisar Informe de Practicas. Explicacion en el guion de la practica de Properties y de Control de errores
+
 
