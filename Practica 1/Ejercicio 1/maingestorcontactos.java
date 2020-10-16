@@ -14,10 +14,9 @@ public class maingestorcontactos {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 		
+		Configuracion config=Configuracion.getInstance(args[0]);
 		GestorContactos gestor = GestorContactos.getInstance();
-		String ubicacion=new String();
-		ubicacion=args[0];
-		Configuracion config=Configuracion.getInstance(ubicacion);
+		
 	
 		Scanner sc = new Scanner(System.in);
 		Boolean condicion=true;
@@ -25,6 +24,7 @@ public class maingestorcontactos {
 		int a= 0;
 		
 		while(condicion) {
+			System.out.println("");
 			System.out.println("Que quieres realizar: ");
 			System.out.println("1. Añadir Contacto");
 			System.out.println("2. Mostrar Contactos");
@@ -35,6 +35,7 @@ public class maingestorcontactos {
 			
 			try {
 				a=sc.nextInt();
+				sc.nextLine();
 			
 				if(a==1) {
 					gestor.darAlta();
@@ -46,18 +47,30 @@ public class maingestorcontactos {
 				}
 		
 				else if(a==3) {
+					try {
 					gestor.darBaja(gestor.buscarContacto());
+					}catch(NullPointerException e) {
+						
+					}
 			
 				}
 				
 				else if(a==4) {
+					try {
 					gestor.actualizarContacto(gestor.buscarContacto());
+					}catch(NullPointerException e) {
+						
+					}
 					
 				}
 				
 				
 				else if(a==5) {
+					try {
 					gestor.consultarContacto(gestor.buscarContacto());
+					}catch(NullPointerException e) {
+						
+					}
 				}
 		
 		
@@ -72,8 +85,7 @@ public class maingestorcontactos {
 			
 			} catch (NoSuchElementException e) {
                 System.out.println("Debes insertar un número");
-             
-                a=sc.nextInt();
+                sc.nextLine();
 
             }
 		

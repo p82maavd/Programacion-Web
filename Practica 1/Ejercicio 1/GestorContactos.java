@@ -32,7 +32,7 @@ public class GestorContactos {
 	
 	private ArrayList <Contacto> listaContactos;
 	
-	//Configuracion config = new Configuracion();
+	
 	/**
 	 * Este método se encarga de crear una instancia en el caso de que no haya una ya creada. Patron de diseño Singleton
 	 * @return Instancia única de GestorContactos.
@@ -66,7 +66,6 @@ public class GestorContactos {
 		
 	}
 		
-	//Creo que estaria mejor separarlo en funciones. Si sobra tiempo. Mirar buscarAnuncios o alguno de esos.
 	public Contacto buscarContacto()  {
 
 		ArrayList<Contacto> aux=new ArrayList<Contacto>();
@@ -90,8 +89,10 @@ public class GestorContactos {
 			int n = 0;
 			System.out.print("Introduzca el nombre de la persona a buscar: ");
 			nombreaux = sc.nextLine();
+			nombreaux = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
 			System.out.print("Introduzca sus apellidos: ");
 			apellidosaux = sc.nextLine();
+			apellidosaux = apellidosaux.substring(0, 1).toUpperCase() + apellidosaux.substring(1).toLowerCase();
 			for(int i=0; i<this.listaContactos.size();i++) {
 				if(this.listaContactos.get(i).getNombre().equals(nombreaux) && this.listaContactos.get(i).getApellidos().equals(apellidosaux)) {
 					n = n + 1;
@@ -159,7 +160,7 @@ public class GestorContactos {
 				}
 				
 				System.out.print("Indique que interes buscar: ");
-				int newinteres= sc.nextInt();
+				Integer newinteres= sc.nextInt();
 				sc.nextLine();
 				
 
@@ -168,8 +169,9 @@ public class GestorContactos {
 				for(Contacto d: this.listaContactos) {
 
 					for(int i=0;i<d.getIntereses().size();i++) {
-
-						if(d.getIntereses().get(i).getId()==newinteres); {	
+						
+						if(d.getIntereses().get(i).getId()==newinteres){	
+							System.out.println(d.getIntereses().get(i).getInteres());
 							aux.add(d);
 							
 						}
@@ -271,8 +273,7 @@ public class GestorContactos {
 
 		}
 
-		//sc.close();
-		//Try catch en el main.
+		
 		return null;
 	}
 	
@@ -404,8 +405,6 @@ public class GestorContactos {
 			
 			}
 			
-			//NO CERRAR SCANNERS, NO FUNCIONA EL MAIN.
-			//sc.close();
 			
 			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail,intereses);
 			
@@ -423,6 +422,9 @@ public class GestorContactos {
 	*/
 	public void darBaja(Contacto e) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
+		if(e==null) {
+			return;
+		}
 		for(int i=0; i<this.listaContactos.size();i++) {
 			if(e.getEmail().equals(this.listaContactos.get(i).getEmail())) {
 				this.listaContactos.remove(i);
@@ -439,6 +441,10 @@ public class GestorContactos {
 	 * @throws FileNotFoundException 
 	*/
 	public void actualizarContacto(Contacto e) throws FileNotFoundException, ClassNotFoundException, IOException {
+		
+		if(e==null) {
+			return;
+		}
 		
 		System.out.println("Que quieres modificar: 1. Nombre 2. Apellidos 3. Email 4. Fecha Nacimiento 5. Intereses");
 		Scanner sc = new Scanner(System.in);
@@ -590,7 +596,6 @@ public class GestorContactos {
 			
 		}
 		
-		//sc.close();
 		guardarDatos();
 		
 	}
@@ -665,9 +670,13 @@ public class GestorContactos {
 	 * Este método se encarga de imprimir los datos de un contacto.
 	*/
 	public void consultarContacto(Contacto e) {
+		
+		if(e==null) {
+			return;
+		}
 		String cadena=new String();
 		SimpleDateFormat objSDF = new SimpleDateFormat("dd/MM/yyyy"); 
-		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento()));
+		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento())+"\n"+"Intereses: ");
 		for(int i=0; i<e.getIntereses().size();i++) {
 			cadena=e.getIntereses().get(i).getInteres();
 			

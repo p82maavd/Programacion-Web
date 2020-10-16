@@ -15,10 +15,10 @@ import java.util.Date;
 public class Contacto implements Serializable{
 	
 	public enum Intereses {
-		Leer("Leer",1), 
-		Cine("Ir al Cine",2), 
-		Futbol("Jugar al futbol",3), 
-		Programar("Programar",4);
+		Leer("Leer",0), 
+		Cine("Ir al Cine",1), 
+		Futbol("Jugar al futbol",2), 
+		Programar("Programar",3);
 		
 		private String interes;
 		private int id;

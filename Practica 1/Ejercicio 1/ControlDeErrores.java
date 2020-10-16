@@ -31,7 +31,6 @@ public class ControlDeErrores {
 		if(fecha.charAt(5)!='/') {
 			return false;
 		}
-		//No es necesario poner para comprobar si el resto son numeros porque daria error al parsear la fecha
 		
 		return true;
 	}
