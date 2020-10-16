@@ -286,25 +286,29 @@ public class GestorContactos {
 		
 			Scanner sc = new Scanner(System.in);
 			String nuevonombre;
-			
-			System.out.print("Introduzca el nuevo nombre: ");
-			nuevonombre = sc.nextLine();
-			
-			while(!(control.esNombre(nuevonombre))) {
+	        String nombreaux;
+	
+	        System.out.print("Introduzca el nuevo nombre: ");
+	        nombreaux = sc.nextLine();
+	        while(!(control.esNombre(nombreaux))) {
 				System.out.println("No se pueden introducir numeros en el nombre");
 				System.out.print("Vuelva a introducir el nombre: ");
-				nuevonombre=sc.nextLine();
+				nombreaux=sc.nextLine();
 			}
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
+
 			
-			String nuevoapellido;
-			System.out.print("Introduzca el nuevo apellido: ");
-			nuevoapellido = sc.nextLine();
-			
-			while(!(control.esNombre(nuevoapellido))) {
+			SString nuevoapellido;
+	        String apellidoaux;
+	        System.out.print("Introduzca el nuevo apellido: ");
+	        apellidoaux = sc.nextLine();
+	        while(!(control.esNombre(apellidoaux))) {
 				System.out.println("No se pueden introducir numeros en el apellido");
 				System.out.print("Vuelva a introducir el apellido: ");
-				nuevoapellido=sc.nextLine();
+				apellidoaux=sc.nextLine();
 			}
+	        nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
+
 			
 			Boolean email= true;
 			String nuevoemail=new String();
@@ -445,27 +449,31 @@ public class GestorContactos {
 		
 		if(a==1) {
 			String nuevonombre;
-			System.out.print("Introduzca el nuevo nombre: ");
-			nuevonombre = sc.nextLine();
-			
-			while(!(control.esNombre(nuevonombre))) {
+	        String nombreaux;
+	
+	        System.out.print("Introduzca el nuevo nombre: ");
+	        nombreaux = sc.nextLine();
+	        while(!(control.esNombre(nombreaux))) {
 				System.out.println("No se pueden introducir numeros en el nombre");
 				System.out.print("Vuelva a introducir el nombre: ");
-				nuevonombre=sc.nextLine();
+				nombreaux=sc.nextLine();
 			}
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
 			e.setNombre(nuevonombre);
 		}
 		
 		else if(a==2) {
 			String nuevoapellido;
-			System.out.print("Introduzca el nuevo apellido: ");
-			nuevoapellido = sc.nextLine();
-			
-			while(!(control.esNombre(nuevoapellido))) {
-				System.out.println("No se pueden introducir numeros en el apellido");
+		    String apellidoaux;
+		    System.out.print("Introduzca el nuevo apellido: ");
+		    apellidoaux = sc.nextLine();
+		    while(!(control.esNombre(apellidoaux))) {
+		    	System.out.println("No se pueden introducir numeros en el apellido");
 				System.out.print("Vuelva a introducir el apellido: ");
 				nuevoapellido=sc.nextLine();
 			}
+		    nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
+
 			e.setApellidos(nuevoapellido);
 		}
 		
