@@ -14,8 +14,6 @@ public class mainEjercicio2 {
 		TablonAnuncios tablon= TablonAnuncios.getInstance();
 		Intereses gestorIntereses= Intereses.getInstance();
 		
-	
-		
 		int a;
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -72,13 +70,21 @@ public class mainEjercicio2 {
 							}
 							
 							else if(a==4) {
+								try {
 								gestorC.actualizarContacto(gestorC.buscarContacto());
+								}catch(NullPointerException e) {
+									
+								}
 								
 							}
 							
 							
 							else if(a==5) {
+								try {
 								gestorC.consultarContacto(gestorC.buscarContacto());
+								}catch(NullPointerException e) {
+									
+								}
 							}
 					
 					
@@ -216,8 +222,13 @@ public class mainEjercicio2 {
 							
 								else if(a==2) {
 									
+									
+									try {
 									gestor.addNewAnuncio(tablon.crearAnuncio(gestor.getListaAnuncios().size()));
 									System.out.println("Anuncio creado en estado editado");
+									}catch(NullPointerException e) {
+										
+									}
 									
 								}
 						
@@ -292,7 +303,7 @@ public class mainEjercicio2 {
 			} catch (NoSuchElementException e) {
                 System.out.println("Debes insertar un número");
              
-                a=sc.nextInt();
+                sc.nextLine();
 
             }
 		

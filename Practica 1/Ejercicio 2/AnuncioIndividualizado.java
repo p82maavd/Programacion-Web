@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 public class AnuncioIndividualizado extends Anuncio{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	ArrayList<Contacto> destinatarios;
 

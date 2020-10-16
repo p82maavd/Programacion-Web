@@ -58,7 +58,7 @@ public class Intereses {
             fichero = new FileWriter(config.getProperty("DATA_FILE_INTERESES"),true);
             pw = new PrintWriter(fichero);
 
-            //pw.println(cadena);
+            
 
         } catch (Exception e) {
             e.printStackTrace();

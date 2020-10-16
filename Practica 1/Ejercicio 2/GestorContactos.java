@@ -60,7 +60,6 @@ public class GestorContactos {
 		return this.listaContactos;
 	}
 	
-	//Creo que estaria mejor separarlo en funciones. Si sobra tiempo. Mirar buscarAnuncios o alguno de esos.
 	public Contacto buscarContacto()  {
 		
 		ArrayList<Contacto> aux=new ArrayList<Contacto>();
@@ -84,8 +83,12 @@ public class GestorContactos {
 			int n = 0;
 			System.out.print("Introduzca el nombre de la persona a buscar: ");
 			nombreaux = sc.nextLine();
+			nombreaux = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
+
 			System.out.print("Introduzca sus apellidos: ");
 			apellidosaux = sc.nextLine();
+			apellidosaux = apellidosaux.substring(0, 1).toUpperCase() + apellidosaux.substring(1).toLowerCase();
+
 			for(int i=0; i<this.listaContactos.size();i++) {
 				 if(this.listaContactos.get(i).getNombre().equals(nombreaux) && this.listaContactos.get(i).getApellidos().equals(apellidosaux)) {
 					 n = n + 1;
@@ -93,7 +96,6 @@ public class GestorContactos {
 				 }
 			}
 			if(n==0) {
-				System.out.print("No se ha encontrado ninguna persona que se llame así ");
 				return null;
 			}
 			
@@ -136,13 +138,12 @@ public class GestorContactos {
 			 }
 			}
 			if(n==0) {
-				System.out.print("No se ha encontrado ninguna persona con ese email.");
 				return null;
 			}
 
 		}
 		
-		//Esta bien comprobar ejecutandolo
+		
 		else if(a==3) {
 			Integer cont=0;
 			
@@ -182,7 +183,7 @@ public class GestorContactos {
 			}
 			
 			if(aux.size()==0) {
-				//System.out.println("No existe ningun contacto con dichos intereses");
+				
 				return buscado;
 			}
 			
@@ -215,7 +216,7 @@ public class GestorContactos {
 
 		}
 		
-		//Cambiar try catch 
+		
 		else if(a==4) {
 			String fechaaux=new String();
 			int n = 0;
@@ -243,7 +244,6 @@ public class GestorContactos {
 				
 			
 			if(aux.size()==0) {
-				System.out.println("No existe ningun contacto con dicha fecha de nacimiento");
 				return null;
 			
 			}
@@ -281,7 +281,7 @@ public class GestorContactos {
 
 		
 		sc.close();
-		//Try catch en el main.
+		
 		return null;
 	}
 
@@ -422,9 +422,6 @@ public class GestorContactos {
 			
 			}
 			
-			//NO CERRAR SCANNERS, NO FUNCIONA EL MAIN.
-			
-			//sc.close();
 			
 			
 			Contacto e=new Contacto(nuevonombre,nuevoapellido,dnuevafecha,nuevoemail.toLowerCase(),interesesaux);
@@ -443,7 +440,7 @@ public class GestorContactos {
 	public void darBaja(Contacto e) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		if(e==null) {
-			System.out.print("No existe un contacto con dichos atributos");
+			System.out.println("No existe un contacto con dichos atributos");
 			return;
 		}
 		for(int i=0; i<this.listaContactos.size();i++) {
@@ -605,7 +602,7 @@ public class GestorContactos {
 		
 		guardarDatos();
 		
-		//sc.close();
+		
 		
 	}
 	
@@ -710,10 +707,9 @@ public class GestorContactos {
 			System.out.println("No existe un contacto con dichos atributos");
 		}
 		String cadena=new String();
-		//Poner esto para cuando quieras imprimir una Date. Fijarse en el println de abajo como esta.
         SimpleDateFormat objSDF = new SimpleDateFormat("dd/MM/yyyy"); 
 		
-		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento())+"\n"+" Intereses: ");
+		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento())+"\n"+"Intereses: ");
 		for(int i=0; i<e.getIntereses().size();i++) {
 			cadena=e.getIntereses().get(i);
 			

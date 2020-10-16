@@ -5,9 +5,7 @@ import java.util.ArrayList;
 
 public class AnuncioTematico extends Anuncio{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private ArrayList <String> intereses;
 

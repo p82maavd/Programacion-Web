@@ -7,9 +7,7 @@ import java.util.Date;
 
 public class AnuncioFlash extends Anuncio{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Date fechaInicio;
 	private Date fechaFinal;

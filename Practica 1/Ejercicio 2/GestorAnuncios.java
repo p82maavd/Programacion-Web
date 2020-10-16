@@ -82,7 +82,6 @@ public class GestorAnuncios {
 		String string=new String();
 		
 		Anuncio auxc=null;
-		//Esto habria que hacer algo por que si no se llama practica 1 fallara, no se si el jar hace que siempre se llame practica 1.
 		for(int i=0; i<this.listaAnuncios.size();i++) {
 			
 			auxc=this.listaAnuncios.get(i);
@@ -261,7 +260,7 @@ public class GestorAnuncios {
 			System.out.println("No se puede modificar un anuncio ya publicado/archivado ");
 		}
 		
-		//System.out.println(string);
+		
 		if(string.equals("class Ejercicio2.AnuncioTematico")) {
 			modificarAnuncioTematico(e,claseintereses.getIntereses());
 		}
@@ -358,8 +357,6 @@ public class GestorAnuncios {
 	}
 	
 	public void modificarAnuncioFlash(Anuncio e){
-		
-		// Fecha publicacion Fecha archivacion.
 		
 		Scanner sc=new Scanner(System.in);
 		Scanner sl=new Scanner(System.in);
@@ -658,7 +655,7 @@ public class GestorAnuncios {
         else {
         	
         	System.out.println("Opcion no valida");
-        	//Try catch.
+        	
         	return null;
         }
         
@@ -666,7 +663,7 @@ public class GestorAnuncios {
  
 	}
 	
-	//Sin comprobar
+	
 	public Anuncio buscarFecha(String fecha) {
 		ArrayList<Anuncio> anunciosusuario = new ArrayList<Anuncio>();
 		Scanner sc = new Scanner(System.in);
@@ -674,7 +671,7 @@ public class GestorAnuncios {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		 
-		Date dnuevafecha = null;
+		Date dnuevafecha = new Date();
 		try {
 			dnuevafecha = formatter.parse(fecha);
 		} catch (ParseException e1) {
@@ -682,7 +679,6 @@ public class GestorAnuncios {
 			e1.printStackTrace();
 		}
 		for(int i=0 ; i<getListaAnuncios().size() ; i++) {
-			//Esto puede estar mal, se arregla cambiando igual por compareTo(dnuevafecha)==0
 			if(getListaAnuncios().get(i).getFecha() == dnuevafecha) {
 				 anunciosusuario.add(getListaAnuncios().get(i));
 			}

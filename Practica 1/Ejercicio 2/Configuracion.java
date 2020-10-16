@@ -15,7 +15,7 @@ public class Configuracion {
 	        
 	public Configuracion(String ubicacion) throws FileNotFoundException {
 		this.properties = new Properties();
-		//Hacer que se cree si no existe.
+		
 	    entrada = new FileInputStream(ubicacion);
 	    try {
 	    	properties.load(entrada);

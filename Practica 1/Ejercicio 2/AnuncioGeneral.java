@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 public class AnuncioGeneral extends Anuncio{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	public AnuncioGeneral(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Contacto> destinatarios, Estados estado) {

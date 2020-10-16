@@ -85,7 +85,6 @@ public class TablonAnuncios {
 	
 	public Anuncio crearAnuncio(int id) {
 		
-		//añadir en el main cuando se le llame un try/catch de nullPointerException de cuando el else.
 		ConcreteFactory anuncioFactory = new ConcreteFactory();
 		Scanner sc=new Scanner(System.in);
 		
@@ -129,7 +128,7 @@ public class TablonAnuncios {
 		else {
 			
 			System.out.println("Opcion no valida");
-			//Try catch en el main
+		
 			return null;
 		}
 		
@@ -145,16 +144,15 @@ public class TablonAnuncios {
 		
 		int cont=0;
 		for(Anuncio a: anuncios) {
-			//Te pone el anuncio en archivado directamente. Ya deberia estar arreglado.
 			System.out.println("");
-			//Actualiza los destinatarios para que les llegue a todos.
+			//Actualiza los destinatarios para que les llegue a todos los contactos actuales.
 			if(!(a.getClass().toString().equals("class Ejercicio2.AnuncioIndividualizado"))) {
 				
 				a.setDestinatarios(clasecontactos.getContactos());
 				
 			}
 			
-			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado o en espera.
+			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado o en espera se imprime.
 
 			if((a.getDestinatarios().get(cont).getEmail().equals(e.getEmail())) & (a.getEstado().getId()>=2) & (a.getEstado().getId()<=3) ){
 				
@@ -179,6 +177,8 @@ public class TablonAnuncios {
 					
 					Date fechaActual=new Date();
 					
+					//Si esta en una fecha entre inicio y fin te lo publica
+					
 					if( (fechaActual.compareTo(((AnuncioFlash) a).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) a).getFechaFinal())<0) ){
 						
 						
@@ -189,6 +189,8 @@ public class TablonAnuncios {
 					}
 					
 					else {
+						
+						//Si se ha pasado la fecha final se archiva
 						
 						if(fechaActual.compareTo(((AnuncioFlash) a).getFechaFinal())>0) {
 							Estados estado=Estados.Archivado;
