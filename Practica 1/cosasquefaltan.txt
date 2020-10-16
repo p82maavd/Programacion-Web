@@ -1,5 +1,5 @@
 1. Comentarios javadoc dentro del codigo y comentar partes dificiles del codigo(mostrarAnuncios)
-4. Mirar a ver los // comentarios. No se si falta alguno.
+
 5. Confirmacion Informe de Practicas
 
 
