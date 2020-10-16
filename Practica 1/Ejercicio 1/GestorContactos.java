@@ -295,10 +295,10 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el nombre: ");
 				nombreaux=sc.nextLine();
 			}
-	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
 
 			
-			SString nuevoapellido;
+			String nuevoapellido;
 	        String apellidoaux;
 	        System.out.print("Introduzca el nuevo apellido: ");
 	        apellidoaux = sc.nextLine();
@@ -307,7 +307,7 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el apellido: ");
 				apellidoaux=sc.nextLine();
 			}
-	        nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
+	        nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1).toLowerCase();
 
 			
 			Boolean email= true;
@@ -458,7 +458,7 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el nombre: ");
 				nombreaux=sc.nextLine();
 			}
-	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
 			e.setNombre(nuevonombre);
 		}
 		
@@ -472,7 +472,7 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el apellido: ");
 				nuevoapellido=sc.nextLine();
 			}
-		    nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
+		    nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1).toLowerCase();
 
 			e.setApellidos(nuevoapellido);
 		}
@@ -666,7 +666,8 @@ public class GestorContactos {
 	*/
 	public void consultarContacto(Contacto e) {
 		String cadena=new String();
-		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ e.getFechanacimiento());
+		SimpleDateFormat objSDF = new SimpleDateFormat("dd/MM/yyyy"); 
+		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento()));
 		for(int i=0; i<e.getIntereses().size();i++) {
 			cadena=e.getIntereses().get(i).getInteres();
 			
