@@ -30,6 +30,8 @@ public class GestorContactos {
 	private Intereses claseintereses=Intereses.getInstance();
 	
 	private ArrayList <Contacto> listaContactos;
+	
+	private ControlDeErrores control=new ControlDeErrores();
 
 	/**
 	 * Este método se encarga de crear una instancia en el caso de que no haya una ya creada. Patron de diseño Singleton
@@ -213,7 +215,7 @@ public class GestorContactos {
 
 		}
 		
-		//Cambiar try catch y actualizar.
+		//Cambiar try catch 
 		else if(a==4) {
 			String fechaaux=new String();
 			int n = 0;
@@ -296,37 +298,58 @@ public class GestorContactos {
 	
 	        System.out.print("Introduzca el nuevo nombre: ");
 	        nombreaux = sc.nextLine();
+	        while(!(control.esNombre(nombreaux))) {
+				System.out.println("No se pueden introducir numeros en el nombre");
+				System.out.print("Vuelva a introducir el nombre: ");
+				nombreaux=sc.nextLine();
+			}
 	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
-	
+
+	        
 	        String nuevoapellido;
 	        String apellidoaux;
 	        System.out.print("Introduzca el nuevo apellido: ");
 	        apellidoaux = sc.nextLine();
+	        while(!(control.esNombre(apellidoaux))) {
+				System.out.println("No se pueden introducir numeros en el apellido");
+				System.out.print("Vuelva a introducir el apellido: ");
+				apellidoaux=sc.nextLine();
+			}
 	        nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
-			
+
+	        
 			Boolean email= true;
 			String nuevoemail=new String();
 			
 			while(email) {
 				
-				System.out.print("Introduzca el email: ");
+				System.out.print("Introduzca el nuevo email: ");
 				nuevoemail = sc.nextLine();
+				
+				while(!(control.esEmail(nuevoemail))) {
+					System.out.println("El email debe tener @");
+					System.out.print("Vuelva a introducir el email: ");
+					nuevoemail=sc.nextLine();
+				}
 				
 				if(this.listaContactos.size()==0) {
 					email=false;
 					continue;
 				}
-				
+				int cont=0;
 				for (Contacto myVar : this.listaContactos) {
 					if(nuevoemail.equals(myVar.getEmail())) {
-							
+						cont++;
 					}
-					else {
-						email=false;
-					}
+					
 				}
-				if(email) {
+				if(cont>0) {
 					System.out.println("Dicho email esta ya en uso");
+					email=true;
+				}
+				
+				else {
+					email=false;
 				}
 				
 			}
@@ -342,6 +365,11 @@ public class GestorContactos {
 				conta=0;
 				try {
 					nuevafecha = sc.nextLine();
+					while(!(control.esFecha(nuevafecha))) {
+						System.out.println("Formato de la fecha (dd/mm/yyyy)");
+						System.out.print("Vuelva a introducir la fecha: ");
+						nuevafecha=sc.nextLine();
+					}
 					dnuevafecha = formatter.parse(nuevafecha);
 				} catch (ParseException e1) {
 					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
@@ -395,7 +423,7 @@ public class GestorContactos {
 			}
 			
 			//NO CERRAR SCANNERS, NO FUNCIONA EL MAIN.
-			//alt.close();
+			
 			//sc.close();
 			
 			
@@ -441,22 +469,69 @@ public class GestorContactos {
 		
 		if(a==1) {
 			String nuevonombre;
-			System.out.print("Introduzca el nuevo nombre: ");
-			nuevonombre = sc.nextLine();
+	        String nombreaux;
+	
+	        System.out.print("Introduzca el nuevo nombre: ");
+	        nombreaux = sc.nextLine();
+	        while(!(control.esNombre(nombreaux))) {
+				System.out.println("No se pueden introducir numeros en el nombre");
+				System.out.print("Vuelva a introducir el nombre: ");
+				nombreaux=sc.nextLine();
+			}
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
 			e.setNombre(nuevonombre);
 		}
 		
 		else if(a==2) {
 			String nuevoapellido;
-			System.out.print("Introduzca el nuevo apellido: ");
-			nuevoapellido = sc.nextLine();
+		    String apellidoaux;
+		    System.out.print("Introduzca el nuevo apellido: ");
+		    apellidoaux = sc.nextLine();
+		    while(!(control.esNombre(apellidoaux))) {
+		    	System.out.println("No se pueden introducir numeros en el apellido");
+				System.out.print("Vuelva a introducir el apellido: ");
+				nuevoapellido=sc.nextLine();
+			}
+		    nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
+
 			e.setApellidos(nuevoapellido);
 		}
 		
 		else if(a==3) {
-			String nuevoemail;
-			System.out.print("Introduzca el nuevo email: ");
-			nuevoemail = sc.nextLine();
+			Boolean email=true;
+			String nuevoemail=new String();
+			while(email) {
+				
+				System.out.print("Introduzca el nuevo email: ");
+				nuevoemail = sc.nextLine();
+				
+				while(!(control.esEmail(nuevoemail))) {
+					System.out.println("El email debe tener @");
+					System.out.print("Vuelva a introducir el email: ");
+					nuevoemail=sc.nextLine();
+				}
+				
+				if(this.listaContactos.size()==0) {
+					email=false;
+					continue;
+				}
+				int cont=0;
+				for (Contacto myVar : this.listaContactos) {
+					if(nuevoemail.equals(myVar.getEmail())) {
+						cont++;
+					}
+					
+				}
+				if(cont>0) {
+					System.out.println("Dicho email esta ya en uso");
+					email=true;
+				}
+				
+				else {
+					email=false;
+				}
+				
+			}
 			e.setEmail(nuevoemail);
 		}
 		
@@ -473,6 +548,11 @@ public class GestorContactos {
 				cont=0;
 				try {
 					nuevafecha = sc.nextLine();
+					while(!(control.esFecha(nuevafecha))) {
+						System.out.println("Formato de la fecha (dd/mm/yyyy)");
+						System.out.print("Vuelva a introducir la fecha: ");
+						nuevafecha=sc.nextLine();
+					}
 					dnuevafecha = formatter.parse(nuevafecha);
 				} catch (ParseException e1) {
 					System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
