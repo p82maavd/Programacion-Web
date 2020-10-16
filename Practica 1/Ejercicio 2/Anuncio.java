@@ -1,7 +1,6 @@
 package Ejercicio2;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -106,15 +105,6 @@ public abstract class Anuncio implements Serializable {
 
 	public void setEstado(Estados estado) {
 		this.estado = estado;
-	}
-	//Esto ver como administrarlo luego.
-	public String tooString() {
-		
-		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-		String fecha=formatter.format(this.fecha);
-		
-		String anuncioInfo = "Id: "+this.id + " Titulo: " + this.titulo + " Cuerpo: " + this.cuerpo + " Propietario: " + this.usuario.getNombre()+ " Fecha: "+fecha; // Another way to concat strings
-		return anuncioInfo;
 	}
 
 	public int getId() {

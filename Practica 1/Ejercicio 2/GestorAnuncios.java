@@ -89,16 +89,16 @@ public class GestorAnuncios {
 			Class<? extends Anuncio> a=auxc.getClass();
 			string=a.toString();
 			
-			if(string.equals("class practica1.AnuncioTematico")) {
+			if(string.equals("class Ejercicio2.AnuncioTematico")) {
 				tematico.writeObject(auxc);
 			}
-			else if(string.equals("class practica1.AnuncioFlash")) {
+			else if(string.equals("class Ejercicio2.AnuncioFlash")) {
 				flash.writeObject(auxc);
 			}
-			else if(string.equals("class practica1.AnuncioIndividualizado")) {
+			else if(string.equals("class Ejercicio2.AnuncioIndividualizado")) {
 				individualizado.writeObject(auxc);
 			}
-			else if(string.equals("class practica1.AnuncioGeneral")) {
+			else if(string.equals("class Ejercicio2.AnuncioGeneral")) {
 				general.writeObject(auxc);
 			}
 	        	
@@ -204,13 +204,13 @@ public class GestorAnuncios {
 			System.out.println("No hay anuncios para publicar");
 			return ;
 		}
-		System.out.print("Selecciona el anuncio a publicar: ");
+		System.out.print("Selecciona el id del anuncio a publicar: ");
 		
 		int seleccion=sc.nextInt();
 		
 		for(int i=0;i<this.listaAnuncios.size();i++) {
 			
-			if(listaAnuncios.get(i).getId()==seleccion) {
+			if(listaAnuncios.get(i).getId()==seleccion & listaAnuncios.get(i).getEstado().getId()<3) {
 				System.out.println("Anuncio seleccionado");
 				buscado=this.listaAnuncios.get(i);
 				
@@ -219,10 +219,10 @@ public class GestorAnuncios {
 		
 		Estados estado;
 		
-		if(!(buscado.getClass().toString().equals("class practica1.AnuncioIndividualizado"))) {
+		if(!(buscado.getClass().toString().equals("class Ejercicio2.AnuncioIndividualizado"))) {
 			buscado.setDestinatarios(clasecontactos.getContactos());
 		}
-		if(!(buscado.getClass().toString().equals("class practica1.AnuncioFlash"))) {
+		if(!(buscado.getClass().toString().equals("class Ejercicio2.AnuncioFlash"))) {
 			estado=Estados.Publicado;
 		}
 		
@@ -262,16 +262,16 @@ public class GestorAnuncios {
 		}
 		
 		//System.out.println(string);
-		if(string.equals("class practica1.AnuncioTematico")) {
+		if(string.equals("class Ejercicio2.AnuncioTematico")) {
 			modificarAnuncioTematico(e,claseintereses.getIntereses());
 		}
-		else if(string.equals("class practica1.AnuncioFlash")) {
+		else if(string.equals("class Ejercicio2.AnuncioFlash")) {
 			modificarAnuncioFlash(e);
 		}
-		else if(string.equals("class practica1.AnuncioIndividualizado")) {
+		else if(string.equals("class Ejercicio2.AnuncioIndividualizado")) {
 			modificarAnuncioIndividualizado(e,clasecontactos.getContactos());
 		}
-		else if(string.equals("class practica1.AnuncioGeneral")) {
+		else if(string.equals("class Ejercicio2.AnuncioGeneral")) {
 			modificarAnuncioGeneral(e);
 		}
 		
@@ -577,22 +577,24 @@ public class GestorAnuncios {
 		}
 		
 		if(cont==0) {
-			System.out.println("No hay anuncios para publicar");
+			System.out.println("No hay anuncios para archivar");
 			return ;
 		}
 			
-		System.out.println("Selecciona el anuncio a archivar");
+		System.out.print("Selecciona el anuncio a archivar: ");
 		
 		int seleccion=sc.nextInt();
+		sc.nextLine();
 		
 		for(int i=0;i<this.listaAnuncios.size();i++) {
 			
-			if(listaAnuncios.get(i).getId()==seleccion) {
+			if((listaAnuncios.get(i).getId()==seleccion) & (listaAnuncios.get(i).getEstado().getId()==3)) {
 				System.out.println("Anuncio seleccionado");
 				buscado=this.listaAnuncios.get(i);
 				
 				break;
 			}
+			
 		}
 		Estados estado=Estados.Archivado;
 		buscado.setEstado(estado);
@@ -686,6 +688,11 @@ public class GestorAnuncios {
 			}
 		}
 		
+		
+		if(anunciosusuario.size()==1) {
+			return anunciosusuario.get(0);
+		}
+		
 		//Seleccionar anuncio buscado
 
 		for(int i=0;i<anunciosusuario.size();i++) {
@@ -719,27 +726,37 @@ public class GestorAnuncios {
 		Scanner sc = new Scanner(System.in);
 		for(Anuncio d: getListaAnuncios()) {
 			
-			for(String s: intereses) {
-				
-				if(((AnuncioTematico) d).getIntereses().contains(s)) {
-					anunciosusuario.add(d);
+			if(d.getClass().toString().equals("class Ejercicio2.AnuncioTematico")) {
+				for(String s: intereses) {
 					
-					break;
+					if(((AnuncioTematico) d).getIntereses().contains(s)) {
+						anunciosusuario.add(d);
+						
+						break;
+					}
+					
 				}
-				
 			}
 			
+		}
+		
+		
+		if(anunciosusuario.size()==1) {
+			return anunciosusuario.get(0);
 		}
 		
 		for(int i=0;i<anunciosusuario.size();i++) {
 			System.out.println("Id: "+anunciosusuario.get(i).getId()+" Titulo: "+ anunciosusuario.get(i).getTitulo());
 			
 		}
-		
-		System.out.println("Selecciona el id del anuncio");
+		Integer seleccion=null;
+		if(anunciosusuario.size()>0) {
+			System.out.println("Selecciona el id del anuncio");
+			seleccion=sc.nextInt();
+		}
 			
 		
-		int seleccion=sc.nextInt();
+		
 		
 		for(int i=0;i<anunciosusuario.size();i++) {
 			
@@ -774,6 +791,11 @@ public class GestorAnuncios {
 				
 				anunciosusuario.add(a);
 			}
+		}
+		
+		
+		if(anunciosusuario.size()==1) {
+			return anunciosusuario.get(0);
 		}
 		
 		
@@ -823,6 +845,10 @@ public class GestorAnuncios {
 			}
 		}
 		
+		if(anunciosusuario.size()==1) {
+			return anunciosusuario.get(0);
+		}
+		
 		System.out.println("Anuncios encontrados: ");
 
 		for(int i=0;i<anunciosusuario.size();i++) {
@@ -867,22 +893,26 @@ public class GestorAnuncios {
 		else {
 			System.out.println("Opcion no valida");
 		}
-		
+		String string=new String();
 		for(Anuncio a: getListaAnuncios()) {
 			System.out.println("");
-			if(a.getClass().toString().equals("class practica1.AnuncioGeneral")) {
-				System.out.println(((AnuncioGeneral) a).tooString());
+			if(a.getClass().toString().equals("class Ejercicio2.AnuncioGeneral")) {
+				string=((AnuncioGeneral) a).tooString();
+				System.out.println(string);
 			}
 			
-			else if(a.getClass().toString().equals("class practica1.AnuncioTematico")) {
-				System.out.println(((AnuncioTematico) a).tooString());
+			else if(a.getClass().toString().equals("class Ejercicio2.AnuncioTematico")) {
+				string=((AnuncioTematico) a).tooString();
+				System.out.println(string);
 			}
-			else if(a.getClass().toString().equals("class practica1.AnuncioIndividualizado")) {
-				System.out.println(((AnuncioIndividualizado) a).tooString());
+			else if(a.getClass().toString().equals("class Ejercicio2.AnuncioIndividualizado")) {
+				string= ((AnuncioIndividualizado) a).tooString();
+				System.out.println(string);
 			}
 			
 			else {
-				System.out.println(((AnuncioFlash) a).tooString());
+				string=((AnuncioFlash) a).tooString();
+				System.out.println(string);
 			}
 			
 		}

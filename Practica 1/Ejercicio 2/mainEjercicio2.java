@@ -7,11 +7,14 @@ import java.util.Scanner;
 public class mainEjercicio2 {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		Configuracion config= Configuracion.getInstance(args[0]);
 		GestorAnuncios gestor = GestorAnuncios.getInstance();
 		GestorContactos gestorC = GestorContactos.getInstance();
 		
 		TablonAnuncios tablon= TablonAnuncios.getInstance();
 		Intereses gestorIntereses= Intereses.getInstance();
+		
+	
 		
 		int a;
 		@SuppressWarnings("resource")
@@ -113,20 +116,58 @@ public class mainEjercicio2 {
 						try {
 							a=sc.nextInt();
 							if(a==1) {
+								try {
 								gestor.modificarAnuncio(gestor.buscarAnuncio());
+								}catch(NullPointerException e) {
+									System.out.println("No existen anuncios con dichos parametros");
+								}
 							}
 						
 							else if(a==2) {
+								try {
 								gestor.publicarAnuncio();
+								}catch(NullPointerException e) {
+									System.out.println("Anuncio seleccionado no valido");
+								}
 							}
 					
 							else if(a==3) {
+								try {
 								gestor.archivarAnuncio();
+								}catch(NullPointerException e) {
+									System.out.println("Anuncio seleccionado no valido");
+								}
 						
 							}
 							
 							else if(a==4) {
-								gestor.consultarAnuncio(gestor.buscarAnuncio());
+								try {
+								Anuncio an=gestor.buscarAnuncio();
+								
+								String string=new String();
+								string=an.toString();
+								
+								if(string.equals("class practica1.AnuncioTematico")) {
+									string=((AnuncioTematico)an).tooString();
+									System.out.println(string);
+								}
+								else if(string.equals("class practica1.AnuncioFlash")) {
+									string=((AnuncioFlash)an).tooString();
+									System.out.println(string);
+								}
+								else if(string.equals("class practica1.AnuncioIndividualizado")) {
+									string=((AnuncioIndividualizado)an).tooString();
+									System.out.println(string);
+								}
+								else if(string.equals("class practica1.AnuncioGeneral")) {
+									string=((AnuncioGeneral)an).tooString();
+									System.out.println(string);
+								}
+								}catch(NullPointerException e) {
+									System.out.println("No se ha encontrado ningun anuncio con dichos parametros");
+									System.out.println("");
+								}
+								
 								
 							}
 							

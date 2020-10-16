@@ -171,10 +171,10 @@ public class ConcreteFactory extends AbstractFactory {
 		
 		int id=ids;
 		String titulo=new String();
-		System.out.println("Introduzca el titulo del anuncio: ");
+		System.out.print("Introduzca el titulo del anuncio: ");
 		titulo=sc.nextLine();
 		String cuerpo=new String();
-		System.out.println("Introduzca el cuerpo del anuncio: ");
+		System.out.print("Introduzca el cuerpo del anuncio: ");
 		cuerpo=sc.nextLine();
 		ArrayList<Contacto> destinatarios=new ArrayList <Contacto>();
 		Estados estado=Estados.Editado;

@@ -142,16 +142,36 @@ public class TablonAnuncios {
 	*/
 	
 	public void mostrarAnuncios(Contacto e, ArrayList<Anuncio> anuncios) {
-		System.out.println("Numero total de anuncios: " + anuncios.size());
+		
 		int cont=0;
 		for(Anuncio a: anuncios) {
 			//Te pone el anuncio en archivado directamente. Ya deberia estar arreglado.
 			System.out.println("");
+			//Actualiza los destinatarios para que les llegue a todos.
+			if(!(a.getClass().toString().equals("class Ejercicio2.AnuncioIndividualizado"))) {
+				
+				a.setDestinatarios(clasecontactos.getContactos());
+				
+			}
+			
 			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado o en espera.
+
 			if((a.getDestinatarios().get(cont).getEmail().equals(e.getEmail())) & (a.getEstado().getId()>=2) & (a.getEstado().getId()<=3) ){
 				
-				if(!(a.getClass().toString().equals("class practica1.AnuncioFlash"))) {
-					System.out.println(a.tooString());
+				if(!(a.getClass().toString().equals("class Ejercicio2.AnuncioFlash"))) {
+					
+					if(a.getClass().toString().equals("class Ejercicio2.AnuncioGeneral")) {
+						System.out.println(((AnuncioGeneral) a).tooString());
+					}
+					
+					else if(a.getClass().toString().equals("class Ejercicio2.AnuncioTematico")) {
+						System.out.println(((AnuncioTematico) a).tooString());
+					}
+					
+					else {
+						System.out.println(((AnuncioIndividualizado) a).tooString());
+					}
+					
 					
 				}
 				
@@ -164,7 +184,7 @@ public class TablonAnuncios {
 						
 						Estados estado=Estados.Publicado;
 						a.setEstado(estado);
-						System.out.println(a.tooString());
+						System.out.println(((AnuncioFlash) a).tooString());
 						
 					}
 					

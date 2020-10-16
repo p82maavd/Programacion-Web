@@ -149,7 +149,7 @@ public class GestorContactos {
 			//Imprime todos los intereses
 			
 			for(String s: claseintereses.getIntereses()) {
-				System.out.println(cont.toString()+s);
+				System.out.println(cont.toString()+". "+s);
 				cont++;
 			}
 			
@@ -182,8 +182,8 @@ public class GestorContactos {
 			}
 			
 			if(aux.size()==0) {
-				System.out.println("No existe ningun contacto con dichos intereses");
-				return null;
+				//System.out.println("No existe ningun contacto con dichos intereses");
+				return buscado;
 			}
 			
 			if(aux.size()==1) {
@@ -442,6 +442,10 @@ public class GestorContactos {
 	*/
 	public void darBaja(Contacto e) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
+		if(e==null) {
+			System.out.print("No existe un contacto con dichos atributos");
+			return;
+		}
 		for(int i=0; i<this.listaContactos.size();i++) {
 			if(e.getEmail().equals(this.listaContactos.get(i).getEmail())) {
 				this.listaContactos.remove(i);
@@ -460,7 +464,10 @@ public class GestorContactos {
 	
 	public void actualizarContacto(Contacto e) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
-		
+		if(e==null) {
+			System.out.println("No existe contacto con dichos atributos");
+			return;
+		}
 		System.out.println("Que quieres modificar: 1. Nombre 2. Apellidos 3. Email 4. Fecha Nacimiento 5. Intereses");
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Introduzca un número entero: ");
@@ -698,11 +705,15 @@ public class GestorContactos {
 	 * Este método se encarga de imprimir los datos de un contacto.
 	*/
 	public void consultarContacto(Contacto e) {
+		
+		if(e==null) {
+			System.out.println("No existe un contacto con dichos atributos");
+		}
 		String cadena=new String();
 		//Poner esto para cuando quieras imprimir una Date. Fijarse en el println de abajo como esta.
         SimpleDateFormat objSDF = new SimpleDateFormat("dd/MM/yyyy"); 
 		
-		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento()));
+		System.out.println("Nombre: "+e.getNombre()+" Apellidos: "+ e.getApellidos()+" Email: "+e.getEmail()+" Fecha de Nacimiento: "+ objSDF.format(e.getFechanacimiento())+"\n"+" Intereses: ");
 		for(int i=0; i<e.getIntereses().size();i++) {
 			cadena=e.getIntereses().get(i);
 			

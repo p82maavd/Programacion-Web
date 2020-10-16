@@ -1,5 +1,6 @@
 package Ejercicio2;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -41,6 +42,21 @@ public class AnuncioFlash extends Anuncio{
 
 	public void setFechaFinal(Date fechaFinal) {
 		this.fechaFinal = fechaFinal;
+	}
+	
+	public String tooString() {
+		
+		SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+		String fechaInicio=formatter.format(this.getFechaInicio());
+		String fechaFinal=formatter.format(this.getFechaFinal());
+		
+		String anuncioInfo = "Id: "+this.id + " Titulo: " + this.titulo + " Cuerpo: " + this.cuerpo + " Propietario: " + this.usuario.getNombre()+ " Estado: "+ this.getEstado().getEstados() +" Fecha de inicio: " + fechaInicio + " Fecha de finalizacion " + fechaFinal+"\n" +"Destinatarios: "; // Another way to concat strings
+		for(int i=0; i<this.getDestinatarios().size();i++) {
+			anuncioInfo=anuncioInfo + "\n"+this.getDestinatarios().get(i).getEmail();
+		}
+		return anuncioInfo;
+	
+
 	}
 
 }

@@ -19,13 +19,17 @@ public class AnuncioGeneral extends Anuncio{
 		this.destinatarios=destinatarios;
 		this.estado=estado;
 		
-		//Habria que poner algo para que destinatarios contenga a todos los usuarios pero no se como ponerlo :(
-		//Probar con algo como:
-		//this.destinatarios=gestorContactos.getContactos() que dicha funcion devuelva Array de Contactos
-		//Pero deberia de actualizarse cada vez que se publica un anuncio y se registra un usuario y tal. Para que se le muestre a todos.
 		
-		//CREO QUE YA ESTA ARREGLADO
 		
+	}
+	
+	public String tooString() {
+		
+		String anuncioInfo = "Id: "+this.id + " Titulo: " + this.titulo + " Cuerpo: " + this.cuerpo + " Propietario: " + this.usuario.getNombre()+ " Estado: "+ this.getEstado().getEstados()+"\n"+ "Destinatarios: "; // Another way to concat strings
+		for(int i=0; i<this.getDestinatarios().size();i++) {
+			anuncioInfo=anuncioInfo + "\n"+this.getDestinatarios().get(i).getEmail();
+		}
+		return anuncioInfo;
 	}
 	
 	
