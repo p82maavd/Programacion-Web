@@ -303,7 +303,7 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el nombre: ");
 				nombreaux=sc.nextLine();
 			}
-	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
 
 	        
 	        String nuevoapellido;
@@ -315,7 +315,7 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el apellido: ");
 				apellidoaux=sc.nextLine();
 			}
-	        nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
+	        nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1).toLowerCase();
 
 	        
 			Boolean email= true;
@@ -478,7 +478,7 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el nombre: ");
 				nombreaux=sc.nextLine();
 			}
-	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1);
+	        nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
 			e.setNombre(nuevonombre);
 		}
 		
@@ -492,7 +492,7 @@ public class GestorContactos {
 				System.out.print("Vuelva a introducir el apellido: ");
 				nuevoapellido=sc.nextLine();
 			}
-		    nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1);
+		    nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1).toLowerCase();
 
 			e.setApellidos(nuevoapellido);
 		}
