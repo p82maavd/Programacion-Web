@@ -1,7 +1,10 @@
 package ejercicio1;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DAOFactory {
 		 
@@ -19,7 +22,7 @@ public class DAOFactory {
 		}
 		return con;
 	}
-	public ContactoDAO getContactoDAO() {
+	public ContactoDAO getContactoDAO() throws SQLException {
 	
 		return new ContactoDAO(createConnection());
 		
@@ -28,6 +31,12 @@ public class DAOFactory {
 		
 		return new AnuncioDAO();
 	}*/
+	
+	public InteresDAO getInteresDAO() throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
+		
+		return  InteresDAO.getInstance(createConnection());
+		
+	}
 	
 		  
 

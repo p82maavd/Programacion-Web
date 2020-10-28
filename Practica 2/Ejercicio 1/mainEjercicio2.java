@@ -21,6 +21,8 @@ public class mainEjercicio2 {
 		Configuracion config= Configuracion.getInstance(args[0]);
 		DAOFactory factory=new DAOFactory();
 		ContactoDAO contactos= factory.getContactoDAO();
+		InteresDAO intereses= factory.getInteresDAO();
+		 
 		
 		int a;
 		@SuppressWarnings("resource")
@@ -31,7 +33,6 @@ public class mainEjercicio2 {
 		boolean condicion3=true;
 		boolean condicion4=true;
 		boolean condicion5=true;
-		contactos.cargarContactos();
 		
 		// Menu del Gestor de Contactos
 		while(condicion) {
@@ -266,7 +267,7 @@ public class mainEjercicio2 {
 					}
 					
 				}
-				
+				*/
 				else if(a==4) {
 					
 					while(condicion5) {
@@ -281,10 +282,7 @@ public class mainEjercicio2 {
 							sc.nextLine();
 						
 							if(a==1) {
-								String linea=new String();
-								System.out.print("Introduce un nuevo interes: ");
-								linea=sc.nextLine();
-								gestorIntereses.addInteres(linea);
+								intereses.crearInteres();
 								
 							}
 							
@@ -300,7 +298,7 @@ public class mainEjercicio2 {
 
 			            }
 					}
-				}*/
+				}
 				
 			
 				else{
