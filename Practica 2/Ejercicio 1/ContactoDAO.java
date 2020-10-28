@@ -50,7 +50,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 				ps.setString(1,email);
 				ResultSet rsi= ps.executeQuery();
 				
-				while(rs.next()) {
+				while(rsi.next()) {
 					for(Interes i: gestorintereses.getLista()) {
 						if(rs.getInt(1) == i.getId()) {
 							intereses.add(i);
