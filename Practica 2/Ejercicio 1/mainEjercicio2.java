@@ -55,97 +55,13 @@ public class mainEjercicio2 {
 					//Comprobar
 					contactos.main();
 				} //Fin if
-			    /*
+			    
 				// Menu del gestor de Anuncios
 				else if(a==2) {
-					
-					while(condicion3) {
-						System.out.println("Que quieres realizar: ");
-						System.out.println("1. Editar Anuncio");
-						System.out.println("2. Publicar Anuncio");
-						System.out.println("3. Archivar Anuncio");
-						System.out.println("4. Buscar Anuncio");
-						System.out.println("5. Mostrar todos los anuncios");
-						System.out.println("6. Salir");
-						
-						try {
-							a=sc.nextInt();
-							if(a==1) {
-								try {
-								gestor.modificarAnuncio(gestor.buscarAnuncio());
-								}catch(NullPointerException e) {
-									System.out.println("No existen anuncios con dichos parametros");
-								}
-							}
-						
-							else if(a==2) {
-								try {
-								gestor.publicarAnuncio();
-								}catch(NullPointerException e) {
-									System.out.println("Anuncio seleccionado no valido");
-								}
-							}
-					
-							else if(a==3) {
-								try {
-								gestor.archivarAnuncio();
-								}catch(NullPointerException e) {
-									System.out.println("Anuncio seleccionado no valido");
-								}
-						
-							}
-							
-							else if(a==4) {
-								try {
-								Anuncio an=gestor.buscarAnuncio();
-								
-								String string=new String();
-								string=an.toString();
-								
-								if(string.equals("class practica1.AnuncioTematico")) {
-									string=((AnuncioTematico)an).tooString();
-									System.out.println(string);
-								}
-								else if(string.equals("class practica1.AnuncioFlash")) {
-									string=((AnuncioFlash)an).tooString();
-									System.out.println(string);
-								}
-								else if(string.equals("class practica1.AnuncioIndividualizado")) {
-									string=((AnuncioIndividualizado)an).tooString();
-									System.out.println(string);
-								}
-								else if(string.equals("class practica1.AnuncioGeneral")) {
-									string=((AnuncioGeneral)an).tooString();
-									System.out.println(string);
-								}
-								}catch(NullPointerException e) {
-									System.out.println("No se ha encontrado ningun anuncio con dichos parametros");
-									System.out.println("");
-								}
-								
-								
-							}
-							
-							else if(a==5) {
-								gestor.mostrarAnuncios();
-							}
-							
-							else{
-								condicion3=false;
-							}
-						
-						} catch (NoSuchElementException e) {
-			                System.out.println("Debes insertar un número");
-			             
-			                a=sc.nextInt();
-
-			            }
-					
-					}
-					
+					anuncios.main();
 				}
 				
-		
+				/*
 		
 				else if(a==3) {
 					
