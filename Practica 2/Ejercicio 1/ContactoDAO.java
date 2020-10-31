@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ContactoDAO implements ContactoDAOInterface {
@@ -19,17 +20,34 @@ public class ContactoDAO implements ContactoDAOInterface {
 	private ArrayList<Contacto> listaContactos;
 	private ControlDeErrores control=new ControlDeErrores();
 	
-	public ContactoDAO(Connection e) throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
+	private DAOFactory factory=DAOFactory.getInstance();
+	
+	private InteresDAO intereses= factory.getInteresDAO();
+	
+	private static ContactoDAO instance =null;
+	
+	private ContactoDAO(Connection e) throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
 		this.con=e;
 		listaContactos=new ArrayList<Contacto>();
 		cargarContactos();
 	}
 	
+	public static ContactoDAO getInstance(Connection e) throws FileNotFoundException, ClassNotFoundException, SQLException, IOException {
+		if(instance==null) {
+			instance=new ContactoDAO(e);
+		}
+		return instance;
+	}
+	
+	public ArrayList<Contacto> getContactos(){
+		return this.listaContactos;
+	}
+	
 	public void cargarContactos() throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
 		
-		InteresDAO gestorintereses= InteresDAO.getInstance(null);
 		
-		ArrayList<Interes> intereses=new ArrayList<Interes>();
+		
+		ArrayList<Interes> interesesaux=new ArrayList<Interes>();
 		
 		Statement stmt=con.createStatement();
 		ResultSet rs= stmt.executeQuery("SELECT email, nombre, apellidos, fechanacimiento FROM contactos");
@@ -46,19 +64,9 @@ public class ContactoDAO implements ContactoDAOInterface {
 				apellidos=rs.getString(3);
 				date=rs.getDate(4);
 				
-				PreparedStatement ps=con.prepareStatement("select idinteres from intereses_contactos where emailcontacto=?");
-				ps.setString(1,email);
-				ResultSet rsi= ps.executeQuery();
+				interesesaux=this.intereses.getInteresesContacto(email);
 				
-				while(rsi.next()) {
-					for(Interes i: gestorintereses.getLista()) {
-						if(rs.getInt(1) == i.getId()) {
-							intereses.add(i);
-						}
-					}
-				}
-				
-				this.listaContactos.add(new Contacto(email,nombre,apellidos,date,intereses));
+				this.listaContactos.add(new Contacto(email,nombre,apellidos,date,interesesaux));
 				
 			}
 			
@@ -87,11 +95,13 @@ public class ContactoDAO implements ContactoDAOInterface {
 				PreparedStatement ps2=con.prepareStatement("insert into intereses_contactos (emailcontacto,idinteres) values (?,?)");
 				ps2.setString(1, e.getEmail());
 				ps2.setInt(2, e.getIntereses().get(i).getId());
-				ps2.executeUpdate();
+				status= ps2.executeUpdate();
 				
 			}
 			
-			
+			if(status!=1) {
+				System.out.println("Error al añadir los intereses de un usuario");
+			}
 			PreparedStatement ps=con.prepareStatement("insert into contactos (email,nombre,apellidos,fechanacimiento) values (?,?,?,?)");
 			
 			
@@ -145,8 +155,6 @@ public class ContactoDAO implements ContactoDAOInterface {
 	@Override
 	public void actualizarContacto(Contacto e) throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
 		
-		InteresDAO intereses= InteresDAO.getInstance(null);
-		
 		if(e==null) {
 			System.out.println("No existe contacto con dichos atributos");
 			return;
@@ -163,7 +171,6 @@ public class ContactoDAO implements ContactoDAOInterface {
 		
 		if(a==1) {
 			sqlUpdate = "UPDATE contactos " + "SET email = ? " + "WHERE email = ?";
-			Boolean email=true;
 			String nuevoemail=new String();
 			
 				
@@ -177,7 +184,6 @@ public class ContactoDAO implements ContactoDAOInterface {
 			}
 				
 			if(this.listaContactos.size()==0) {
-				email=false;
 				
 			}
 			int cont=0;
@@ -296,7 +302,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 			
 			
 			if(eleccion==1) {
-				listaintereses=intereses.getInteresesContacto(e);
+				listaintereses=intereses.getInteresesContacto(e.getEmail());
 				System.out.println("Actuales Intereses");
 				for(int i=0; i<listaintereses.size();i++) {
 				
@@ -315,6 +321,15 @@ public class ContactoDAO implements ContactoDAOInterface {
 				ps.setString(2,e.getEmail());
 				ps.executeUpdate();
 				//Falta control de error
+				ArrayList<Interes> aux=e.getIntereses();
+				
+				for(Interes myVar:listaintereses) {
+					if(myVar.getId()==linea)
+						//Comprobar si se borra bien.
+						aux.remove(myVar);
+				}
+				
+				e.setIntereses(aux);
 			}
 			else {
 				listaintereses=intereses.getLista();
@@ -334,19 +349,29 @@ public class ContactoDAO implements ContactoDAOInterface {
 				ps.setString(2,e.getEmail());
 				ps.executeUpdate();
 				//Falta control...
+				ArrayList<Interes> aux=e.getIntereses();
+				
+				for(Interes myVar:listaintereses) {
+					if(myVar.getId()==linea)
+						aux.add(myVar);
+				}
+				
+				e.setIntereses(aux);
+				
 			}
 			
 			
 		}
 		
 	}
+	//Es posible que sea util separar las funciones.
 	@Override
 	public Contacto buscarContacto()  {
 		
 		ArrayList<Contacto> aux=new ArrayList<Contacto>();
 		
 		System.out.println("Elige parametro de busqueda: ");
-		System.out.println("1. Nombre y ");
+		System.out.println("1. Nombre ");
 		System.out.println("2. Apellidos");
 		System.out.println("3. Email");
 		System.out.println("4. Fecha de nacimiento");
@@ -379,7 +404,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 			Integer cont=0;
 			String cad=new String();
 			
-			
+			//Si se hace sin vectores
 			/*
 			if(a==1) {
 				//Cuando pones * en el select te cambia el orden por la cara.
@@ -436,7 +461,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 			
 				
 			}*/
-			
+			//Modificar para multiples opciones. Preguntar si se puede hacer con los vectores o directamente en la base de datos.
 			if(a==1) {
 				
 				String nombreaux=new String();
@@ -470,7 +495,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 				System.out.println("No hay ningun usuario con dicho apellido");
 				return null;
 			}
-			/*
+			
 			else if(a==3) {
 				String emailaux;
 				System.out.print("Indique el email a buscar: ");
@@ -481,10 +506,10 @@ public class ContactoDAO implements ContactoDAOInterface {
 						return e;
 					}
 				}
-				
+				System.out.println("No hay ningun usuario con dicho email.");
 				return null;
 	
-			}
+			}/*
 			
 			else if(a==3) {
 				
@@ -643,8 +668,80 @@ public class ContactoDAO implements ContactoDAOInterface {
 			System.out.println(e.getEmail()+" "+e.getNombre());
 		}
 	}
-
 	
-	
+	public void main() {
+		
+		Scanner sc= new Scanner(System.in);
+		int a=0;
+		boolean condicion=true;
+			
+		try {
+			
+			while(condicion) {
+				System.out.println("Que quieres realizar: ");
+				System.out.println("1. Añadir Contacto");
+				System.out.println("2. Mostrar Contactos");
+				System.out.println("3. Eliminar Contacto");
+				System.out.println("4. Actualizar Contacto");
+				System.out.println("5. Consultar Contacto");
+				System.out.println("6. Salir");
+				try {
+					a=sc.nextInt();
+						
+					if(a==1) {
+						crearContacto();
+								
+					}
+						
+					else if(a==2) {
+						mostrarContactos();
+					}
+					
+					else if(a==3) {
+						borrarContacto(buscarContacto());
+					
+					}
+							
+					else if(a==4) {
+						try {
+							actualizarContacto(buscarContacto());
+						}catch(NullPointerException e) {
+									
+						}
+								
+					}
+							
+					else if(a==5) {
+						try {
+							//gestorC.consultarContacto(gestorC.buscarContacto());
+						}catch(NullPointerException e) {
+									
+						}
+					}
+					
+					
+					else if(a==6) {
+						buscarContacto();
+						condicion=false;
+					}
+						
+					else{
+						condicion=false;
+					}
+						
+				} catch (NoSuchElementException e) {
+					System.out.println("Debes insertar un número");
+			             
+			        a=sc.nextInt();
 
-}
+			    }
+					
+			} //Fin While
+				
+			
+		}catch(Exception e) {
+			System.out.println("Error");
+		}
+	}//Fin del metodo main	
+
+}//Fin de la clase	

@@ -62,7 +62,7 @@ public class InteresDAO implements InteresDAOInterface{
 		}
 	
 	}
-	
+	//Esto es para cargar los intereses.
 	@Override
 	public ArrayList<Interes> getIntereses() throws SQLException{
 		Statement stmt=con.createStatement();
@@ -92,10 +92,11 @@ public class InteresDAO implements InteresDAOInterface{
 	}
 	
 	//Te devuelve los intereses de un contacto
-	public ArrayList<Interes> getInteresesContacto(Contacto e) throws SQLException{
+	//No sirve porque se cargan en el vector xd. Ahora sirve de algo en cargarContactos
+	public ArrayList<Interes> getInteresesContacto(String email) throws SQLException{
 		ArrayList<Interes> interesescontacto=new ArrayList<Interes>();
 		PreparedStatement ps=con.prepareStatement("select idinteres from intereses_contactos where emailcontacto=?");
-		ps.setString(1,e.getEmail());
+		ps.setString(1,email);
 		ResultSet rs= ps.executeQuery();
 		
 		while(rs.next()) {

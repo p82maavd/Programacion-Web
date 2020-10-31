@@ -19,17 +19,17 @@ public class mainEjercicio2 {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
 		
 		Configuracion config= Configuracion.getInstance(args[0]);
-		DAOFactory factory=new DAOFactory();
+		DAOFactory factory=DAOFactory.getInstance();
 		ContactoDAO contactos= factory.getContactoDAO();
 		InteresDAO intereses= factory.getInteresDAO();
-		 
+		AnuncioDAO anuncios= factory.getAnuncioDAO();
 		
 		int a;
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		
 		boolean condicion=true;
-		boolean condicion2=true;
+		
 		boolean condicion3=true;
 		boolean condicion4=true;
 		boolean condicion5=true;
@@ -43,7 +43,7 @@ public class mainEjercicio2 {
 			System.out.println("3. Tablon Personal");
 			System.out.println("4. Configuracion");
 			System.out.println("5. Salir");
-			condicion2=true;
+			
 			condicion3=true;
 			condicion4=true;
 			condicion5=true;
@@ -52,67 +52,8 @@ public class mainEjercicio2 {
 				a=sc.nextInt();
 			
 				if(a==1) {
-					while(condicion2) {
-						System.out.println("Que quieres realizar: ");
-						System.out.println("1. Añadir Contacto");
-						System.out.println("2. Mostrar Contactos");
-						System.out.println("3. Eliminar Contacto");
-						System.out.println("4. Actualizar Contacto");
-						System.out.println("5. Consultar Contacto");
-						System.out.println("6. Salir");
-						
-						try {
-							a=sc.nextInt();
-						
-							if(a==1) {
-								contactos.crearContacto();
-								
-							}
-						
-							else if(a==2) {
-								contactos.mostrarContactos();
-							}
-					
-							else if(a==3) {
-								contactos.borrarContacto(contactos.buscarContacto());
-						
-							}
-							
-							else if(a==4) {
-								try {
-								contactos.actualizarContacto(contactos.buscarContacto());
-								}catch(NullPointerException e) {
-									
-								}
-								
-							}
-							
-							else if(a==5) {
-								try {
-								//gestorC.consultarContacto(gestorC.buscarContacto());
-								}catch(NullPointerException e) {
-									
-								}
-							}
-					
-					
-							else if(a==6) {
-								contactos.buscarContacto();
-								condicion2=false;
-							}
-						
-							else{
-								condicion2=false;
-							}
-						
-						} catch (NoSuchElementException e) {
-			                System.out.println("Debes insertar un número");
-			             
-			                a=sc.nextInt();
-
-			            }
-					
-					} //Fin While
+					//Comprobar
+					contactos.main();
 				} //Fin if
 			    /*
 				// Menu del gestor de Anuncios

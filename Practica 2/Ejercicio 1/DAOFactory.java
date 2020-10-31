@@ -7,7 +7,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DAOFactory {
-		 
+	
+	private static DAOFactory instance=null;
 	// method to create connections
 	public static Connection createConnection() {
 		Connection con=null;
@@ -22,15 +23,26 @@ public class DAOFactory {
 		}
 		return con;
 	}
-	public ContactoDAO getContactoDAO() throws SQLException {
-	
-		return new ContactoDAO(createConnection());
+	private DAOFactory() {
 		
 	}
-	/*public AnuncioDAO getAnuncioDAO() {
+	public static DAOFactory getInstance() {
+		if(instance==null) {
+			instance=new DAOFactory();
+			return instance;
+		}
 		
-		return new AnuncioDAO();
-	}*/
+		return instance;
+	}
+	public ContactoDAO getContactoDAO() throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
+	
+		return ContactoDAO.getInstance(createConnection());
+		
+	}
+	public AnuncioDAO getAnuncioDAO() throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
+		
+		return AnuncioDAO.getInstance(createConnection());
+	}
 	
 	public InteresDAO getInteresDAO() throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
 		
