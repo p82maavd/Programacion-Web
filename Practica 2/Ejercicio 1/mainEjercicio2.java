@@ -23,6 +23,7 @@ public class mainEjercicio2 {
 		ContactoDAO contactos= factory.getContactoDAO();
 		InteresDAO intereses= factory.getInteresDAO();
 		AnuncioDAO anuncios= factory.getAnuncioDAO();
+		TablonAnuncios tablon=TablonAnuncios.getInstance();
 		
 		int a;
 		@SuppressWarnings("resource")
@@ -30,8 +31,6 @@ public class mainEjercicio2 {
 		
 		boolean condicion=true;
 		
-		boolean condicion3=true;
-		boolean condicion4=true;
 		boolean condicion5=true;
 		
 		// Menu del Gestor de Contactos
@@ -44,8 +43,7 @@ public class mainEjercicio2 {
 			System.out.println("4. Configuracion");
 			System.out.println("5. Salir");
 			
-			condicion3=true;
-			condicion4=true;
+			
 			condicion5=true;
 			
 			try {
@@ -61,70 +59,12 @@ public class mainEjercicio2 {
 					anuncios.main();
 				}
 				
-				/*
-		
 				else if(a==3) {
 					
-					boolean usuario=tablon.identificarUsuario(gestorC.getContactos());
-					while(condicion4) {
-						
-						if(usuario) {
-						
-							System.out.println("Que quieres realizar: ");
-							System.out.println("1. Inscribirse como usuario a temas de interes");
-							System.out.println("2. Crear Anuncio");
-							System.out.println("3. Mostrar mi tablon");
-							System.out.println("4. Salir");
-							
-							try {
-								a=sc.nextInt();
-							
-								if(a==1) {
-									
-									tablon.inscribirseInteres();
-									
-								}
-							
-								else if(a==2) {
-									
-									
-									try {
-									gestor.addNewAnuncio(tablon.crearAnuncio(gestor.getListaAnuncios().size()));
-									System.out.println("Anuncio creado en estado editado");
-									}catch(NullPointerException e) {
-										
-									}
-									
-								}
-						
-								else if(a==3) {
-									
-									tablon.mostrarAnuncios(tablon.getUsuario(), gestor.getListaAnuncios());
-							
-								}
-								
-							
-								else{
-									condicion4=false;
-								}
-							
-							} catch (NoSuchElementException e) {
-				                System.out.println("Debes insertar un número");
-				             
-				                a=sc.nextInt();
-	
-				            }
-						}
-						
-						else {
-							System.out.println("El usuario no existe");
-							condicion4=false;
-						}
-					
-					}
+					tablon.main();
 					
 				}
-				*/
+				
 				else if(a==4) {
 					
 					while(condicion5) {
