@@ -1,0 +1,11 @@
+1. Para destinatarios de flash y general. Hacer un select email from contactos cuando se le de a mostrarTablon y añadirlos a destinatarios. 
+
+Para tematico Select email from interes_anuncio where idinteres=idinteresdeleanuncio, bucle si hay varios. cuando se le de a mostrarTablon y añadirlos a destinatarios.
+
+Para los dos casos de arriba,hacer que borre los elementos de destinatario que hubieran anteriormente where idanuncio=anuncioaactualizar.
+En verdad se tienen que borrar todos menos los individualizados creo yo, porque lo de actualizar un par que seria lo indicado pero no se si sabria hacerlo para 
+que se cambiara en todas las tablas. Ver si es posible delete where tipo != ej1 AnuncioIndividualizado. 
+
+Individualizado solo se añaden cuando se crean los anuncios los destinatario en la tabla de destinatarios. 
+
+no se si ira bien esto, puede que sea super lento, habria que ver cuando actualizar los destinatarios.
