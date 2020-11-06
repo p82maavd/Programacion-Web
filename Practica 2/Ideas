@@ -1,4 +1,4 @@
-1. Para destinatarios de flash y general. Hacer un select email from contactos cuando se le de a mostrarTablon y añadirlos a destinatarios. 
+1. Para destinatarios de flash y general. Hacer un select email from contactos (getContactos si se puede con los vectores)cuando se le de a mostrarTablon y añadirlos a destinatarios. 
 
 Para tematico Select email from interes_anuncio where idinteres=idinteresdeleanuncio, bucle si hay varios. cuando se le de a mostrarTablon y añadirlos a destinatarios.
 
