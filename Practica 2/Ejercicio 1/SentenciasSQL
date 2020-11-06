@@ -1,0 +1,2 @@
+OBTENER_CONTACTOS="SELECT email, nombre, apellidos, fechanacimiento FROM contactos"
+AÑADIR_ANUNCIOS="insert into anuncios (titulo, cuerpo, idautor, estado, fechapublicacion, fechainicio, fechafinal, tipo) values(?,?,?,?,?,?,?,?)"
