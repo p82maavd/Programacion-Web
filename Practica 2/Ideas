@@ -9,3 +9,6 @@ que se cambiara en todas las tablas. Ver si es posible delete where tipo != ej1 
 Individualizado solo se añaden cuando se crean los anuncios los destinatario en la tabla de destinatarios. 
 
 no se si ira bien esto, puede que sea super lento, habria que ver cuando actualizar los destinatarios.
+
+
+2. Para el tablon de anuncios, sentencia SQL select idanuncio from destinatarios where email=emaildelregistrado
