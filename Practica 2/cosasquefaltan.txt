@@ -1,0 +1,2 @@
+EJERCICIO 1
+1. Hacer que cuando se modifique los intereses de un contacto se borre el usuario de la tabla destinatarios y de intereses_contacto. Revisar si esta hecho
