@@ -3,3 +3,4 @@ EJERCICIO 1
 2. En modificarAnuncios tener cuidado, hay que modificar varias tablas a veces creo
 3. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos.
 4. Modificar las fechas en controldeerrores y donde esten como dd/mm/yyyy
+5. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
