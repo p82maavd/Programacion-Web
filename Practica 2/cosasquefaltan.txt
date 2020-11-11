@@ -4,3 +4,4 @@ EJERCICIO 1
 3. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos.
 4. Modificar las fechas en controldeerrores y donde esten como dd/mm/yyyy
 5. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
+6. En mostrarAnuncios del TABLON hacer una funcion en anunciosDAO para actualizar el estado de los anuncios flash(Pasarlos a publicado y archivado)
