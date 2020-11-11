@@ -5,3 +5,4 @@ EJERCICIO 1
 4. Modificar las fechas en controldeerrores y donde esten como dd/mm/yyyy
 5. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
 6. En mostrarAnuncios del TABLON hacer una funcion en anunciosDAO para actualizar el estado de los anuncios flash(Pasarlos a publicado y archivado)
+7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
