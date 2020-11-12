@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class AnuncioDAO {
 	
 	private static AnuncioDAO instance =null;
 	private DAOFactory factory = DAOFactory.getInstance();
+	private Connection e;
 	private ContactoDAO contactos= factory.getContactoDAO();
 	private InteresDAO intereses= factory.getInteresDAO();
 	
@@ -64,9 +66,9 @@ public class AnuncioDAO {
 	 * @throws SQLException 
 	*/
 	private AnuncioDAO(Connection e) throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
-		
+		this.e =e;
 		listaAnuncios=new ArrayList<Anuncio>();
-		cargarAnuncios();
+		//cargarAnuncios();
 		
 	}
 	/**
@@ -90,13 +92,10 @@ public class AnuncioDAO {
 	 * @throws ClassNotFoundException
 	 */
 
-	public void guardarAnuncio() throws FileNotFoundException, IOException, ClassNotFoundException {
+	public void guardarAnuncio(Anuncio a) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		Configuracion config=Configuracion.getInstance(null);
-		ObjectOutputStream general = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_GENERAL") ));
-		ObjectOutputStream tematico = new ObjectOutputStream(new FileOutputStream(config.getProperty("DATA_FILE_TEMATICO") ));
-		ObjectOutputStream flash = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_FLASH") ));
-		ObjectOutputStream individualizado = new ObjectOutputStream(new FileOutputStream( config.getProperty("DATA_FILE_INDIVIDUALIZADO") ));
+		
 		String string=new String();
 		
 		Anuncio auxc=null;
@@ -107,25 +106,22 @@ public class AnuncioDAO {
 			string=a.toString();
 			
 			if(string.equals("class ejercicio2.AnuncioTematico")) {
-				tematico.writeObject(auxc);
+				
 			}
 			else if(string.equals("class ejercicio2.AnuncioFlash")) {
-				flash.writeObject(auxc);
+				
 			}
 			else if(string.equals("class ejercicio2.AnuncioIndividualizado")) {
-				individualizado.writeObject(auxc);
+				
 			}
+			
 			else if(string.equals("class ejercicio2.AnuncioGeneral")) {
-				general.writeObject(auxc);
+				
 			}
 	        	
 			
 		}
         
-        	general.close();
-        	tematico.close();
-        	flash.close();
-        	individualizado.close();
 	}
 	
 	/**
@@ -136,11 +132,6 @@ public class AnuncioDAO {
 	 */
 	public void cargarAnuncios() throws FileNotFoundException, IOException, ClassNotFoundException {
 		try {
-			Configuracion config=Configuracion.getInstance(null);
-			ObjectInputStream tematico = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_TEMATICO")));
-			ObjectInputStream flash = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_FLASH")));
-			ObjectInputStream individualizado = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_INDIVIDUALIZADO")));
-			ObjectInputStream general = new ObjectInputStream(new FileInputStream(config.getProperty("DATA_FILE_GENERAL")));
 			
 			Anuncio clase= null;
 			do {
@@ -217,7 +208,7 @@ public class AnuncioDAO {
 	public void addNewAnuncio(Anuncio a) throws FileNotFoundException, IOException, ClassNotFoundException {
 		
 		this.listaAnuncios.add(a);
-		guardarAnuncio();
+		guardarAnuncio(a);
 	}
 	
 	/**
@@ -320,6 +311,49 @@ public class AnuncioDAO {
 		}
 		
 		
+		
+	}
+	
+	public void actualizarDestinatarios() throws SQLException {
+		
+		//Añadir connection como atributo a la clase ANUNCIODAO.
+		
+		//Esto funcionaria casi seguro. Habria que hacerlo de forma que se compararan con los que hay. Si no esta en la base de datos 
+		//se añade y si no esta en destinatarios se elimina. Con añadirlo creo que ya estaria. ELiminarlo seria que ya no existe el usuario, o le han quitado un interes.
+		
+		
+		//Esto si es tematico
+		//Hacer que cuando se modifique los intereses de un contacto se borre el usuario de la tabla destinatarios y de intereses_contacto.
+		
+		int cont=0, status=0;
+		ArrayList<Contacto> newDest=new ArrayList<Contacto>();
+		for(Anuncio a: listaAnuncios) {
+			if(a.getClass().toString()!="ej1 AnuncioTematico") {
+				
+				//Aqui quizas si seria conveniente borrar antes los destinatarios para que este bien actualizado. 
+				PreparedStatement ps0=connection.prepareStatement("delete from dest where idanuncio=?");
+				ps0.setInt(1,a.getId());
+				status=ps0.executeUpdate();
+				for(Contacto e: contactos.getContactos()){
+					cont=0;
+					for(Interes i: e.getIntereses()) {
+						if((((AnuncioTematico) a).getIntereses().contains(i)) && (cont==0)) {
+							//Connection. Atributo de la clase que le asigna el valor  el constructor. Añadirlo si no lo esta ya.
+							PreparedStatement ps=connection.prepareStatement("insert into destinatarios(idanuncio,idemail) values(?,?)");
+					        ps.setInt(1, a.getId());
+					        ps.setString(2, e.getEmail());
+					        status = ps.executeUpdate();
+					        cont++;
+					        newDest.add(e);
+						}
+					}
+					
+			        
+				}
+				a.setDestinatarios(newDest);
+			}
+			
+		}
 		
 	}
 	
