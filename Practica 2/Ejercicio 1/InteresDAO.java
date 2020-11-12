@@ -15,14 +15,10 @@ public class InteresDAO implements InteresDAOInterface{
 
 	private Connection con=null;
 	
-	private ArrayList<Interes> listaintereses;
-	
 	private static InteresDAO instance;
 	
 	public InteresDAO(Connection e) throws SQLException {
 		this.con=e;
-		listaintereses=new ArrayList<Interes>();
-		getIntereses();
 	}
 	
 	public static InteresDAO getInstance(Connection e) throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
@@ -43,14 +39,13 @@ public class InteresDAO implements InteresDAOInterface{
 		try{
 			System.out.print("Introduce el nuevo interes: ");
 			nuevointeres=sc.nextLine();
-			int id=getLista().size();
+			
 			PreparedStatement ps=con.prepareStatement("insert into intereses (interes) values (?)");
 			
 			ps.setString(1,nuevointeres);
 			
 			status = ps.executeUpdate();
-			Interes aux= new Interes(id,nuevointeres);
-			listaintereses.add(aux);
+			
 			
 		} catch(Exception es) { 
 				es.printStackTrace();
@@ -66,6 +61,7 @@ public class InteresDAO implements InteresDAOInterface{
 	@Override
 	public ArrayList<Interes> getIntereses() throws SQLException{
 		Statement stmt=con.createStatement();
+		ArrayList<Interes> listaintereses = new ArrayList<Interes>();
 		ResultSet rs= stmt.executeQuery("SELECT idintereses,interes FROM intereses");
 		
 		String interes= new String();
@@ -87,10 +83,6 @@ public class InteresDAO implements InteresDAOInterface{
 		
 	}
 	
-	public ArrayList<Interes> getLista(){
-		return listaintereses;
-	}
-	
 	//Te devuelve los intereses de un contacto
 	//No sirve porque se cargan en el vector xd. Ahora sirve de algo en cargarContactos
 	public ArrayList<Interes> getInteresesContacto(String email) throws SQLException{
@@ -100,7 +92,7 @@ public class InteresDAO implements InteresDAOInterface{
 		ResultSet rs= ps.executeQuery();
 		
 		while(rs.next()) {
-			for(Interes i: listaintereses) {
+			for(Interes i: getIntereses()) {
 				if(rs.getInt(1) == i.getId()) {
 					interesescontacto.add(i);
 				}
@@ -108,6 +100,24 @@ public class InteresDAO implements InteresDAOInterface{
 		}
 		
 		return interesescontacto;
+		
+	}
+	
+	public ArrayList<Interes> getInteresesAnuncio(int id) throws SQLException{
+		ArrayList<Interes> interesesanuncio=new ArrayList<Interes>();
+		PreparedStatement ps=con.prepareStatement("select idinteres from intereses_anuncios where idanuncio=?");
+		ps.setInt(1,id);
+		ResultSet rs= ps.executeQuery();
+		
+		while(rs.next()) {
+			for(Interes i: getIntereses()) {
+				if(rs.getInt(1) == i.getId()) {
+					interesesanuncio.add(i);
+				}
+			}
+		}
+		
+		return interesesanuncio;
 		
 	}
 	
