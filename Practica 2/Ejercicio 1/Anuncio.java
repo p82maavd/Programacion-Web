@@ -1,7 +1,7 @@
 package ejercicio1;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.Date;
 
 /**
@@ -83,7 +83,7 @@ public abstract class Anuncio implements Serializable {
 	protected String titulo;
 	protected String cuerpo;
 	protected Contacto usuario;
-	protected ArrayList<Contacto> destinatarios;
+	
 	protected Date fecha;
 	protected Estados estado;
 	
@@ -96,12 +96,12 @@ public abstract class Anuncio implements Serializable {
 	 * @param destinatarios de Anuncio
 	 * @param estado de Anuncio
 	 */
-	public Anuncio(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Contacto> destinatarios, Estados estado) {
+	public Anuncio(int id, String titulo, String cuerpo, Contacto usuario, Estados estado) {
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
-		this.destinatarios=destinatarios;
+		
 		  
 		Date fecha=new Date(System.currentTimeMillis());
 		this.fecha= fecha;
@@ -213,20 +213,5 @@ public abstract class Anuncio implements Serializable {
 		this.id = id;
 	}
 	
-	/**
-	 * Devuelve una lista con los destinatarios para los que va destinado Anuncio
-	 * @return destinatarios de Anuncio
-	 */
-	public ArrayList<Contacto> getDestinatarios() {
-		return destinatarios;
-	}
-	
-	/**
-	 * Modifica la lista de destinatarios de Anuncio
-	 * @param destinatarios
-	 */
-	public void setDestinatarios(ArrayList<Contacto> destinatarios) {
-		this.destinatarios = destinatarios;
-	}
 	
 }

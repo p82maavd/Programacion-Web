@@ -35,12 +35,12 @@ public class DAOFactory {
 		return instance;
 	}
 	public ContactoDAO getContactoDAO() throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
-	
+		System.out.println("Vamos a devolver instancia de contactoDAO");
 		return ContactoDAO.getInstance(createConnection());
 		
 	}
 	public AnuncioDAO getAnuncioDAO() throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
-		
+		System.out.println("Vamos a devolver instancia de AnuncioDAO");
 		return AnuncioDAO.getInstance(createConnection());
 	}
 	

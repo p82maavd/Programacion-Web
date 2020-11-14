@@ -1,5 +1,8 @@
 package ejercicio1;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class ConcreteFactory extends AbstractFactory {
 	// Implementation of creation methods
 	
 	@Override
-	public AnuncioFlash createAnuncioFlash(Contacto e,ArrayList <Contacto> a, int ids) {
+	public AnuncioFlash createAnuncioFlash(Contacto e, int ids){
 		ControlDeErrores control=new ControlDeErrores();
 		Scanner sc=new Scanner(System.in);
 		int id=ids;
@@ -79,14 +82,13 @@ public class ConcreteFactory extends AbstractFactory {
 		}
 		
 		
-		AnuncioFlash product = new AnuncioFlash(id, titulo, cuerpo, e, a, estado, fechaInicio, fechaFinal);
+		AnuncioFlash product = new AnuncioFlash(id, titulo, cuerpo, e, estado, fechaInicio, fechaFinal);
 		return product;
 	}
 
 	@Override
-	public AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, ArrayList<Contacto> a,int ids) {
+	public AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int ids) {
 		Scanner sc=new Scanner(System.in);
-		int as=0;
 		int id=ids;
 		String titulo=new String();
 		System.out.print("Titulo del Anuncio: ");
@@ -96,65 +98,29 @@ public class ConcreteFactory extends AbstractFactory {
 		cuerpo=sc.nextLine();
 		Estados estado=Estados.Editado;
 		
-		ArrayList<Contacto> destinatarios=new ArrayList<Contacto>();
-		boolean condicion=true;
-		String linea=new String();
 		
-		while(condicion) {
-			
-			try {
-				
-				System.out.print("Introduzca el Email del destinatario: ");
-			
-				linea=sc.nextLine();
-				
-				for(Contacto d: a) {
-					if(d.getEmail().equals(linea.toLowerCase())) {
-						destinatarios.add(d);
-						
-						break;
-					}
-				}
-				System.out.println("Quieres añadir otro destinatario: 1. Si 2.No");
-				as=sc.nextInt();
-				sc.nextLine();
-				
-				if(as!=1) {
-					condicion=false;
-				}
-				
-			} catch (NoSuchElementException w) {
-				
-                System.out.println("Debes insertar un numero");
-	             
-               as=sc.nextInt();
-               sc.nextLine();
-
-            }
-		}
 		
-		AnuncioIndividualizado product = new AnuncioIndividualizado(id, titulo, cuerpo, e, destinatarios,estado);
+		AnuncioIndividualizado product = new AnuncioIndividualizado(id, titulo, cuerpo, e, estado);
 		return product;
 	}
 	
 	@Override
-	public AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <String> intereses, ArrayList<Contacto> a,int ids) {
+	public AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> intereses,int ids) {
 		
-		ArrayList<String> interesesaux=new ArrayList<String>();
+		ArrayList<Interes> interesesaux=new ArrayList<Interes>();
 		Integer neweleccion=0;
 		Integer newinteres;
 		Scanner sc = new Scanner(System.in);
 		Boolean condicion=true;
-		int cont =1;
 		while(condicion) {
 			
 			System.out.println("Seleccione un interes para el anuncio: ");
 			
-			for (String myVar : intereses) {
-				System.out.println(cont+" "+myVar);
-				cont++;
+			for (Interes myVar : intereses) {
+				System.out.println(myVar.getId()+". "+myVar.getInteres());
+				
 			}
-			cont=1;
+			
 			
 			newinteres= sc.nextInt();
 			sc.nextLine();
@@ -185,27 +151,14 @@ public class ConcreteFactory extends AbstractFactory {
 		ArrayList<Contacto> destinatarios=new ArrayList <Contacto>();
 		Estados estado=Estados.Editado;
 		
-		for(Contacto d: a) {
-			
-			for(String s: d.getIntereses()) {
-				
-				if(intereses.contains(s)) {
-					destinatarios.add(d);
-					
-					break;
-				}
-				
-			}
-			
-		}
 		
-		AnuncioTematico product = new AnuncioTematico( id, titulo, cuerpo, e, destinatarios, interesesaux, estado);
+		AnuncioTematico product = new AnuncioTematico( id, titulo, cuerpo, e, interesesaux, estado);
 		
 		return product;
 	}
 
 	@Override
-	public AnuncioGeneral createAnuncioGeneral(Contacto e,ArrayList <Contacto> a,int ids) {
+	public AnuncioGeneral createAnuncioGeneral(Contacto e,int ids) {
 		
 		Scanner sc=new Scanner(System.in);
 		int id=ids;
@@ -217,7 +170,7 @@ public class ConcreteFactory extends AbstractFactory {
 		cuerpo=sc.nextLine();
 		Estados estado=Estados.Editado;
 		
-		AnuncioGeneral product = new AnuncioGeneral(id, titulo, cuerpo, e, a, estado);
+		AnuncioGeneral product = new AnuncioGeneral(id, titulo, cuerpo, e, estado);
 		return product;
 	}
 

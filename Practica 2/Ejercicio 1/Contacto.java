@@ -46,7 +46,7 @@ public class Contacto implements Serializable{
 	
 	public Contacto() throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
 		ControlDeErrores control=new ControlDeErrores();
-		InteresDAO gestorintereses= InteresDAO.getInstance(null);
+		InteresDAO interesesDAO= InteresDAO.getInstance(null);
 		
 		Scanner sc = new Scanner(System.in);
         String nuevonombre;
@@ -60,6 +60,7 @@ public class Contacto implements Serializable{
 			nombreaux=sc.nextLine();
 		}
         nuevonombre = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
+        this.nombre=nuevonombre;
 
         
         String nuevoapellido;
@@ -72,7 +73,7 @@ public class Contacto implements Serializable{
 			apellidoaux=sc.nextLine();
 		}
         nuevoapellido = apellidoaux.substring(0, 1).toUpperCase() + apellidoaux.substring(1).toLowerCase();
-
+        this.apellidos=nuevoapellido;
         
 		String nuevoemail=new String();
 		
@@ -84,6 +85,7 @@ public class Contacto implements Serializable{
 			System.out.print("Vuelva a introducir el email: ");
 			nuevoemail=sc.nextLine();
 		}
+		this.email=nuevoemail;
 			
 		
 		String nuevafecha="01/01/1970";
@@ -102,9 +104,10 @@ public class Contacto implements Serializable{
 			}
 			dnuevafecha=Date.valueOf(nuevafecha);
 		}
+		this.fechanacimiento=dnuevafecha;
 		
 		//ACTUALIZAR
-		ArrayList<String> interesesaux=new ArrayList<String>();
+		ArrayList<Interes> interesesaux=new ArrayList<Interes>();
 		Integer neweleccion=0;
 		int newinteres=0;
 		Boolean condicion=true;
@@ -113,14 +116,13 @@ public class Contacto implements Serializable{
 			
 			System.out.println("Seleccione un nuevo interes: ");
 			
-			if(gestorintereses.getLista().size()==0) {
+			if(interesesDAO.getIntereses().size()==0) {
 				System.out.println("No existen Intereses");
 				break;
 			}
+				
 			
-			
-			
-			for (Interes myVar : gestorintereses.getLista()) {
+			for (Interes myVar : interesesDAO.getIntereses()) {
 				System.out.println(myVar.getId()+". "+myVar.getInteres());
 				
 			}
@@ -129,9 +131,9 @@ public class Contacto implements Serializable{
 			newinteres= sc.nextInt();
 			sc.nextLine();
 			
-			for (Interes myVar: gestorintereses.getLista()) {
+			for (Interes myVar: interesesDAO.getIntereses()) {
 				if(myVar.getId()==newinteres) {
-					this.intereses.add(myVar);
+					interesesaux.add(myVar);
 				}
 				
 			}
@@ -152,7 +154,7 @@ public class Contacto implements Serializable{
 			
 		
 		}
-		
+		this.intereses=interesesaux;
 		
 	}
 

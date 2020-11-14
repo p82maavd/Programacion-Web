@@ -24,14 +24,13 @@ public class AnuncioIndividualizado extends Anuncio{
 	 * @param destinatarios de AnuncioIndividualizado
 	 * @param estado de AnuncioIndividualizado
 	 */
-	public AnuncioIndividualizado(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Contacto> destinatarios, Estados estado) {
-		super(id, titulo, cuerpo, usuario, destinatarios, estado);
+	public AnuncioIndividualizado(int id, String titulo, String cuerpo, Contacto usuario, Estados estado) {
+		super(id, titulo, cuerpo, usuario, estado);
 		// TODO Auto-generated constructor stub
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
-		this.destinatarios=destinatarios;
 		this.estado=estado;
 	}
 	
@@ -42,9 +41,10 @@ public class AnuncioIndividualizado extends Anuncio{
 		 */
 		
 		String anuncioInfo = "Id: "+this.id + " Titulo: " + this.titulo + " Cuerpo: " + this.cuerpo + " Propietario: " + this.usuario.getNombre()+ " Estado: " + this.getEstado().getEstados() + "\n"+"Destinatarios: "; // Another way to concat strings
-		for(int i=0; i<this.getDestinatarios().size();i++) {
+		//Actualizar.
+		/*for(int i=0; i<this.getDestinatarios().size();i++) {
 			anuncioInfo=anuncioInfo +"\n" +this.getDestinatarios().get(i).getEmail() ;
-		}
+		}*/
 		return anuncioInfo;
 	}
 

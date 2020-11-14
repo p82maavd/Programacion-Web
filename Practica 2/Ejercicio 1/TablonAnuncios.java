@@ -15,8 +15,6 @@ import ejercicio1.Anuncio.Estados;
  * Declaracion de la clase tablon Anuncios
  * @author Damian Martinez
  * @author Daniel Ortega
- * 
- * 
  *
  */
 
@@ -45,9 +43,9 @@ public class TablonAnuncios {
 	private static TablonAnuncios instance =null;
 	
 	
-	private ContactoDAO contactos;
-	private InteresDAO intereses;
-	private AnuncioDAO anuncios;
+	private ContactoDAO contactosDAO;
+	private InteresDAO interesesDAO;
+	private AnuncioDAO anunciosDAO;
 	/**
 	 * Este método se encarga de crear una instancia en el caso de que no haya una ya creada. Patron de diseño Singleton
 	 * @return Instancia única de TablonAnuncios
@@ -58,9 +56,9 @@ public class TablonAnuncios {
 	
 	private TablonAnuncios() throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
 		DAOFactory factory = DAOFactory.getInstance();
-		this.contactos=factory.getContactoDAO();
-		this.intereses=factory.getInteresDAO();
-		this.anuncios=factory.getAnuncioDAO();
+		this.contactosDAO=factory.getContactoDAO();
+		this.interesesDAO=factory.getInteresDAO();
+		this.anunciosDAO=factory.getAnuncioDAO();
 		
 	}
 	public static TablonAnuncios getInstance() throws SQLException, FileNotFoundException, ClassNotFoundException, IOException {
@@ -97,7 +95,7 @@ public class TablonAnuncios {
 	
 	public void inscribirseInteres() throws SQLException {
 		
-		contactos.añadirInteres(getUsuario());
+		contactosDAO.añadirInteres(getUsuario());
 	}
 	
 	/**
@@ -122,28 +120,28 @@ public class TablonAnuncios {
 		
 		if(as==1) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),contactos.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),contactosDAO.getContactos(),id);
 			
 			return anuncio;
 		}
 		
 		else if(as==2) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),contactos.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),contactosDAO.getContactos(),id);
 			
 			return anuncio;
 		}
 		
 		else if(as==3) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),contactos.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),contactosDAO.getContactos(),id);
 			
 			return anuncio;
 		}
 		
 		else if(as==4) {
 		
-			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),intereses.getIntereses(),contactos.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),interesesDAO.getIntereses(),contactosDAO.getContactos(),id);
 			
 			return anuncio;
 		}
@@ -161,31 +159,31 @@ public class TablonAnuncios {
 	 * Metodo que muestra los anuncios del contacto identificado en el tablon
 	 * @param e Usuario propietario del tablon.
 	 * @param anuncios Lista de anuncios.
+	 * @throws SQLException 
 	*/
 	
-	public void mostrarAnuncios(Contacto e, ArrayList<Anuncio> anuncios) {
+	public void mostrarAnuncios(Contacto e) throws SQLException {
 		
-		int cont=0;
+		anunciosDAO.actualizarDestinatarios();
+		ArrayList<Anuncio> anuncios=new ArrayList<Anuncio>();
+		anuncios = anunciosDAO.getAnunciosContacto(e);
 		for(Anuncio a: anuncios) {
 			System.out.println("");
 			//Actualiza los destinatarios para que les llegue a todos los contactos actuales.
-			if(!(a.getClass().toString().equals("class ejercicio2.AnuncioIndividualizado"))) {
-				
-				a.setDestinatarios(contactos.getContactos());
-				
-			}
+			//Se supone que esto ya se hace en los otros DAO y los intereses en la llamada a la funcion de arriba actualizarDestinatarios()
+			
 			
 			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado o en espera se imprime.
 
-			if((a.getDestinatarios().get(cont).getEmail().equals(e.getEmail())) & (a.getEstado().getId()>=2) & (a.getEstado().getId()<=3) ){
+			if( (a.getEstado().getId()>=2) & (a.getEstado().getId()<=3) ){
 				
-				if(!(a.getClass().toString().equals("class ejercicio2.AnuncioFlash"))) {
+				if(!(a.getClass().toString().equals("class ejercicio1.AnuncioFlash"))) {
 					
-					if(a.getClass().toString().equals("class ejercicio2.AnuncioGeneral")) {
+					if(a.getClass().toString().equals("class ejercicio1.AnuncioGeneral")) {
 						System.out.println(((AnuncioGeneral) a).tooString());
 					}
 					
-					else if(a.getClass().toString().equals("class ejercicio2.AnuncioTematico")) {
+					else if(a.getClass().toString().equals("class ejercicio1.AnuncioTematico")) {
 						System.out.println(((AnuncioTematico) a).tooString());
 					}
 					
@@ -204,7 +202,8 @@ public class TablonAnuncios {
 					
 					if( (fechaActual.compareTo(((AnuncioFlash) a).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) a).getFechaFinal())<0) ){
 						
-						
+						//Llamar a una funcion que actualize el estado
+						//UPDATE ESTADO where idanuncio = a.getId()
 						Estados estado=Estados.Publicado;
 						a.setEstado(estado);
 						System.out.println(((AnuncioFlash) a).tooString());
@@ -216,6 +215,7 @@ public class TablonAnuncios {
 						//Si se ha pasado la fecha final se archiva
 						
 						if(fechaActual.compareTo(((AnuncioFlash) a).getFechaFinal())>0) {
+							//Llamar a una funcion que actualize el estado.
 							Estados estado=Estados.Archivado;
 							a.setEstado(estado);
 						}
@@ -223,8 +223,7 @@ public class TablonAnuncios {
 					}
 					
 				}
-				
-				
+					
 			}
 		}
 	}
@@ -233,7 +232,7 @@ public class TablonAnuncios {
 		Scanner sc= new Scanner(System.in);
 		int a;
 		boolean condicion=true;
-		boolean usuario=identificarUsuario(contactos.getContactos());
+		boolean usuario=identificarUsuario(contactosDAO.getContactos());
 		while(condicion) {
 			
 			if(usuario) {
@@ -257,7 +256,7 @@ public class TablonAnuncios {
 						
 						
 						try {
-						anuncios.addNewAnuncio(crearAnuncio(anuncios.getListaAnuncios().size()));
+						anunciosDAO.addNewAnuncio(crearAnuncio(anunciosDAO.getListaAnuncios().size()));
 						System.out.println("Anuncio creado en estado editado");
 						}catch(NullPointerException e) {
 							
@@ -267,7 +266,7 @@ public class TablonAnuncios {
 			
 					else if(a==3) {
 						
-						mostrarAnuncios(getUsuario(), anuncios.getListaAnuncios());
+						mostrarAnuncios(getUsuario());
 				
 					}
 					

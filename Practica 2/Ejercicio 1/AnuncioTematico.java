@@ -27,14 +27,13 @@ public class AnuncioTematico extends Anuncio{
 	 * @param estado de AnuncioTematico
 	 */
 
-	public AnuncioTematico(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Contacto> destinatarios, ArrayList<Interes> intereses, Estados estado) {
-		super(id, titulo, cuerpo, usuario, destinatarios, estado);
+	public AnuncioTematico(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Interes> intereses, Estados estado) {
+		super(id, titulo, cuerpo, usuario, estado);
 		this.intereses=intereses;
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
-		this.destinatarios=destinatarios;
 		this.estado=estado;
 		
 	}
@@ -62,9 +61,10 @@ public class AnuncioTematico extends Anuncio{
 	public String tooString() {
 		
 		String anuncioInfo = "Id: "+this.id + " Titulo: " + this.titulo + " Cuerpo: " + this.cuerpo + " Propietario: " + this.usuario.getNombre()+  " Estado: " + this.getEstado().getEstados() +"\n"+ "Destinatarios: "; // Another way to concat strings
-		for(int i=0; i<this.getDestinatarios().size();i++) {
+		//Actualizar.
+		/*for(int i=0; i<this.getDestinatarios().size();i++) {
 			anuncioInfo=anuncioInfo +"\n" +this.getDestinatarios().get(i).getEmail();
-		}
+		}*/
 		anuncioInfo=anuncioInfo+"\n"+"Intereses: ";
 		for(int i=0; i<this.getIntereses().size();i++) {
 			anuncioInfo=anuncioInfo +"\n" +this.getIntereses().get(i);

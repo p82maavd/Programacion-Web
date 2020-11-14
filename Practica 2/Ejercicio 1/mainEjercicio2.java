@@ -17,16 +17,19 @@ import java.util.Scanner;
 public class mainEjercicio2 {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, IOException {
-		
+		System.out.println("ESTO ES EL MAIN");
 		Configuracion config= Configuracion.getInstance(args[0]);
 		DAOFactory factory=DAOFactory.getInstance();
+		System.out.println("Factory Creada. Comenzamos a crear ContactoDAO.");
 		ContactoDAO contactos= factory.getContactoDAO();
+		System.out.println("beep");
 		InteresDAO intereses= factory.getInteresDAO();
 		AnuncioDAO anuncios= factory.getAnuncioDAO();
 		TablonAnuncios tablon=TablonAnuncios.getInstance();
 		
 		int a;
 		@SuppressWarnings("resource")
+	
 		Scanner sc = new Scanner(System.in);
 		
 		boolean condicion=true;

@@ -1,5 +1,8 @@
 package ejercicio1;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 /**
  * Declaracion de la clase AbstractFactory.
@@ -19,9 +22,13 @@ public abstract class AbstractFactory {
 	 * @param a Lista de destinatarios
 	 * @param id Identificador del anuncio
 	 * @return Anuncio de tipo flash
+	 * @throws IOException 
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
 	
-	public abstract AnuncioFlash createAnuncioFlash(Contacto e,ArrayList <Contacto> a, int id);
+	public abstract AnuncioFlash createAnuncioFlash(Contacto e, int id);
 	
 	/**
 	 * 
@@ -31,7 +38,7 @@ public abstract class AbstractFactory {
 	 * @return Anuncio de tipo individualizado
 	 */
 	
-	public abstract AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, ArrayList<Contacto> destinatarios, int id);
+	public abstract AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int id);
 	/**
 	 * 
 	 * @param e Creador del anuncio
@@ -41,7 +48,7 @@ public abstract class AbstractFactory {
 	 */
 	
 	
-	public abstract AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <String> aux, ArrayList <Contacto> a, int id);
+	public abstract AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> aux, int id);
 	
 	/**
 	 * 
@@ -52,5 +59,5 @@ public abstract class AbstractFactory {
 	 */
 	
 	
-	public abstract AnuncioGeneral createAnuncioGeneral(Contacto e,ArrayList <Contacto> a, int id);
+	public abstract AnuncioGeneral createAnuncioGeneral(Contacto e, int id);
 }
