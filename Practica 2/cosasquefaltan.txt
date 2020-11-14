@@ -8,3 +8,42 @@ EJERCICIO 1
 7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
 8. En la practica 2 actualizar las funciones de buscarContacto()
 9. Actualizar metodos toString de cada anuncio.
+
+Para guardarAnuncio en individualizado o funcion aparte mejor:
+
+ArrayList<Contacto> destinatarios=new ArrayList<Contacto>();
+		boolean condicion=true;
+		String linea=new String();
+		
+		while(condicion) {
+			
+			try {
+				
+				System.out.print("Introduzca el Email del destinatario: ");
+			
+				linea=sc.nextLine();
+				
+				for(Contacto d: contactosDAO.getContactos()) {
+					if(d.getEmail().equals(linea.toLowerCase())) {
+						destinatarios.add(d);
+						
+						break;
+					}
+				}
+				System.out.println("Quieres añadir otro destinatario: 1. Si 2.No");
+				as=sc.nextInt();
+				sc.nextLine();
+				
+				if(as!=1) {
+					condicion=false;
+				}
+				
+			} catch (NoSuchElementException w) {
+				
+                System.out.println("Debes insertar un numero");
+	             
+               as=sc.nextInt();
+               sc.nextLine();
+
+            }
+     }
