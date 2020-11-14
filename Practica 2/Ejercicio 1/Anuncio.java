@@ -2,7 +2,7 @@ package ejercicio1;
 
 import java.io.Serializable;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *  Declaracion de la clase abstracta Anuncio.
@@ -100,11 +100,7 @@ public abstract class Anuncio implements Serializable {
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
-		this.usuario=usuario;
-		
-		  
-		Date fecha=new Date(System.currentTimeMillis());
-		this.fecha= fecha;
+		this.usuario=usuario;  
 		this.estado= estado;
 		
 	

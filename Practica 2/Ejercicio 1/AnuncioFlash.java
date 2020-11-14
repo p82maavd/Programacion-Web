@@ -1,8 +1,7 @@
 package ejercicio1;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Declaracion de la clase AnuncioFlash.
@@ -31,7 +30,7 @@ public class AnuncioFlash extends Anuncio{
 	 * @param fechaFinal de AnuncioFlash
 	 */
 
-	public AnuncioFlash(int id, String titulo, String cuerpo, Contacto usuario, Estados estado,Date fechaInicio, Date fechaFinal) {
+	public AnuncioFlash(int id, String titulo, String cuerpo, Contacto usuario, Estados estado,Date fecha,Date fechaInicio, Date fechaFinal) {
 		super(id, titulo, cuerpo, usuario, estado);
 		
 		this.id=id;
@@ -39,6 +38,7 @@ public class AnuncioFlash extends Anuncio{
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
 		this.estado=estado;
+		this.fecha=fecha;
 		this.fechaInicio=fechaInicio;
 		this.fechaFinal=fechaFinal;
 		

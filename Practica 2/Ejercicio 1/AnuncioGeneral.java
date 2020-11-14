@@ -1,6 +1,6 @@
 package ejercicio1;
 
-import java.util.ArrayList;
+import java.sql.Date;
 
 /**
  * Declaracion de la clase AnuncioGeneral.
@@ -23,13 +23,14 @@ public class AnuncioGeneral extends Anuncio{
 	 * @param destinatarios de AnuncioGeneral
 	 * @param estado de AnuncioGeneral
 	 */
-	public AnuncioGeneral(int id, String titulo, String cuerpo, Contacto usuario, Estados estado) {
+	public AnuncioGeneral(int id, String titulo, String cuerpo, Contacto usuario, Date fecha, Estados estado) {
 		super(id, titulo, cuerpo, usuario, estado);
 		
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
+		this.fecha=fecha;
 		this.estado=estado;
 		
 	}

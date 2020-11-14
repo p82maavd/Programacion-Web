@@ -2,6 +2,7 @@ package ejercicio1;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 /**
@@ -28,7 +29,7 @@ public abstract class AbstractFactory {
 	 * @throws FileNotFoundException 
 	 */
 	
-	public abstract AnuncioFlash createAnuncioFlash(Contacto e, int id);
+	public abstract AnuncioFlash createAnuncioFlash(Contacto e, int id, Date fecha);
 	
 	/**
 	 * 
@@ -38,7 +39,7 @@ public abstract class AbstractFactory {
 	 * @return Anuncio de tipo individualizado
 	 */
 	
-	public abstract AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int id);
+	public abstract AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int id, Date fecha);
 	/**
 	 * 
 	 * @param e Creador del anuncio
@@ -48,7 +49,7 @@ public abstract class AbstractFactory {
 	 */
 	
 	
-	public abstract AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> aux, int id);
+	public abstract AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> aux, int id, Date fecha);
 	
 	/**
 	 * 
@@ -59,5 +60,5 @@ public abstract class AbstractFactory {
 	 */
 	
 	
-	public abstract AnuncioGeneral createAnuncioGeneral(Contacto e, int id);
+	public abstract AnuncioGeneral createAnuncioGeneral(Contacto e, int id, Date fecha);
 }

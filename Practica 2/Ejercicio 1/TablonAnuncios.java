@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -108,7 +108,7 @@ public class TablonAnuncios {
 		
 		ConcreteFactory anuncioFactory = new ConcreteFactory();
 		Scanner sc=new Scanner(System.in);
-		
+		Date fecha= new Date(System.currentTimeMillis());
 		
 		System.out.println("Que tipo de anuncio quieres crear: ");
 		System.out.println("1. Anuncio General");
@@ -120,28 +120,28 @@ public class TablonAnuncios {
 		
 		if(as==1) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),contactosDAO.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),id,fecha);
 			
 			return anuncio;
 		}
 		
 		else if(as==2) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),contactosDAO.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),id,fecha);
 			
 			return anuncio;
 		}
 		
 		else if(as==3) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),contactosDAO.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),id,fecha);
 			
 			return anuncio;
 		}
 		
 		else if(as==4) {
 		
-			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),interesesDAO.getIntereses(),contactosDAO.getContactos(),id);
+			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),interesesDAO.getIntereses(),id,fecha);
 			
 			return anuncio;
 		}
@@ -196,7 +196,7 @@ public class TablonAnuncios {
 				
 				else {
 					
-					Date fechaActual=new Date();
+					Date fechaActual=new Date(System.currentTimeMillis());
 					
 					//Si esta en una fecha entre inicio y fin te lo publica
 					
@@ -256,7 +256,7 @@ public class TablonAnuncios {
 						
 						
 						try {
-						anunciosDAO.addNewAnuncio(crearAnuncio(anunciosDAO.getListaAnuncios().size()));
+						anunciosDAO.guardarAnuncio(crearAnuncio(anunciosDAO.getListaAnuncios().size()));
 						System.out.println("Anuncio creado en estado editado");
 						}catch(NullPointerException e) {
 							

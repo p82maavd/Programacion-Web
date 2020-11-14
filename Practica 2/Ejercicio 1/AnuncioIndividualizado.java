@@ -1,5 +1,6 @@
 package ejercicio1;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -24,13 +25,14 @@ public class AnuncioIndividualizado extends Anuncio{
 	 * @param destinatarios de AnuncioIndividualizado
 	 * @param estado de AnuncioIndividualizado
 	 */
-	public AnuncioIndividualizado(int id, String titulo, String cuerpo, Contacto usuario, Estados estado) {
+	public AnuncioIndividualizado(int id, String titulo, String cuerpo, Contacto usuario, Date fecha,Estados estado) {
 		super(id, titulo, cuerpo, usuario, estado);
 		// TODO Auto-generated constructor stub
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
+		this.fecha=fecha;
 		this.estado=estado;
 	}
 	

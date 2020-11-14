@@ -1,5 +1,6 @@
 package ejercicio1;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -27,13 +28,14 @@ public class AnuncioTematico extends Anuncio{
 	 * @param estado de AnuncioTematico
 	 */
 
-	public AnuncioTematico(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Interes> intereses, Estados estado) {
+	public AnuncioTematico(int id, String titulo, String cuerpo, Contacto usuario, ArrayList<Interes> intereses, Date fecha, Estados estado) {
 		super(id, titulo, cuerpo, usuario, estado);
 		this.intereses=intereses;
 		this.id=id;
 		this.titulo=titulo;
 		this.cuerpo=cuerpo;
 		this.usuario=usuario;
+		this.fecha=fecha;
 		this.estado=estado;
 		
 	}

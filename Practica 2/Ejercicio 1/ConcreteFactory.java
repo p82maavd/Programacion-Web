@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -25,7 +25,7 @@ public class ConcreteFactory extends AbstractFactory {
 	// Implementation of creation methods
 	
 	@Override
-	public AnuncioFlash createAnuncioFlash(Contacto e, int ids){
+	public AnuncioFlash createAnuncioFlash(Contacto e, int ids, Date fecha){
 		ControlDeErrores control=new ControlDeErrores();
 		Scanner sc=new Scanner(System.in);
 		int id=ids;
@@ -37,7 +37,7 @@ public class ConcreteFactory extends AbstractFactory {
 		cuerpo=sc.nextLine();
 		Estados estado=Estados.Editado;
 		
-		Date fechaInicio=new Date();
+		Date fechaInicio=new Date(0);
 		System.out.print("Introduzca la fecha de inicio(dd/mm/yyyy hh:mm:ss): ");
 		String fechain=new String();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
@@ -47,19 +47,19 @@ public class ConcreteFactory extends AbstractFactory {
 			try {
 				fechain = sc.nextLine();
 				while(!(control.esFecha(fechain))) {
-					System.out.println("Formato de la fecha (dd/mm/yyyy)");
+					System.out.println("Formato de la fecha (yyyy-mm-dd)");
 					System.out.print("Vuelva a introducir la fecha: ");
 					fechain=sc.nextLine();
 				}
-				fechaInicio = formatter.parse(fechain);
-			} catch (ParseException e1) {
-				System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
+				fechaInicio = Date.valueOf(fechain);
+			} catch (Exception e1) {
+				System.out.print("Error con la fecha. Vuelva a introducirla(yyyy-mm-dd): ");
 				
 				cont++;
 			}
 		}
 		
-		Date fechaFinal=new Date();
+		Date fechaFinal=new Date(0);
 		System.out.print("Introduzca la fecha final(dd/mm/yyyy hh:mm:ss): ");
 		String fechafin=new String();
 		
@@ -73,8 +73,8 @@ public class ConcreteFactory extends AbstractFactory {
 					System.out.print("Vuelva a introducir la fecha: ");
 					fechafin=sc.nextLine();
 				}
-				fechaFinal = formatter.parse(fechafin);
-			} catch (ParseException e2) {
+				fechaFinal = Date.valueOf(fechafin);
+			} catch (Exception e2) {
 				System.out.print("Error con la fecha. Vuelva a introducirla(dd/mm/yyyy hh:mm:ss): ");
 				
 				cont++;
@@ -82,12 +82,12 @@ public class ConcreteFactory extends AbstractFactory {
 		}
 		
 		
-		AnuncioFlash product = new AnuncioFlash(id, titulo, cuerpo, e, estado, fechaInicio, fechaFinal);
+		AnuncioFlash product = new AnuncioFlash(id, titulo, cuerpo, e, estado,fecha, fechaInicio, fechaFinal);
 		return product;
 	}
 
 	@Override
-	public AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int ids) {
+	public AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int ids, Date fecha) {
 		Scanner sc=new Scanner(System.in);
 		int id=ids;
 		String titulo=new String();
@@ -100,12 +100,13 @@ public class ConcreteFactory extends AbstractFactory {
 		
 		
 		
-		AnuncioIndividualizado product = new AnuncioIndividualizado(id, titulo, cuerpo, e, estado);
+		
+		AnuncioIndividualizado product = new AnuncioIndividualizado(id, titulo, cuerpo, e, fecha, estado);
 		return product;
 	}
 	
 	@Override
-	public AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> intereses,int ids) {
+	public AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> intereses,int ids, Date fecha) {
 		
 		ArrayList<Interes> interesesaux=new ArrayList<Interes>();
 		Integer neweleccion=0;
@@ -152,13 +153,13 @@ public class ConcreteFactory extends AbstractFactory {
 		Estados estado=Estados.Editado;
 		
 		
-		AnuncioTematico product = new AnuncioTematico( id, titulo, cuerpo, e, interesesaux, estado);
+		AnuncioTematico product = new AnuncioTematico( id, titulo, cuerpo, e, interesesaux, fecha, estado);
 		
 		return product;
 	}
 
 	@Override
-	public AnuncioGeneral createAnuncioGeneral(Contacto e,int ids) {
+	public AnuncioGeneral createAnuncioGeneral(Contacto e,int ids, Date fecha) {
 		
 		Scanner sc=new Scanner(System.in);
 		int id=ids;
@@ -170,7 +171,7 @@ public class ConcreteFactory extends AbstractFactory {
 		cuerpo=sc.nextLine();
 		Estados estado=Estados.Editado;
 		
-		AnuncioGeneral product = new AnuncioGeneral(id, titulo, cuerpo, e, estado);
+		AnuncioGeneral product = new AnuncioGeneral(id, titulo, cuerpo, e, fecha, estado);
 		return product;
 	}
 
