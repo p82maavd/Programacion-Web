@@ -315,7 +315,7 @@ public class AnuncioDAO  {
             }
         }
 		for(Contacto d : destinatarios) {
-			  PreparedStatement ps=con.prepareStatement("insert into destinatarios(idanuncio,idemail) values(?,?)");
+			  PreparedStatement ps=con.prepareStatement("insert into destinatarios(idanuncio,idcontacto) values(?,?)");
               ps.setInt(1, a.getId());
               ps.setString(2, d.getEmail());
               status = ps.executeUpdate();	
@@ -362,7 +362,7 @@ public class AnuncioDAO  {
 				
 				for(int i=0; i<((AnuncioTematico) a).getIntereses().size();i++) {
 					
-					PreparedStatement ps2=con.prepareStatement("INSERTAR_INTERES_ANUNCIO");
+					PreparedStatement ps2=con.prepareStatement("INSERTAR_INTERES_ANUNCIOS");
 					ps2.setString(1, a.getUsuario().getEmail());
 					ps2.setInt(2, id);
 					//Puede fallar esto.
@@ -377,12 +377,12 @@ public class AnuncioDAO  {
 			}
 			else if(tipo.equals("class ejercicio1.AnuncioFlash")) {
 				
-				PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_ANUNCIO"));
+				PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_ANUNCIOS"));
 				ps.setString(1, a.getTitulo());
 				ps.setString(2, a.getCuerpo());
 				ps.setString(3, a.getUsuario().getEmail());
 				ps.setInt(4, a.getEstado().getId());
-				ps.setDate(5, null);
+				ps.setDate(5, a.getFecha());
 				ps.setDate(6, ((AnuncioFlash) a).getFechaInicio());
 				ps.setDate(7, ((AnuncioFlash) a).getFechaFinal());
 				ps.setString(8, tipo);	
@@ -404,12 +404,12 @@ public class AnuncioDAO  {
 			}
 			else if(tipo.equals("class ejercicio1.AnuncioIndividualizado")) {
 				
-				PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_ANUNCIO"));
+				PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_ANUNCIOS"));
 				ps.setString(1, a.getTitulo());
 				ps.setString(2, a.getCuerpo());
 				ps.setString(3, a.getUsuario().getEmail());
 				ps.setInt(4, a.getEstado().getId());
-				ps.setDate(5, null);
+				ps.setDate(5, a.getFecha());
 				ps.setDate(6, null);
 				ps.setDate(7, null);
 				ps.setString(8, tipo);	
@@ -420,7 +420,7 @@ public class AnuncioDAO  {
 	      		}
 				
 				PreparedStatement ps3 = con.prepareStatement("select id from anuncios where fechapublicacion = ? and titulo = ?");
-				//Si dos usuarios crean un anuncio en el mismo instante podria tomar un mal id.
+				//Si dos usuarios crean un anuncio en el mismo instante(por el momento dia) y con el mismo titulo podria tomar un mal id. Podria añadirse mas seguridad pero no creo que sea necesario.
 				ps3.setDate(1, a.getFecha());
 				ps3.setString(2, a.getTitulo());
 				ResultSet rs= ps3.executeQuery();
@@ -1062,7 +1062,20 @@ public class AnuncioDAO  {
         ResultSet rs;
         ArrayList<Integer>anuncios=new ArrayList<Integer>();
         ArrayList<Anuncio> anunciosList=new ArrayList<Anuncio>();
-        PreparedStatement ps = con.prepareStatement("select emailcontacto, idanuncio from destinatarios where emailcontacto=?");
+        System.out.println("Como quieres ordenados los anuncios: 1. Fecha 2. Propietario");
+        Scanner sc = new Scanner(System.in);
+        String sql=new String();
+        int as = sc.nextInt();
+        sc.nextLine();
+        //Esto ahi que poner sql = config.getProperty("...")
+        if(as == 1) {
+        	sql ="select emailcontacto, idanuncio from destinatarios where emailcontacto=? order by idanuncio";
+        }
+        
+        else if(as==2){
+        	sql ="select emailcontacto, idanuncio from destinatarios where emailcontacto=? order by emailcontacto";
+        }
+        PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, e.getEmail());
         rs=ps.executeQuery();
         while(rs.next()) {
@@ -1222,75 +1235,75 @@ public class AnuncioDAO  {
 	public Anuncio buscarIntereses(Interes interes, ArrayList<Interes> intereses) throws SQLException {
 			
 			
-			PreparedStatement ps1= con.prepareStatement("select id, titulo, cuerpo, idautor, estado, fechapublicacion, fechainicio, fechafinal, tipo  from anuncios where tipo = ?");
-		    PreparedStatement ps=con.prepareStatement("select idanuncio from intereses_anuncios where idinteres = ?");
+		PreparedStatement ps1= con.prepareStatement("select id, titulo, cuerpo, idautor, estado, fechapublicacion, fechainicio, fechafinal, tipo  from anuncios where tipo = ?");
+		PreparedStatement ps=con.prepareStatement("select idanuncio from intereses_anuncios where idinteres = ?");
 	        
-	        Anuncio buscado= null;
-	        ArrayList<Interes> interesesaux= new ArrayList<Interes>();
-	        ArrayList<AnuncioTematico> anuncios =new ArrayList<AnuncioTematico>();
-	        ArrayList<Integer> aux = new ArrayList<Integer>();
-	        ArrayList<AnuncioTematico> buscadolist = new ArrayList<AnuncioTematico>();
-	        Scanner sc = new Scanner(System.in);
-	        int id= 0;
-	        Anuncio.Estados estado=null;
+		Anuncio buscado= null;
+	    ArrayList<Interes> interesesaux= new ArrayList<Interes>();
+	    ArrayList<AnuncioTematico> anuncios =new ArrayList<AnuncioTematico>();
+	    ArrayList<Integer> aux = new ArrayList<Integer>();
+	    ArrayList<AnuncioTematico> buscadolist = new ArrayList<AnuncioTematico>();
+	    Scanner sc = new Scanner(System.in);
+	    int id= 0;
+	    Anuncio.Estados estado=null;
 	       
-	        Contacto a= null;
-	        AnuncioTematico t= null;
-	        try {
-	        	ps1.setString(1, "class ejercicio1.AnuncioTematico");
-	        	ResultSet rs1 = ps1.executeQuery();
+	    Contacto a= null;
+	    AnuncioTematico t= null;
+	    try {
+	    	ps1.setString(1, "class ejercicio1.AnuncioTematico");
+	        ResultSet rs1 = ps1.executeQuery();
 	        	
-	        	while(rs1.next()) {
+	        while(rs1.next()) {
 	        		
-	        		 for (Anuncio.Estados p : Anuncio.Estados.values()) {
-	                    	if(p.getId()==rs1.getInt(5)) {
-	                    		estado = p;
-	                    	}
-	                    }
+	        	for (Anuncio.Estados p : Anuncio.Estados.values()) {
+	        		if(p.getId()==rs1.getInt(5)) {
+	        			estado = p;
+	                }
+	            }
 	        		
-	        		a = new Contacto(rs1.getString(4), null, null, null, null);
-	        		t = new AnuncioTematico(rs1.getInt(1), rs1.getString(2), rs1.getString(3), a, interesesDAO.getInteresesAnuncio(rs1.getInt(1)),Date.valueOf(rs1.getString(6)), estado);
-	        		anuncios.add(t);
-	        	}
-	        }catch(Exception e) {
-	        	
+	        	a = new Contacto(rs1.getString(4), null, null, null, null);
+	        	t = new AnuncioTematico(rs1.getInt(1), rs1.getString(2), rs1.getString(3), a, interesesDAO.getInteresesAnuncio(rs1.getInt(1)),Date.valueOf(rs1.getString(6)), estado);
+	        	anuncios.add(t);
 	        }
+	    }catch(Exception e) {
+	        	
+	    }
 	        
-	        try{
+	    try{
 	            
-	            ps.setInt(1,interes.getId());
-	            ResultSet rs= ps.executeQuery();
+	    	ps.setInt(1,interes.getId());
+	        ResultSet rs= ps.executeQuery();
 	            
-	            while(rs.next()) {
-	             aux.add(rs.getInt(1));
+	        while(rs.next()) {
+	        	aux.add(rs.getInt(1));
 	             
-	            }
-	            for(AnuncioTematico d : anuncios) {
-	            	for(Integer i : aux) {
-	            		if(d.getId()==i) {
-	            			buscadolist.add(d);
-	            		}
-	            	}
-	            }
-	            for(Integer i=0;i<buscadolist.size();i++) {
-	    			System.out.println(i.toString()+". Titulo: "+buscadolist.get(i).getTitulo());
-	    		}
+	        }
+	        for(AnuncioTematico d : anuncios) {
+	            for(Integer i : aux) {
+	            	if(d.getId()==i) {
+	            		buscadolist.add(d);
+	           		}
+	           	}
+	        }
+	        for(Integer i=0;i<buscadolist.size();i++) {
+	   			System.out.println(i.toString()+". Titulo: "+buscadolist.get(i).getTitulo());
+	   		}
 	    		
-	    		System.out.println("Selecciona el anuncio buscado");	
+	        System.out.println("Selecciona el anuncio buscado");	
 	    		
-	    		int seleccion2=sc.nextInt();
-	    		sc.nextLine();	
+	    	int seleccion2=sc.nextInt();
+	   		sc.nextLine();	
 	    			
-	    		buscado=buscadolist.get(seleccion2);
+	   		buscado=buscadolist.get(seleccion2);
 	    			
-	    		return buscado;
+	   		return buscado;
 		
-	}catch(Exception e) {
+	    }catch(Exception e) {
 		
 		
+	    }
+		return null;
 	}
-			return null;
-}
 	
 	/**
 	 * Metodo que busca un Anuncio por el nombre del propietario del mismo
@@ -1298,32 +1311,32 @@ public class AnuncioDAO  {
 	 * @return Anuncio
 	 * @throws SQLException 
 	 */
-	  public Anuncio buscarPropietario(String email) throws SQLException {
-        	ArrayList<Anuncio> aux= new ArrayList<Anuncio>();
-        	ArrayList<Anuncio> listaAnuncios = getAnuncios();
-        	Anuncio buscado= null;
-        	Scanner sc = new Scanner(System.in);
+	public Anuncio buscarPropietario(String email) throws SQLException {
+		  ArrayList<Anuncio> aux= new ArrayList<Anuncio>();
+		  ArrayList<Anuncio> listaAnuncios = getAnuncios();
+		  Anuncio buscado= null;
+		  Scanner sc = new Scanner(System.in);
             
-            for(Anuncio d : listaAnuncios) {
+          for(Anuncio d : listaAnuncios) {
             	
-            	if(d.getUsuario().getEmail().equals(email)) {
+        	  if(d.getUsuario().getEmail().equals(email)) {
             			aux.add(d);
-            	}
-            }
+        	  }
+          }
             
-            for(Integer i=0;i<aux.size();i++) {
-    			System.out.println(i.toString()+". Titulo: "+aux.get(i).getTitulo());
-    		}
+          for(Integer i=0;i<aux.size();i++) {
+        	  System.out.println(i.toString()+". Titulo: "+aux.get(i).getTitulo());
+          }
     		
-    		System.out.print("Selecciona el anuncio buscado: ");	
+          System.out.print("Selecciona el anuncio buscado: ");	
     		
-    		int seleccion2=sc.nextInt();
-    		sc.nextLine();	
+          int seleccion2=sc.nextInt();
+          sc.nextLine();	
     			
-    		buscado=aux.get(seleccion2);
+          buscado=aux.get(seleccion2);
     			
-    		return buscado;
-	}
+          return buscado;
+	  }
 	/**
 	 * Metodo que se encarga de buscar un Anuncio por el email de uno de sus destinatarios
 	 * @param email
@@ -1389,7 +1402,7 @@ public class AnuncioDAO  {
 			String cad = new String();
 			while(rs.next()) {
 				
-				cad= "ID: "+rs.getInt(1)+" Titulo: "+rs.getString(2)+"\nCuerpo: " + rs.getString(3) + "\nFecha de Publicacion: " + rs.getDate(4).toString();
+				cad= "\nID: "+rs.getInt(1)+" Titulo: "+rs.getString(2)+"\nCuerpo: " + rs.getString(3) + "\nFecha de Publicacion: " + rs.getDate(4).toString();
 				System.out.println(cad);
 				
 			}
