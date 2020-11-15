@@ -25,10 +25,10 @@ public class ConcreteFactory extends AbstractFactory {
 	// Implementation of creation methods
 	
 	@Override
-	public AnuncioFlash createAnuncioFlash(Contacto e, int ids, Date fecha){
+	public AnuncioFlash createAnuncioFlash(Contacto e, Date fecha){
 		ControlDeErrores control=new ControlDeErrores();
 		Scanner sc=new Scanner(System.in);
-		int id=ids;
+		int id=0;
 		String titulo=new String();
 		System.out.print("Titulo del Anuncio: ");
 		titulo=sc.nextLine();
@@ -87,9 +87,9 @@ public class ConcreteFactory extends AbstractFactory {
 	}
 
 	@Override
-	public AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int ids, Date fecha) {
+	public AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, Date fecha) {
 		Scanner sc=new Scanner(System.in);
-		int id=ids;
+		int id=0;
 		String titulo=new String();
 		System.out.print("Titulo del Anuncio: ");
 		titulo=sc.nextLine();
@@ -106,7 +106,7 @@ public class ConcreteFactory extends AbstractFactory {
 	}
 	
 	@Override
-	public AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> intereses,int ids, Date fecha) {
+	public AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> intereses, Date fecha) {
 		
 		ArrayList<Interes> interesesaux=new ArrayList<Interes>();
 		Integer neweleccion=0;
@@ -142,7 +142,7 @@ public class ConcreteFactory extends AbstractFactory {
 			}
 		}
 		
-		int id=ids;
+		int id=0;
 		String titulo=new String();
 		System.out.print("Introduzca el titulo del anuncio: ");
 		titulo=sc.nextLine();
@@ -159,10 +159,10 @@ public class ConcreteFactory extends AbstractFactory {
 	}
 
 	@Override
-	public AnuncioGeneral createAnuncioGeneral(Contacto e,int ids, Date fecha) {
+	public AnuncioGeneral createAnuncioGeneral(Contacto e, Date fecha) {
 		
 		Scanner sc=new Scanner(System.in);
-		int id=ids;
+		int id=0;
 		String titulo=new String();
 		System.out.print("Titulo del Anuncio: ");
 		titulo=sc.nextLine();

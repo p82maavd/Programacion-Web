@@ -104,7 +104,7 @@ public class TablonAnuncios {
 	 * @throws SQLException 
 	*/
 	
-	public Anuncio crearAnuncio(int id) throws SQLException {
+	public Anuncio crearAnuncio() throws SQLException {
 		
 		ConcreteFactory anuncioFactory = new ConcreteFactory();
 		Scanner sc=new Scanner(System.in);
@@ -120,28 +120,28 @@ public class TablonAnuncios {
 		
 		if(as==1) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),id,fecha);
+			Anuncio anuncio = anuncioFactory.createAnuncioGeneral(getUsuario(),fecha);
 			
 			return anuncio;
 		}
 		
 		else if(as==2) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),id,fecha);
+			Anuncio anuncio = anuncioFactory.createAnuncioFlash(getUsuario(),fecha);
 			
 			return anuncio;
 		}
 		
 		else if(as==3) {
 			
-			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),id,fecha);
+			Anuncio anuncio = anuncioFactory.createAnuncioIndividualizado(getUsuario(),fecha);
 			
 			return anuncio;
 		}
 		
 		else if(as==4) {
 		
-			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),interesesDAO.getIntereses(),id,fecha);
+			Anuncio anuncio = anuncioFactory.createAnuncioTematico(getUsuario(),interesesDAO.getIntereses(),fecha);
 			
 			return anuncio;
 		}
@@ -256,7 +256,7 @@ public class TablonAnuncios {
 						
 						
 						try {
-						anunciosDAO.guardarAnuncio(crearAnuncio(anunciosDAO.getListaAnuncios().size()));
+						anunciosDAO.guardarAnuncio(crearAnuncio());
 						System.out.println("Anuncio creado en estado editado");
 						}catch(NullPointerException e) {
 							

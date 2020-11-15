@@ -21,7 +21,6 @@ public abstract class AbstractFactory {
 	 * 
 	 * @param e Creador del anuncio
 	 * @param a Lista de destinatarios
-	 * @param id Identificador del anuncio
 	 * @return Anuncio de tipo flash
 	 * @throws IOException 
 	 * @throws SQLException 
@@ -29,36 +28,33 @@ public abstract class AbstractFactory {
 	 * @throws FileNotFoundException 
 	 */
 	
-	public abstract AnuncioFlash createAnuncioFlash(Contacto e, int id, Date fecha);
+	public abstract AnuncioFlash createAnuncioFlash(Contacto e, Date fecha);
 	
 	/**
 	 * 
 	 * @param e Creador del anuncio
 	 * @param destinatarios Lista de destinatarios
-	 * @param id Identificador del anuncio
 	 * @return Anuncio de tipo individualizado
 	 */
 	
-	public abstract AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, int id, Date fecha);
+	public abstract AnuncioIndividualizado createAnuncioIndividualizado(Contacto e, Date fecha);
 	/**
 	 * 
 	 * @param e Creador del anuncio
 	 * @param a Lista de destinatarios
-	 * @param id Identificador del anuncio
 	 * @return Anuncio de tipo tematico
 	 */
 	
 	
-	public abstract AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> aux, int id, Date fecha);
+	public abstract AnuncioTematico createAnuncioTematico(Contacto e, ArrayList <Interes> aux, Date fecha);
 	
 	/**
 	 * 
 	 * @param e Creador del anuncio
 	 * @param a Lista de destinatarios
-	 * @param id Identificador del anuncio
 	 * @return Anuncio de tipo general
 	 */
 	
 	
-	public abstract AnuncioGeneral createAnuncioGeneral(Contacto e, int id, Date fecha);
+	public abstract AnuncioGeneral createAnuncioGeneral(Contacto e, Date fecha);
 }
