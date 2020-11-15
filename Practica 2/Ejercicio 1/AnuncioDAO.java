@@ -1376,62 +1376,31 @@ public class AnuncioDAO  {
 	/**
 	 * 
 	 * Metodo que imprime todos los Anuncios
+	 * @throws SQLException 
 	 */
-	/*public void mostrarAnuncios() {
+	public void mostrarAnuncios() throws SQLException {
 		
-		PreparedStatement ps=con.prepareStatement("select email, nombre, apellidos, fechanacimiento from anuncios");
+		PreparedStatement ps=con.prepareStatement("select id, titulo, cuerpo, fechapublicacion from anuncios");
 		
-		String nombreaux=new String();
+		
 		try{
-			System.out.print("Introduce el nombre a buscar: ");
-			nombreaux = sc.nextLine();
-			nombreaux = nombreaux.substring(0, 1).toUpperCase() + nombreaux.substring(1).toLowerCase();
 			
-			ps.setString(1,nombreaux);
 			ResultSet rs= ps.executeQuery();
-			cont =1;
-			System.out.println("A ver si pilla algo");
+			String cad = new String();
 			while(rs.next()) {
 				
-				System.out.println("Pilla alguno");
-				cad=cont.toString()+". "+ imprimirContacto(rs.getString(1),rs.getString(2),rs.getString(3).toString(), rs.getDate(4).toString());
+				cad= "ID: "+rs.getInt(1)+" Titulo: "+rs.getString(2)+"\nCuerpo: " + rs.getString(3) + "\nFecha de Publicacion: " + rs.getDate(4).toString();
 				System.out.println(cad);
-				cont++;
-			}
-			
-			if(cont==1) {
-				System.out.println("No existe ningun usuario con dicho nombre");
-				return null;
-			}
-			int seleccion=0;
-			if(cont==2) {
-				seleccion=1;
-			}
-			else {
-				System.out.print("Que usuario es el que busca: ");
-				seleccion=sc.nextInt();
-				sc.nextLine();
-			}
-			rs.beforeFirst();
-			cont=1;
-			while(rs.next()) {
-				System.out.println(cont+" "+seleccion);
-				//Comprobar que selecciona el que tu quieres. Creo que si.
-				if(cont==seleccion) {
-					return rs.getString(1);
-				}
 				
-				cont++;
 			}
 			
-			return null;
 			
 		} catch(Exception e) { 
 				e.printStackTrace();
 				
 		}
 		
-	}*/
+	}
 	
 	
 	public void main() throws FileNotFoundException, ClassNotFoundException, IOException, SQLException {
@@ -1506,7 +1475,7 @@ public class AnuncioDAO  {
 				}
 				
 				else if(a==5) {
-					//mostrarAnuncios();
+					mostrarAnuncios();
 				}
 				
 				else{
