@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.sql.Date;
 import java.util.Scanner;
 import java.util.NoSuchElementException;
@@ -1062,19 +1063,11 @@ public class AnuncioDAO  {
         ResultSet rs;
         ArrayList<Integer>anuncios=new ArrayList<Integer>();
         ArrayList<Anuncio> anunciosList=new ArrayList<Anuncio>();
-        System.out.println("Como quieres ordenados los anuncios: 1. Fecha 2. Propietario");
         Scanner sc = new Scanner(System.in);
         String sql=new String();
-        int as = sc.nextInt();
-        sc.nextLine();
-        //Esto ahi que poner sql = config.getProperty("...")
-        if(as == 1) {
-        	sql ="select emailcontacto, idanuncio from destinatarios where emailcontacto=? order by idanuncio";
-        }
         
-        else if(as==2){
-        	sql ="select emailcontacto, idanuncio from destinatarios where emailcontacto=? order by emailcontacto";
-        }
+        
+        sql ="select emailcontacto, idanuncio from destinatarios where emailcontacto=? order by idanuncio";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, e.getEmail());
         rs=ps.executeQuery();
@@ -1089,10 +1082,62 @@ public class AnuncioDAO  {
                 }
             }
         }
-
-        return anunciosList;
+        System.out.println("Como quieres ordenados los anuncios: 1. Fecha 2. Propietario");
+        int as = sc.nextInt();
+        sc.nextLine();
+        
+        if(as==1) {
+        	return anunciosList;
+        }
+        else if(as==2) {
+        	return ordenarPropietario(anunciosList);
+        }
+        
+        else {
+        	System.out.println("Opcion no valida. Se mostraran ordenados por fecha.");
+        }
+		return anunciosList;
+        
 
     }
+	
+	public ArrayList<Anuncio> ordenarPropietario(ArrayList<Anuncio> toOrder) {
+		
+		ArrayList<String> propietarios= new ArrayList<String>();
+		ArrayList<Anuncio> ordenado= new ArrayList<Anuncio>();
+		
+		//Coge todos los nombres de los propietarios de todos los anuncios.
+		
+		int i=0;
+		for(Anuncio a: toOrder) {
+			propietarios.add(a.getUsuario().getNombre());
+		}
+		
+		//Ordena los nombres.
+		Collections.sort(propietarios);
+		
+		//Va comparando los nombres ordenados extraidos anteriormente con los que coge del vector principal hasta que sean iguales. Si coinciden pues los añade a otro vector y los elimina de los otros dos.
+	
+		while(toOrder.size()!=0) {
+			for(int j=0; j<toOrder.size();) {
+				
+				if(propietarios.get(i).equals(toOrder.get(j).getUsuario().getNombre())) {
+					ordenado.add(toOrder.get(j));
+					
+					propietarios.remove(i);
+					toOrder.remove(j);
+					j=0;
+					
+				}
+				else {
+					j++;
+				}
+				
+			}
+		}
+		
+		return ordenado;
+	}
 
 	/**
 	 * Metodo que se encarga que crear el menu de busqueda de un Anuncio
