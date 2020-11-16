@@ -1,7 +1,9 @@
 EJERCICIO 1
 1. Hacer que cuando se modifique los intereses de un contacto se borre el usuario de la tabla destinatarios y de intereses_contacto. Revisar si esta hecho
 2. En modificarAnuncios tener cuidado, hay que modificar varias tablas a veces creo
-3. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos.
+
+3. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos. EL STATUS VALE EL Nº DE FILAS MODIFICADAS. NO SIEMPRE 1.
+
 4. Modificar las fechas en controldeerrores y donde esten como dd/mm/yyyy. En concreteFactory de ANuncioFlash DEBERIA PONER HORAS-MINUTOS-SEGUNDOS
 5. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
 6. En mostrarAnuncios del TABLON hacer una funcion en anunciosDAO para actualizar el estado de los anuncios flash(Pasarlos a publicado y archivado)
