@@ -8,4 +8,4 @@ EJERCICIO 1
 7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
 8. En la practica 2 actualizar las funciones de buscarContacto()
 9. Actualizar metodos toString de cada anuncio.
-10. Arreglar ids en guardarAnuncios.
+10. Actualizar contains de los buscarContactos...()
