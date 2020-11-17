@@ -474,64 +474,34 @@ public class AnuncioDAO  {
 	 * @throws SQLException 
 	 */
 	public void publicarAnuncio(Anuncio e) throws FileNotFoundException, IOException, ClassNotFoundException, SQLException {
-		Scanner sc=new Scanner(System.in);
-		ArrayList <Anuncio> listaAnuncios = getAnuncios();
-		Anuncio buscado = null;
-		int cont=0;
-		for(int i=0;i<listaAnuncios.size();i++) {
-			if(listaAnuncios.get(i).getEstado().getId()==1) {
-				System.out.println("Id: "+listaAnuncios.get(i).getId()+" Titulo: "+ listaAnuncios.get(i).getTitulo());
-				cont++;
-			}
-			
-		}
-		if(cont==0) {
-			System.out.println("No hay anuncios para publicar");
-			return ;
-		}
-		System.out.print("Selecciona el id del anuncio a publicar: ");
+		int status=0;
+		String string = new String();
+		Class<? extends Anuncio> a=e.getClass();
+		string=a.toString();
+		String sqlUpdate=new String();
+		sqlUpdate = "UPDATE anuncios " + "SET estado = ? " + "WHERE id = ?";
+		PreparedStatement ps=con.prepareStatement(sqlUpdate);
+		ps.setInt(1, 3);
+		ps.setInt(2, e.getId());
 		
-		int seleccion=sc.nextInt();
 		
-		for(int i=0;i<listaAnuncios.size();i++) {
-			
-			if(listaAnuncios.get(i).getId()==seleccion & listaAnuncios.get(i).getEstado().getId()<3) {
-				System.out.println("Anuncio seleccionado");
-				buscado=listaAnuncios.get(i);
-				
-			}
-		}
-		
-		Anuncio.Estados estado;
-		
-		if(!(buscado.getClass().toString().equals("class Ejercicio2.AnuncioIndividualizado"))) {
-			//buscado.setDestinatarios(contactosDAO.getContactos());
-		}
-		if(!(buscado.getClass().toString().equals("class Ejercicio2.AnuncioFlash"))) {
-			estado=Anuncio.Estados.Publicado;
-		}
-		
-		else {
-			
-			Date fechaActual=new Date(0);
-			//Si la fecha actual entre inicio y fin pasa a publicado, sino a espera. Si la fecha es mayor que la final se cambia al mostrarAnuncios
-			if( (fechaActual.compareTo(((AnuncioFlash) buscado).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) buscado).getFechaFinal())<0) ){
-				 estado=Anuncio.Estados.Publicado;
+		if(string.equals("class Ejercicio1.AnuncioFlash")) {
+			Date fechaActual=new Date(System.currentTimeMillis());
+			if( (fechaActual.compareTo(((AnuncioFlash) e).getFechaInicio())>0) & (fechaActual.compareTo(((AnuncioFlash) e).getFechaFinal())<0) ){
+				ps.setInt(1, 3);
+				ps.setInt(2, e.getId());
 			}
 			else {
-				 estado=Anuncio.Estados.En_espera;
+				ps.setInt(1, 2);
+				ps.setInt(2,  e.getId());
 			}
-			
 		}
 		
+		status = ps.executeUpdate();
 		
-		try {
-		buscado.setEstado(estado);
-		guardarAnuncio(buscado);
-		}catch(NullPointerException e2) {
-			System.out.println("Anuncio no valido");
+		if(status!=1) {
+			System.out.println("Error al actualizar en la base de datos");
 		}
-		
 		
 		
 	}
@@ -553,7 +523,7 @@ public class AnuncioDAO  {
 		
 		
 		if(string.equals("class ejercicio1.AnuncioTematico")) {
-			//modificarAnuncioTematico(e,interesesDAO.getIntereses());
+			modificarAnuncioTematico(e,interesesDAO.getIntereses());
 		}
 		else if(string.equals("class ejercicio1.AnuncioFlash")) {
 			modificarAnuncioFlash(e);
@@ -574,7 +544,7 @@ public class AnuncioDAO  {
 	 * @param Anuncio
 	 * @param intereses
 	 */
-	/*public void modificarAnuncioTematico(Anuncio e, ArrayList<Interes> intereses){
+	public void modificarAnuncioTematico(Anuncio e, ArrayList<Interes> intereses) throws SQLException{
 		
 		Scanner sc=new Scanner(System.in);
 		Scanner sl=new Scanner(System.in);
@@ -601,9 +571,6 @@ public class AnuncioDAO  {
 			if(status!=1) {
 				System.out.println("Error al actualizar en la base de datos");
 			}
-			else {
-				e.setTitulo(titulo);
-			}
 			
 		}
 		
@@ -620,50 +587,57 @@ public class AnuncioDAO  {
 			if(status!=1) {
 				System.out.println("Error al actualizar en la base de datos");
 			}
-			else {
-				e.setCuerpo(cuerpo);
-			}
 			
 		}
 		
 		else if(a==3) {
 			ArrayList<Interes> actuales=new ArrayList<Interes>();
+			ArrayList<Integer> aux = new ArrayList<Integer>();
+			ArrayList<Integer> contador = new ArrayList<Integer>();
+			ResultSet rs;
+			Statement stmt=con.createStatement();
+			PreparedStatement ps= con.prepareStatement("select idinteres from intereses_anuncios where idanuncio= ?");
+			ps.setInt(1, e.getId());
+			rs=ps.executeQuery();
 			actuales=((AnuncioTematico) e).getIntereses();
 			System.out.print("Que desea eliminar(1) o añadir(2) un intereses del anuncio: "); 
 			a=sc.nextInt();
 			if(a==1) {
 				System.out.println("Cual desea eliminar: ");
 				Integer cont=0;
+			 while(rs.next()) {
+				 aux.add(rs.getInt(1));
+			 }
 				for(Interes var: actuales) {
-					System.out.println(cont.toString()+var);
+					System.out.println(aux.get(cont).toString()+var.getInteres());
 					cont++;
+					
 				}
+			 
 				a=sc.nextInt();
-				
-				actuales.remove(a);
-				
-				((AnuncioTematico) e).setIntereses(actuales);
-				
+				sqlUpdate = "DELETE FROM intereses_anuncios " + "WHERE idanuncio= ? " + "AND idinteres= ? ";
+				PreparedStatement ps1=con.prepareStatement(sqlUpdate);
+				ps1.setInt(1, e.getId() );
+				ps1.setInt(2, a );
+				status=ps1.executeUpdate();
+				 if(status!=1) {
+		            	System.out.println("Error al insertar el interes al anuncio");
+		         }
 			}
 			else if(a==2) {
-				
-				System.out.println("Cual desea añadir: ");
-				Integer cont=0;
-				for(String var: intereses) {
-					System.out.println(cont.toString()+var);
-					cont++;
+				System.out.println("Intereses: ");
+				for(Interes var: interesesDAO.getIntereses()) {
+					System.out.println(var.getId()+". "+ var.getInteres());
 				}
+				System.out.print("Cual desea añadir: ");
 				a=sc.nextInt();
-				
-				for(int i=0; i<intereses.size();i++) {
-					
-					if(i==a) {
-						actuales.add(intereses.get(a));
-					}
-				}
-				
-				((AnuncioTematico) e).setIntereses(actuales);
-				
+				PreparedStatement ps2= con.prepareStatement("insert into intereses_anuncios(idanuncio,idinteres) values(?,?) ");	
+	            ps2.setInt(1, e.getId());
+	            ps2.setInt(2, a);
+	            status=ps2.executeUpdate();
+	            if(status!=1) {
+	            	System.out.println("Error al insertar el interes al anuncio");
+	            }
 			}
 			
 			else {
@@ -675,7 +649,6 @@ public class AnuncioDAO  {
 			System.out.print("Opcion no valida");
 		}
 	}
-	*/
 	
 	/**
 	 * Metodo que se encarga de modificar un AnuncioFlash
@@ -1015,43 +988,17 @@ public class AnuncioDAO  {
 	 * @throws ClassNotFoundException
 	 * @throws SQLException 
 	 */
-	public void archivarAnuncio() throws FileNotFoundException, IOException, ClassNotFoundException, SQLException {
-		ArrayList <Anuncio> listaAnuncios = getAnuncios();
-		Scanner sc=new Scanner(System.in);
-		Anuncio buscado = null;
-		int cont=0;
-		for(int i=0;i<listaAnuncios.size();i++) {
-			if(listaAnuncios.get(i).getEstado().getId()==3) {
-				System.out.println("Id: "+listaAnuncios.get(i).getId()+" Titulo: "+ listaAnuncios.get(i).getTitulo());
-				cont++;
-			}
-			
+	public void archivarAnuncio(Anuncio e) throws SQLException {
+		int status=0;
+		String sqlUpdate=new String();
+		sqlUpdate = "UPDATE anuncios " + "SET estado = ? " + "WHERE id = ?";
+		PreparedStatement ps=con.prepareStatement(sqlUpdate);
+		ps.setInt(1, 4);
+		ps.setInt(2, e.getId());
+		status = ps.executeUpdate();
+		if(status!=1) {
+			System.out.println("Error al actualizar en la base de datos");
 		}
-		
-		if(cont==0) {
-			System.out.println("No hay anuncios para archivar");
-			return ;
-		}
-			
-		System.out.print("Selecciona el anuncio a archivar: ");
-		
-		int seleccion=sc.nextInt();
-		sc.nextLine();
-		
-		for(int i=0;i<listaAnuncios.size();i++) {
-			
-			if((listaAnuncios.get(i).getId()==seleccion) & (listaAnuncios.get(i).getEstado().getId()==3)) {
-				System.out.println("Anuncio seleccionado");
-				buscado=listaAnuncios.get(i);
-				
-				break;
-			}
-			
-		}
-		Anuncio.Estados estado=Anuncio.Estados.Archivado;
-		buscado.setEstado(estado);
-		
-		guardarAnuncio(buscado);
 	}
 	
 	public ArrayList<Anuncio> getAnunciosContacto(Contacto e) throws SQLException{
@@ -1479,7 +1426,7 @@ public class AnuncioDAO  {
 			
 				else if(a==2) {
 					try {
-					publicarAnuncio(null);
+					publicarAnuncio(buscarAnuncio());
 					}catch(NullPointerException e) {
 						System.out.println("Anuncio seleccionado no valido");
 					}
@@ -1487,7 +1434,7 @@ public class AnuncioDAO  {
 		
 				else if(a==3) {
 					try {
-					archivarAnuncio();
+					archivarAnuncio(buscarAnuncio());
 					}catch(NullPointerException e) {
 						System.out.println("Anuncio seleccionado no valido");
 					}
