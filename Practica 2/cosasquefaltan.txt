@@ -11,7 +11,7 @@ EJERCICIO 1
 8. En la practica 2 actualizar las funciones de buscarContacto()
 9. Actualizar metodos toString de cada anuncio.
 10. Actualizar contains de los buscarContactos...()
-11. MIRAR MOSTRAR TABLON. CAMBIAR FUNCION.
+11. Actualizar actualizarDestinatarios
 
 
 EJERCICIO 2
