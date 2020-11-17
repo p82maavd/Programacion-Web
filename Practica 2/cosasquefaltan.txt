@@ -9,8 +9,7 @@ como mostrarAnuncios y tooString. VER SI SE COMPARAN BIEN LAS FECHAS
 
 4. Que todas las sentencias sql esten con el getProperty del fichero .properties
 
-6. En mostrarAnuncios del TABLON hacer una funcion en anunciosDAO para actualizar el estado de los anuncios flash(Pasarlos a publicado y archivado)
-Mirar a ver lo de En Espera
+6. Comprobar ANUNCIOS_FLASH EN TABLON Y EN ANUNCIOS
 
 7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
 
