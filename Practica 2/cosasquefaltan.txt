@@ -6,12 +6,13 @@ EJERCICIO 1
 5. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
 6. En mostrarAnuncios del TABLON hacer una funcion en anunciosDAO para actualizar el estado de los anuncios flash(Pasarlos a publicado y archivado)
 7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
-8. En la practica 2 actualizar las funciones de buscarContacto()
-9. Actualizar metodos toString de cada anuncio.
+
 10. Actualizar contains de los buscarContactos...()
 
 11. Añadir en main de anuncioDAO getDestinatarios.
 
 EJERCICIO 2
 
+8. En la practica 2 actualizar las funciones de buscarContacto()
 Pasar como parametro de todas las funciones el email. A ver si se puede.
+
