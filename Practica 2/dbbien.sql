@@ -36,10 +36,9 @@ CREATE TABLE `intereses` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 CREATE TABLE `intereses_anuncios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idanuncio` int(11) NOT NULL,
   `idinteres` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`idinteres`,`idanuncio`),
   FOREIGN KEY `fk_interesesanuncios_anuncios` (`idanuncio`) REFERENCES anuncios( id ) ON DELETE CASCADE,
   FOREIGN KEY `fk_interesesanuncios_intereses` (`idinteres`) REFERENCES intereses( idintereses ) ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
