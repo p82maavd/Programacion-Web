@@ -12,7 +12,7 @@ EJERCICIO 1
 9. Actualizar metodos toString de cada anuncio.
 10. Actualizar contains de los buscarContactos...()
 11. Mirar lo de los contactos = null en getAnuncios(), me genera problemas si quiero coger el nombre del usuario para ordenarlo. Se podria hacer bien o 
-hacer una funcion que coga el nombre con el email.
+hacer una funcion que coga el nombre con el email. LO HE ARREGLADO LLAMANDO A BUSCARCONTACTOEMAIL. Ira mas lento but funciona
 
 
 EJERCICIO 2
