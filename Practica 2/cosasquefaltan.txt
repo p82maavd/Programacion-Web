@@ -10,6 +10,8 @@ EJERCICIO 1
 9. Actualizar metodos toString de cada anuncio.
 10. Actualizar contains de los buscarContactos...()
 
+11. Añadir en main de anuncioDAO getDestinatarios.
+
 EJERCICIO 2
 
 Pasar como parametro de todas las funciones el email. A ver si se puede.
