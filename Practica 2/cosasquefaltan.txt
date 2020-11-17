@@ -1,19 +1,19 @@
 EJERCICIO 1
 
-1. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos. EL STATUS VALE EL Nº DE FILAS MODIFICADAS. NO SIEMPRE 1.
+1. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos. EL STATUS VALE EL Nº DE FILAS MODIFICADAS. NO SIEMPRE 1. Revisar con el de Dani
 
 2. Comprobar todo lo que tenga fechas(se ha cambiado la clase). Si sobra tiempo poner todo bonito con SimpleDateFormat no necesario(En los metodos de imprimir
-como mostrarAnuncios y tooString. VER SI SE COMPARAN BIEN LAS FECHAS
+como mostrarAnuncios y tooString. VER SI SE COMPARAN BIEN LAS FECHAS. Creo que funciona bien
 
-3. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
+3. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente. Creo que ya.
 
-4. Que todas las sentencias sql esten con el getProperty del fichero .properties
+4. Que todas las sentencias sql esten con el getProperty del fichero .properties. Creo que ya. Revisar por si acaso.
 
 6. Comprobar ANUNCIOS_FLASH EN TABLON Y EN ANUNCIOS
 
 7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
 
-11. Añadir en main de anuncioDAO getDestinatarios.
+11. Añadir en mostrarAnuncios de anuncioDAO getDestinatarios.
 
 EJERCICIO 2
 
