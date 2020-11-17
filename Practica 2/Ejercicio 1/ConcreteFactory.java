@@ -127,7 +127,7 @@ public class ConcreteFactory extends AbstractFactory {
 			sc.nextLine();
 			
 			for (int i=1;i<=intereses.size();i++) {
-				if(newinteres==i) {
+				if(newinteres==intereses.get(i-1).getId()) {
 					
 					interesesaux.add(intereses.get(i-1));
 				}
@@ -149,7 +149,7 @@ public class ConcreteFactory extends AbstractFactory {
 		String cuerpo=new String();
 		System.out.print("Introduzca el cuerpo del anuncio: ");
 		cuerpo=sc.nextLine();
-		ArrayList<Contacto> destinatarios=new ArrayList <Contacto>();
+		
 		Estados estado=Estados.Editado;
 		
 		

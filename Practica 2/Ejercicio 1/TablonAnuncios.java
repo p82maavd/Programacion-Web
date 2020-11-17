@@ -167,15 +167,12 @@ public class TablonAnuncios {
 		anunciosDAO.actualizarDestinatarios();
 		ArrayList<Anuncio> anuncios=new ArrayList<Anuncio>();
 		anuncios = anunciosDAO.getAnunciosContacto(e);
+		System.out.println("Nº de anuncios del contacto: "+anuncios.size());
 		for(Anuncio a: anuncios) {
-			System.out.println("");
-			//Actualiza los destinatarios para que les llegue a todos los contactos actuales.
-			//Se supone que esto ya se hace en los otros DAO y los intereses en la llamada a la funcion de arriba actualizarDestinatarios()
-			
 			
 			//Si el email del que llama al tablon esta en la lista de destinatarios y el anuncio esta publicado o en espera se imprime.
 
-			if( (a.getEstado().getId()>=2) & (a.getEstado().getId()<=3) ){
+			if( (a.getEstado().getId()>=2) && (a.getEstado().getId()<=3) ){
 				
 				if(!(a.getClass().toString().equals("class ejercicio1.AnuncioFlash"))) {
 					
@@ -184,6 +181,7 @@ public class TablonAnuncios {
 					}
 					
 					else if(a.getClass().toString().equals("class ejercicio1.AnuncioTematico")) {
+						
 						System.out.println(((AnuncioTematico) a).tooString());
 					}
 					

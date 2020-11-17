@@ -94,7 +94,7 @@ public class AnuncioDAO  {
                     	}
                     }
                     interesesaux = interesesDAO.getInteresesAnuncio(id);
-                    a = new Contacto(idautor,null,null,null,null);
+                    a = contactosDAO.buscarContactoEmail(idautor); 
                     t = new AnuncioTematico(id,titulo,cuerpo,a,interesesaux, fechapublicacion, estado);
                     anuncios.add(t);
                     
@@ -118,7 +118,7 @@ public class AnuncioDAO  {
                     		estado = p;
                     	}
                     }
-                    a = new Contacto(idautor,null,null,null,null); 
+                    a = contactosDAO.buscarContactoEmail(idautor); 
                     f = new AnuncioFlash(id, titulo,cuerpo,a,estado,fechapublicacion,fechainicio,fechafinal);
                     anuncios.add(f);
     			
@@ -142,7 +142,7 @@ public class AnuncioDAO  {
                     		estado = p;
                     	}
                     }
-                    a = new Contacto(idautor,null,null,null,null); 
+                    a = contactosDAO.buscarContactoEmail(idautor); 
                     i = new AnuncioIndividualizado(id,titulo,cuerpo,a,fechapublicacion,estado);
                     anuncios.add(i);
     			
@@ -166,7 +166,7 @@ public class AnuncioDAO  {
                     		estado = p;
                     	}
                     }
-                    a = new Contacto(idautor,null,null,null,null); 
+                    a = contactosDAO.buscarContactoEmail(idautor); 
                     g = new AnuncioGeneral(id,titulo,cuerpo,a,fechapublicacion,estado);
                     anuncios.add(g);
     			
@@ -191,8 +191,6 @@ public class AnuncioDAO  {
 	
 	public void actualizarDestinatarios() throws SQLException {
 
-        //Añadir connection como atributo a la clase ANUNCIODAO.
-
         //Habria que hacerlo de forma que se compararan con los que hay. Si no esta en la base de datos 
         //se añade y si no esta en destinatarios se elimina. Con añadirlo creo que ya estaria. ELiminarlo seria que ya no existe el usuario, o le han quitado un interes.
 
@@ -202,29 +200,32 @@ public class AnuncioDAO  {
 
         int cont=0, status=0;
         for(Anuncio a: getAnuncios()) {
-            if(a.getClass().toString()!="ej1 AnuncioTematico") {
+            if(a.getClass().toString().equals("class ejercicio1.AnuncioTematico")) {
 
                 //Aqui quizas si seria conveniente borrar antes los destinatarios para que este bien actualizado. 
-                PreparedStatement ps0=con.prepareStatement("delete from dest where idanuncio=?");
+                PreparedStatement ps0=con.prepareStatement("delete from destinatarios where idanuncio=?");
                 ps0.setInt(1,a.getId());
                 status=ps0.executeUpdate();
                 for(Contacto e: contactosDAO.getContactos()){
                     cont=0;
                     for(Interes i: interesesDAO.getInteresesContacto(e.getEmail())) {
-                    	//Este contains quizas no funciona. Cambiar por un for.
-                        if((((AnuncioTematico) a).getIntereses().contains(i)) && (cont==0)) {
-                            //Connection. Atributo de la clase que le asigna el valor  el constructor. Añadirlo si no lo esta ya.
-                            PreparedStatement ps=con.prepareStatement("insert into destinatarios(idanuncio,idemail) values(?,?)");
-                            ps.setInt(1, a.getId());
-                            ps.setString(2, e.getEmail());
-                            status = ps.executeUpdate();
-                            
-                            if(status!=1) {
-                            	System.out.println("Error al guardar los destinatarios");
-                            }
-                            cont++;
+                    	
+                    	for(Interes j : ((AnuncioTematico) a).getIntereses()) {
+                    		if((i.getId()==j.getId()) && (cont==0)) {
+                                
+                                PreparedStatement ps=con.prepareStatement("insert into destinatarios(idanuncio,idcontacto) values(?,?)");
+                                ps.setInt(1, a.getId());
+                                ps.setString(2, e.getEmail());
+                                status = ps.executeUpdate();
+                                
+                                if(status!=1) {
+                                	System.out.println("Error al guardar los destinatarios");
+                                }
+                                cont++;
 
-                        }
+                            }
+                    	}
+                        
                     }
 
 
@@ -237,28 +238,28 @@ public class AnuncioDAO  {
     }
 
 	public void insertarDestinatariosTematico(Anuncio a) throws SQLException {
-		   int cont=0, status=0;
-	                for(Contacto e: contactosDAO.getContactos()){
-	                    cont=0;
-	                    for(Interes i: e.getIntereses()) {
-	                    	//Actualizar
-	                        if((((AnuncioTematico) a).getIntereses().contains(i)) && (cont==0)) {
-	                            PreparedStatement ps=con.prepareStatement("insert into destinatarios(idanuncio,idemail) values(?,?)");
-	                            ps.setInt(1, a.getId());
-	                            ps.setString(2, e.getEmail());
-	                            status = ps.executeUpdate();
-	                            if(status!=1) {
-	                      			System.out.println("Error al añadir los destinatarios de anuncio tematico");
-	                      		}
-	                            cont++;
+		int cont=0, status=0;
+	    for(Contacto e: contactosDAO.getContactos()){
+	    cont=0;
+	    	for(Interes i: e.getIntereses()) {
+	    		for(Interes j: ((AnuncioTematico) a).getIntereses()) {
+	    			if((i.getId()==j.getId()) && (cont==0)) {
+	    				PreparedStatement ps=con.prepareStatement("insert into destinatarios(idanuncio,idcontacto) values(?,?)");
+	    				ps.setInt(1, a.getId());
+	    				ps.setString(2, e.getEmail());
+	    				status = ps.executeUpdate();
+	    				if(status!=1) {
+	    					System.out.println("Error al añadir los destinatarios de anuncio tematico");
+	    				}
+	    				cont++;
 	                            
-	                        }
-	                    }
+	    			}
+	        	}
 
-	        }
+	    	}
 
-	    }
-	
+		}
+	}
 	public void insertarTodosDestinatarios(Anuncio a) throws SQLException {
 		int status;
 		
@@ -337,7 +338,7 @@ public class AnuncioDAO  {
 			if(tipo.equals("class ejercicio1.AnuncioTematico")) {
 				
 				
-				PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_ANUNCIO"));
+				PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_ANUNCIOS"));
 				ps.setString(1, a.getTitulo());
 				ps.setString(2, a.getCuerpo());
 				ps.setString(3, a.getUsuario().getEmail());
@@ -360,14 +361,14 @@ public class AnuncioDAO  {
 				rs.next();
 				int id = rs.getInt(1);
 				a.setId(id);
-				
-				for(int i=0; i<((AnuncioTematico) a).getIntereses().size();i++) {
+				System.out.println("El id del anuncio es "+id);
+				System.out.println("El numero de intereses del anuncio es " +  ((AnuncioTematico) a).getIntereses().size());
+				for(Interes i: ((AnuncioTematico) a).getIntereses()) {
+					System.out.println("Entro en el for al menos...");
+					PreparedStatement ps2=con.prepareStatement(config.getProperty("INSERTAR_INTERES_ANUNCIO"));
 					
-					PreparedStatement ps2=con.prepareStatement("INSERTAR_INTERES_ANUNCIOS");
-					ps2.setString(1, a.getUsuario().getEmail());
-					ps2.setInt(2, id);
-					//Puede fallar esto.
-					ps2.setInt(3, ((AnuncioTematico) a).getIntereses().get(i).getId());
+					ps2.setInt(1, id);
+					ps2.setInt(2, i.getId());
 					status= ps2.executeUpdate();	
 				
 					if(status!=1) {
@@ -698,11 +699,11 @@ public class AnuncioDAO  {
 		int status=0;
 		
 		if(a==1) {
-			sqlUpdate = "UPDATE anuncios " + "SET titulo = ? " + "WHERE id = ?";
+			
 			System.out.print("Introduce el nuevo titulo: ");
 			String titulo=new String();
 			titulo=sl.nextLine();
-			PreparedStatement ps=con.prepareStatement(sqlUpdate);
+			PreparedStatement ps=con.prepareStatement(config.getProperty("MODIFICAR_TITULO_ANUNCIO"));
 			ps.setString(1, titulo);
 			ps.setInt(2, e.getId());
 			status = ps.executeUpdate();
@@ -717,11 +718,11 @@ public class AnuncioDAO  {
 		
 		else if(a==2) {
 			
-			sqlUpdate = "UPDATE anuncios " + "SET cuerpo = ? " + "WHERE id = ?";
+			
 			System.out.print("Introduce el nuevo Cuerpo: ");
 			String cuerpo=new String();
 			cuerpo=sl.nextLine();
-			PreparedStatement ps=con.prepareStatement(sqlUpdate);
+			PreparedStatement ps=con.prepareStatement(config.getProperty("MODIFICAR_CUERPO_ANUNCIO"));
 			ps.setString(1, cuerpo);
 			ps.setInt(2, e.getId());
 			status = ps.executeUpdate();
@@ -734,7 +735,7 @@ public class AnuncioDAO  {
 		}
 		
 		else if(a==3) {
-			sqlUpdate = "UPDATE anuncios " + "SET fechainicio = ? " + "WHERE id = ?";
+			
 			String fechainicio=new String();
 			System.out.print("Introduzca la nueva fecha de inicio(dd/mm/yyyy): ");
 			fechainicio = sc.nextLine();
@@ -756,7 +757,7 @@ public class AnuncioDAO  {
 					cont++;
 				}
 			}
-			PreparedStatement ps=con.prepareStatement(sqlUpdate);
+			PreparedStatement ps=con.prepareStatement(config.getProperty("MODIFICAR_FECHAINICIO_ANUNCIO"));
 			ps.setDate(1, fechaaux);
 			ps.setInt(2, e.getId());
 			status = ps.executeUpdate();
@@ -770,7 +771,6 @@ public class AnuncioDAO  {
 		
 		else if(a==4) {
 			
-			sqlUpdate = "UPDATE anuncios " + "SET fechafinal = ? " + "WHERE id = ?";
 			String fechafinal=new String();
 			System.out.print("Introduzca la nueva fecha final(dd/mm/yyyy): ");
 			fechafinal = sc.nextLine();
@@ -792,7 +792,7 @@ public class AnuncioDAO  {
 					cont++;
 				}
 			}
-			PreparedStatement ps=con.prepareStatement(sqlUpdate);
+			PreparedStatement ps=con.prepareStatement(config.getProperty("MODIFICAR_FECHAFINAL_ANUNCIO"));
 			ps.setDate(1, fechaaux);
 			ps.setInt(2, e.getId());
 			status = ps.executeUpdate();
@@ -830,18 +830,17 @@ public class AnuncioDAO  {
 		
 		int a=sc.nextInt();
 		sc.nextLine();
-		String sqlUpdate=new String();
 		
 		
 		int status=0;
 		
 		if(a==1) {
 			
-			sqlUpdate = "UPDATE anuncios " + "SET titulo = ? " + "WHERE id = ?";
+			
 			System.out.print("Introduce el nuevo titulo: ");
 			String titulo=new String();
 			titulo=sc.nextLine();
-			PreparedStatement ps=con.prepareStatement(sqlUpdate);
+			PreparedStatement ps=con.prepareStatement(config.getProperty("MODIFICAR_TITULO_ANUNCIO"));
 			ps.setString(1, titulo);
 			ps.setInt(2, e.getId());
 			status = ps.executeUpdate();
@@ -856,11 +855,11 @@ public class AnuncioDAO  {
 		}
 		
 		else if(a==2) {
-			sqlUpdate = "UPDATE anuncios " + "SET cuerpo = ? " + "WHERE id = ?";
+			
 			System.out.print("Introduce el nuevo Cuerpo: ");
 			String cuerpo=new String();
 			cuerpo=sc.nextLine();
-			PreparedStatement ps=con.prepareStatement(sqlUpdate);
+			PreparedStatement ps=con.prepareStatement(config.getProperty("MODIFICAR_CUERPO_ANUNCIO"));
 			ps.setString(1, cuerpo);
 			ps.setInt(2, e.getId());
 			status = ps.executeUpdate();
@@ -873,66 +872,62 @@ public class AnuncioDAO  {
 		}
 		
 		else if(a==3) {
-			PreparedStatement ps=con.prepareStatement("select idcontacto, idanuncio from destinatarios where idanuncio = ?");
+			PreparedStatement ps=con.prepareStatement(config.getProperty("OBTENER_DESTINATARIOS_ANUNCIO"));
 			ps.setInt(1, e.getId() );
+			ResultSet rs = ps.executeQuery();
+			status =0;
 			
+			ArrayList<String> actuales=new ArrayList<String>();
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			/*ArrayList<Contacto> actuales=new ArrayList<Contacto>();
-			actuales=((AnuncioIndividualizado) e).getDestinatarios();
 			System.out.print("Que desea eliminar(1) o añadir(2) un destinatario del anuncio: "); 
 			a=sc.nextInt();
 			sc.nextLine();
 			if(a==1) {
+				while(rs.next()) {
+					
+					actuales.add(rs.getString(1));
+				}
 				System.out.println("Cual desea eliminar: ");
 				Integer cont=0;
-				for(Contacto var: actuales) {
-					System.out.println(cont.toString()+var.getEmail());
+				for(String var: actuales) {
+					System.out.println(cont.toString()+var);
 					cont++;
 				}
 				a=sc.nextInt();
 				sc.nextLine();
+				String email = actuales.get(a);
 				
-				actuales.remove(a);
+				PreparedStatement ps1=con.prepareStatement(config.getProperty("BORRAR_DESTINATARIO_DOSPARAMETROS"));
+				ps1.setString(1, email);
+				ps1.setInt(2,e.getId());
+				status = ps1.executeUpdate();
 				
-				((AnuncioTematico) e).setDestinatarios(actuales);
+				if(status!=1) {
+					System.out.println("Error al eliminar el contacto como destinatario");
+				}
 				
 			}
 			else if(a==2) {
 				
 				System.out.println("Cual desea añadir: ");
 				Integer cont=0;
-				for(Contacto var: destinatarios) {
+				for(Contacto var: contactosDAO.getContactos()) {
 					System.out.println(cont.toString()+var.getEmail());
 					cont++;
 				}
 				a=sc.nextInt();
 				sc.nextLine();
 				
-				for(int i=0; i<destinatarios.size();i++) {
-					
-					if(i==a) {
-						actuales.add(destinatarios.get(a));
-					}
-				}
+				Contacto b = contactosDAO.getContactos().get(a);
+
+				PreparedStatement ps1=con.prepareStatement(config.getProperty("INSERTAR_DESTINATARIOS"));
+				ps1.setString(1, b.getEmail());
+				ps1.setInt(2,e.getId());
+				status=ps1.executeUpdate();
 				
-				((AnuncioIndividualizado) e).setDestinatarios(actuales);
+				if(status!=1) {
+					System.out.println("Error al añadir el contacto como destinatario");
+				}
 				
 			}
 			
@@ -943,9 +938,9 @@ public class AnuncioDAO  {
 		
 		else {
 			System.out.print("Opcion no valida");
-		}*/
+		}
 	}
-}
+	
 	
 	/**
 	 * Metodo que se encarga de modificar un AnuncioGeneral
@@ -1067,7 +1062,7 @@ public class AnuncioDAO  {
         String sql=new String();
         
         
-        sql ="select emailcontacto, idanuncio from destinatarios where emailcontacto=? order by idanuncio";
+        sql ="select idcontacto, idanuncio from destinatarios where idcontacto=? order by idanuncio";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, e.getEmail());
         rs=ps.executeQuery();
@@ -1108,7 +1103,6 @@ public class AnuncioDAO  {
 		
 		//Coge todos los nombres de los propietarios de todos los anuncios.
 		
-		int i=0;
 		for(Anuncio a: toOrder) {
 			propietarios.add(a.getUsuario().getNombre());
 		}
@@ -1121,10 +1115,9 @@ public class AnuncioDAO  {
 		while(toOrder.size()!=0) {
 			for(int j=0; j<toOrder.size();) {
 				
-				if(propietarios.get(i).equals(toOrder.get(j).getUsuario().getNombre())) {
+				if(propietarios.get(0).equals(toOrder.get(j).getUsuario().getNombre())) {
 					ordenado.add(toOrder.get(j));
-					
-					propietarios.remove(i);
+					propietarios.remove(0);
 					toOrder.remove(j);
 					j=0;
 					
@@ -1306,7 +1299,7 @@ public class AnuncioDAO  {
 	                }
 	            }
 	        		
-	        	a = new Contacto(rs1.getString(4), null, null, null, null);
+	        	a = new Contacto(rs1.getString(4), null, null, null, null,null);
 	        	t = new AnuncioTematico(rs1.getInt(1), rs1.getString(2), rs1.getString(3), a, interesesDAO.getInteresesAnuncio(rs1.getInt(1)),Date.valueOf(rs1.getString(6)), estado);
 	        	anuncios.add(t);
 	        }

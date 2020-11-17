@@ -69,7 +69,7 @@ public class AnuncioTematico extends Anuncio{
 		}*/
 		anuncioInfo=anuncioInfo+"\n"+"Intereses: ";
 		for(int i=0; i<this.getIntereses().size();i++) {
-			anuncioInfo=anuncioInfo +"\n" +this.getIntereses().get(i);
+			anuncioInfo=anuncioInfo +"\n" +this.getIntereses().get(i).getInteres();
 		}
 		
 		return anuncioInfo;

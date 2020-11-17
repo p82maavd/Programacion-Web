@@ -52,6 +52,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 		String nombre= new String();
 		String apellidos= new String();
 		Date date= new Date(0);
+		String password=new String();
 		Contacto a = null;
 		
 		try {
@@ -62,9 +63,10 @@ public class ContactoDAO implements ContactoDAOInterface {
 				nombre=rs.getString(2);
 				apellidos=rs.getString(3);
 				date=rs.getDate(4);	
+				password=rs.getString(5);
 				interesesaux=interesesDAO.getInteresesContacto(email);
 				
-				a=new Contacto(email,nombre,apellidos,date,interesesaux);
+				a=new Contacto(email,nombre,apellidos,date,password, interesesaux);
 				contactos.add(a);
 				
 			}
@@ -93,47 +95,51 @@ public class ContactoDAO implements ContactoDAOInterface {
 				ps2.setInt(2, e.getIntereses().get(i).getId());
 				status= ps2.executeUpdate();
 				
+				if(status!=1) {
+					System.out.println("Error al añadir el interes "+e.getIntereses().get(i).getId()+ " al contacto");
+				}
+				
 			}
 			
-			if(status!=1) {
-				System.out.println("Error al añadir los intereses de un usuario");
-			}
+			
 			PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_CONTACTO"));
 			
 			ps.setString(1,e.getEmail().toLowerCase());
 			ps.setString(2,e.getNombre());
 			ps.setString(3,e.getApellidos());
 			ps.setDate(4, e.getFechanacimiento());
+			ps.setString(5, e.getPassword());
+			
 			
 			status = ps.executeUpdate();
+			if(status!=1) {
+				System.out.println("Error al añadir el contacto");
+			}
 			
 		} catch(Exception es) { 
 				es.printStackTrace();
 				
 		}
 		
-		if(status!=1) {
-			System.out.println("No se ha podido añadir el contacto a la base de datos");
-		}
-		
-		else {
-			
-		}
-		
 		//Actualiza los destinatarios de los anuncios.
-		ArrayList<Contacto> aux = new ArrayList<Contacto>();
-		for(Anuncio a: anunciosDAO.getListaAnuncios()) {
+		
+		for(Anuncio a: anunciosDAO.getAnuncios()) {
+			System.out.println("Vamos a insertar el nuevo contacto como destinatario del anuncio : "+a.getTitulo());
 			//COmprobar argumentos del if. ACTUALIZAR
-			if(a.getClass().toString().equals("ejercicio AnuncioFlash") || a.getClass().toString().equals("ejercicio1 AnuncioGeneral")) {
+			if(a.getClass().toString().equals("class ejercicio1.AnuncioFlash") || a.getClass().toString().equals("class ejercicio1.AnuncioGeneral")) {
 				
-				PreparedStatement ps=con.prepareStatement("insert into destinatarios(idanuncio,idemail) values(?,?)");
-		        ps.setInt(1, a.getId());
-		        ps.setString(2, e.getEmail());
+				PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_DESTINATARIOS"));
+		        ps.setInt(2, a.getId());
+		        ps.setString(1, e.getEmail());
 		        status = ps.executeUpdate();
+		        
+		        if(status!=1) {
+		        	System.out.println("Error al añadir el usuario como destinatario del anuncio :"+a.getTitulo());
+		        }
+		        
 			}
 			
 		}
-		
 
 	}
 
@@ -146,25 +152,33 @@ public class ContactoDAO implements ContactoDAOInterface {
 		}
 		
 		int status=0;
-		try{
 			
-			PreparedStatement ps=con.prepareStatement(config.getProperty("BORRAR_CONTACTO"));
-			ps.setString(1,e.getEmail());
-			status=ps.executeUpdate();
-		}catch(Exception es){System.out.println(es);}
+		PreparedStatement ps=con.prepareStatement(config.getProperty("BORRAR_CONTACTO"));
+		ps.setString(1,e.getEmail());
+		status=ps.executeUpdate();
 
 		if(status!=1) {
 			System.out.println("No se ha podido eliminar el contacto de la base de datos");
 		}
 		
 		//Actualiza los intereses de los contactos y los destinatarios.
-		PreparedStatement ps=con.prepareStatement("delete from intereses_contactos where emailcontacto = ?");
-        ps.setString(1, e.getEmail());
-        status = ps.executeUpdate();
-        PreparedStatement ps1=con.prepareStatement("delete from destinatarios where idcontacto = ?");
-        ps.setString(1, e.getEmail());
+        
+        //Si funciona lo del delete on cascade esto no hace falta :D. No funciona D:
+		PreparedStatement ps2=con.prepareStatement(config.getProperty("BORRAR_INTERESES_CONTACTO"));
+        ps2.setString(1, e.getEmail());
+        status = ps2.executeUpdate();
+        
+        if(status<1) {
+			System.out.println("No se ha podido eliminar los intereses contacto de la base de datos");
+		}
+        
+        PreparedStatement ps1=con.prepareStatement(config.getProperty("BORRAR_DESTINATARIO_EMAIL"));
+        ps1.setString(1, e.getEmail());
         status = ps1.executeUpdate();
-       
+        if(status<1) {
+			System.out.println("No se ha podido eliminar como destinatario el contacto seleccionado");
+		}
+        
 	}
 	
 	@Override
@@ -277,7 +291,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 	public void actualizarContactoIntereses(Contacto e) throws SQLException {
 		ArrayList<Interes> listaintereses;
 		Scanner sc= new Scanner(System.in);
-		
+		int status = 0;
 		Integer eleccion;
 		System.out.println("¿Desea eliminar algun interes? 1.Si 2.No");
 		eleccion = sc.nextInt();
@@ -303,15 +317,11 @@ public class ContactoDAO implements ContactoDAOInterface {
 			PreparedStatement ps=con.prepareStatement(config.getProperty("BORRAR_INTERES_CONTACTO"));
 			ps.setInt(1,linea);
 			ps.setString(2,e.getEmail());
-			ps.executeUpdate();
-			//Falta control de error
-			ArrayList<Interes> aux=e.getIntereses();
-			
-			for(Interes myVar:listaintereses) {
-				if(myVar.getId()==linea)
-					//Comprobar si se borra bien.
-					aux.remove(myVar);
+			status=ps.executeUpdate();
+			if(status!=1) {
+				System.out.println("Error al eliminar el interes del contacto");
 			}
+			
 			
 		}
 		else {
@@ -326,17 +336,15 @@ public class ContactoDAO implements ContactoDAOInterface {
 			Integer linea;
 			linea = sc.nextInt();
 			sc.nextLine();
+			status=0;
 			PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_INTERES_CONTACTO"));
-			ps.setInt(1,linea);
-			ps.setString(2,e.getEmail());
-			ps.executeUpdate();
-			//Falta control...
-			ArrayList<Interes> aux=e.getIntereses();
-			
-			for(Interes myVar:listaintereses) {
-				if(myVar.getId()==linea)
-					aux.add(myVar);
+			ps.setInt(2,linea);
+			ps.setString(1,e.getEmail());
+			status=ps.executeUpdate();
+			if(status!=1) {
+				System.out.println("Error al añadir el interes");
 			}
+			
 		}
 		
 	}
@@ -355,7 +363,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 		System.out.print("Introduzca un número entero: ");
 		Integer a = sc.nextInt();
 		sc.nextLine();
-		Contacto buscado=new Contacto(null,null,null,null,null);
+		Contacto buscado;
 		Statement stmt=null;
 		try {
 			stmt= con.createStatement();
@@ -451,7 +459,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 	
 	public Contacto buscarContactoNombre(String nombre) throws SQLException {
 		
-		PreparedStatement ps=con.prepareStatement("select email, nombre, apellidos, fechanacimiento from contactos where nombre = ?");
+		PreparedStatement ps=con.prepareStatement(config.getProperty("OBTENER_CONTACTOS_NOMBRE"));
 		Integer cont=1;
 		Contacto contacto=null;
 		Scanner sc =new Scanner(System.in);
@@ -466,10 +474,10 @@ public class ContactoDAO implements ContactoDAOInterface {
 			
 			ps.setString(1,nombre);
 			ResultSet rs= ps.executeQuery();
-			
+		
 			while(rs.next()) {
 				
-				ps2=con.prepareStatement("select emailcontacto, idinteres from intereses_contactos where emailcontacto= ?");
+				ps2=con.prepareStatement(config.getProperty("OBTENER_INTERESES_CONTACTO"));
 				ps2.setString(1, rs.getString(1));
 				rs2=ps2.executeQuery();
 				
@@ -481,7 +489,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 						intereses.add(i);
 					}
 				}
-				contacto=new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4),intereses);
+				contacto=new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4), rs.getString(5),intereses);
 				contactos.add(contacto);
 				System.out.println(cont + ". "+toString(contacto));
 				cont++;
@@ -512,7 +520,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 	
 	
 	public Contacto buscarContactoApellidos(String apellidos) throws SQLException {
-		PreparedStatement ps=con.prepareStatement("select email, nombre, apellidos, fechanacimiento from contactos where apellidos = ?");
+		PreparedStatement ps=con.prepareStatement(config.getProperty("OBTENER_CONTACTOS_APELLIDOS"));
 		Integer cont=1;
 		Contacto contacto=null;
 		Scanner sc =new Scanner(System.in);
@@ -530,7 +538,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 			
 			while(rs.next()) {
 				
-				ps2=con.prepareStatement("select emailcontacto, idinteres from intereses_contactos where emailcontacto= ?");
+				ps2=con.prepareStatement(config.getProperty("OBTENER_INTERESES_CONTACTO"));
 				ps2.setString(1, rs.getString(1));
 				rs2=ps2.executeQuery();
 				while(rs2.next()) {
@@ -541,7 +549,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 						intereses.add(i);
 					}
 				}
-				contacto = new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4),intereses);
+				contacto = new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4),rs.getString(5),intereses);
 				contactos.add(contacto);
 				System.out.println(cont + ". "+toString(contacto));
 				cont++;
@@ -573,7 +581,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 	
 	public Contacto buscarContactoEmail(String email) throws SQLException {
 		
-		PreparedStatement ps=con.prepareStatement("select email, nombre, apellidos, fechanacimiento from contactos where email = ?");
+		PreparedStatement ps=con.prepareStatement(config.getProperty("OBTENER_CONTACTOS_EMAIL"));
 		ArrayList<Integer> interesesid=new ArrayList<Integer>();
 		ArrayList<Interes> intereses = new ArrayList<Interes>();
 		PreparedStatement ps2;
@@ -586,7 +594,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 			
 			while(rs.next()) {
 				
-				ps2=con.prepareStatement("select emailcontacto, idinteres from intereses_contactos where emailcontacto= ?");
+				ps2=con.prepareStatement(config.getProperty("OBTENER_INTERESES_CONTACTO"));
 				ps2.setString(1, rs.getString(1));
 				rs2=ps2.executeQuery();
 				while(rs2.next()) {
@@ -597,7 +605,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 						intereses.add(i);
 					}
 				}
-				contacto = new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4),intereses);
+				contacto = new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4), rs.getString(5),intereses);
 				return contacto;
 			}
 		}catch(Exception e) {
@@ -608,7 +616,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 	}
 	
 	public Contacto buscarContactoFecha(String fecha) throws SQLException {
-		PreparedStatement ps=con.prepareStatement("select email, nombre, apellidos, fechanacimiento from contactos where fechanacimiento = ?");
+		PreparedStatement ps=con.prepareStatement(config.getProperty("OBTENER_CONTACTOS_FECHA"));
 		Integer cont=1;
 		Date dnuevafecha = Date.valueOf(fecha);
 		Contacto contacto=null;
@@ -624,18 +632,19 @@ public class ContactoDAO implements ContactoDAOInterface {
 			ResultSet rs= ps.executeQuery();
 			
 			while(rs.next()) {
-				ps2=con.prepareStatement("select emailcontacto, idinteres from intereses_contactos where emailcontacto= ?");
+				ps2=con.prepareStatement(config.getProperty("OBTENER_INTERESES_CONTACTO"));
 				ps2.setString(1, rs.getString(1));
 				rs2=ps2.executeQuery();
 				while(rs2.next()) {
 					interesesid.add(rs2.getInt(2));
 				}
 				for(Interes i: interesesDAO.getIntereses()) {
+					
 					if(interesesid.contains(i.getId())) {
 						intereses.add(i);
 					}
 				}
-				contacto = new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4),intereses);
+				contacto = new Contacto(rs.getString(1),rs.getString(2),rs.getString(3), rs.getDate(4),rs.getString(5),intereses);
 				contactos.add(contacto);
 				System.out.println(cont + ". "+toString(contacto));
 				cont++;
@@ -665,10 +674,10 @@ public class ContactoDAO implements ContactoDAOInterface {
 	}
 	
 	public Contacto buscarContactoInteres() throws SQLException{
-		//MIRAR SI SE PODRIA HACER SELECT A TABLA INTERESES_CONTACTOS. Saldria mas facil
+		
 		ArrayList<Contacto> aux=new ArrayList<Contacto>();
 		ArrayList<String> auxemail=new ArrayList<String>();
-		Contacto buscado=new Contacto(null,null,null,null,null);
+		Contacto buscado=new Contacto(null,null,null,null,null,null);
 		Scanner sc=new Scanner(System.in);
 		for(Interes i: interesesDAO.getIntereses()) {
 			System.out.println(i.getId()+". "+i.getInteres());
@@ -689,7 +698,7 @@ public class ContactoDAO implements ContactoDAOInterface {
 		}
 		
 		//Falta el status
-		PreparedStatement ps=con.prepareStatement("select emailcontacto,idinteres from intereses_contactos where idinteres=?");
+		PreparedStatement ps=con.prepareStatement(config.getProperty("OBTENER_CONTACTOS_INTERES"));
 		ps.setInt(1, interesaux.getId());
 		ResultSet rs=ps.executeQuery();
 		while(rs.next()) {
@@ -767,23 +776,15 @@ public class ContactoDAO implements ContactoDAOInterface {
 		Integer linea;
 		linea = sc.nextInt();
 		sc.nextLine();
-		String sqlUpdate=new String();
-		//Actualizar
-		sqlUpdate="insert into intereses_contactos(idinteres, emailcontacto) values (?,?)";
-		PreparedStatement ps=con.prepareStatement(sqlUpdate);
-		ps.setInt(1,linea);
-		ps.setString(2,e.getEmail());
-		ps.executeUpdate();
-		//Falta control...
 		
-		for(Interes myVar:listaintereses) {
-			if(myVar.getId()==linea)
-				aux.add(myVar);
+		PreparedStatement ps=con.prepareStatement(config.getProperty("INSERTAR_INTERES_CONTACTO"));
+		ps.setInt(2,linea);
+		ps.setString(1,e.getEmail());
+		int status=0;
+		status=ps.executeUpdate();
+		if(status!=1) {
+			System.out.println("Error al insertar el nuevo interes");
 		}
-		
-		e.setIntereses(aux);
-		
-		
 		
 	}
 	
