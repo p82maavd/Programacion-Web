@@ -3,11 +3,12 @@ EJERCICIO 1
 2. En modificarAnuncios tener cuidado, hay que modificar varias tablas a veces creo
 3. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos. EL STATUS VALE EL Nº DE FILAS MODIFICADAS. NO SIEMPRE 1.
 4. Modificar las fechas en controldeerrores y donde esten como dd/mm/yyyy. En concreteFactory de ANuncioFlash DEBERIA PONER HORAS-MINUTOS-SEGUNDOS
-5. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
-6. En mostrarAnuncios del TABLON hacer una funcion en anunciosDAO para actualizar el estado de los anuncios flash(Pasarlos a publicado y archivado)
-7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
 
-10. Actualizar contains de los buscarContactos...()
+5. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
+
+6. En mostrarAnuncios del TABLON hacer una funcion en anunciosDAO para actualizar el estado de los anuncios flash(Pasarlos a publicado y archivado)
+Mirar a ver lo de En Espera
+7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
 
 11. Añadir en main de anuncioDAO getDestinatarios.
 
