@@ -2,7 +2,7 @@ EJERCICIO 1
 
 1. Mirar en todos los statements que tengan el status y su consecuente if por si dan fallos. EL STATUS VALE EL Nº DE FILAS MODIFICADAS. NO SIEMPRE 1.
 
-2. Modificar las fechas en controldeerrores y donde esten como dd/mm/yyyy. En concreteFactory de ANuncioFlash DEBERIA PONER HORAS-MINUTOS-SEGUNDOS
+2. Comprobar todo lo que tenga fechas(se ha cambiado la clase). Si sobra tiempo poner todo bonito con SimpleDateFormat no necesario.
 
 3. En actualizarContacto...()creo que se deberia hacer el control de errores, en el caso de fecha con try catch creo que es suficiente.
 
