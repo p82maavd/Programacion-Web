@@ -9,8 +9,6 @@ como mostrarAnuncios y tooString. VER SI SE COMPARAN BIEN LAS FECHAS. Creo que f
 
 4. Que todas las sentencias sql esten con el getProperty del fichero .properties. Creo que ya. Revisar por si acaso.
 
-5. FALTAN LOS CONFIG COMO PONE EN MOODLE Y EL PROPERTIES DE LA BASE DE DATOS
-
 6. Comprobar ANUNCIOS_FLASH EN TABLON Y EN ANUNCIOS
 
 7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
@@ -21,4 +19,8 @@ EJERCICIO 2
 
 8. En la practica 2 actualizar las funciones de buscarContacto()
 Pasar como parametro de todas las funciones el email. A ver si se puede.
+
+5. FALTAN LOS CONFIG COMO PONE EN MOODLE Y EL PROPERTIES DE LA BASE DE DATOS. En el ej1 esta
+
+GITHUB NO ACTUALIZADO
 
