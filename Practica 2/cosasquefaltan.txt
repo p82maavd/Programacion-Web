@@ -15,7 +15,7 @@ como mostrarAnuncios y tooString. VER SI SE COMPARAN BIEN LAS FECHAS. Creo que f
 
 7. En lo de INSERTAR_INTERES_CONTACTO a ver porque deja insertarlo si no hay correo de antes. Deberia de hacerse despues de insertar el correo
 
-8. Añadir en mostrarAnuncios de anuncioDAO getDestinatarios.
+9. En mostrarContactos que salgan mas datos.
 
 EJERCICIO 2
 
