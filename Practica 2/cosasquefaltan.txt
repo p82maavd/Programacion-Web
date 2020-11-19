@@ -8,8 +8,7 @@ EJERCICIO 1
 
 EJERCICIO 2
 
-8. En la practica 2 actualizar las funciones de buscarContacto()
-Pasar como parametro de todas las funciones el email. A ver si se puede.
+Poner el config en el web.xml, osea borrar fichero y cambiar el configuracion
 
 GENERAL
 
