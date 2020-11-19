@@ -13,10 +13,10 @@ CREATE TABLE `anuncios` (
 `cuerpo` varchar( 600 ) DEFAULT NULL ,
 `idautor` varchar( 30 ) NOT NULL ,
 `estado` int( 1 ) NOT NULL DEFAULT '1',
-`fechapublicacion` date DEFAULT NULL ,
-`fechainicio` date DEFAULT NULL ,
-`fechafinal` date DEFAULT NULL ,
-`tipo` varchar( 30 ) NOT NULL ,
+`fechapublicacion` timestamp DEFAULT NULL ,
+`fechainicio` timestamp DEFAULT NULL ,
+`fechafinal` timestamp DEFAULT NULL ,
+`tipo` varchar( 50 ) NOT NULL ,
 PRIMARY KEY ( `id` ) ,
 FOREIGN KEY `fk_anuncios_contactos` ( `idautor` ) REFERENCES contactos( email ) ON DELETE CASCADE
 )DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
