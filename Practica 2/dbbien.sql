@@ -16,7 +16,7 @@ CREATE TABLE `anuncios` (
 `fechapublicacion` timestamp DEFAULT NULL ,
 `fechainicio` timestamp DEFAULT NULL ,
 `fechafinal` timestamp DEFAULT NULL ,
-`tipo` varchar( 50 ) NOT NULL ,
+`tipo` varchar( 55 ) NOT NULL ,
 PRIMARY KEY ( `id` ) ,
 FOREIGN KEY `fk_anuncios_contactos` ( `idautor` ) REFERENCES contactos( email ) ON DELETE CASCADE
 )DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
