@@ -3,6 +3,7 @@ CREATE TABLE `contactos` (
   `nombre` varchar(20) NOT NULL,
   `apellidos` varchar(40) NOT NULL,
   `fechanacimiento` date NOT NULL,
+  `password` varchar(20) NOT NULL,
   PRIMARY KEY (`email`)
 )DEFAULT CHARSET=latin1;
 
