@@ -9,7 +9,7 @@ CREATE TABLE `contactos` (
 CREATE TABLE `anuncios` (
 `id` int( 11 ) NOT NULL AUTO_INCREMENT ,
 `titulo` varchar( 30 ) DEFAULT NULL ,
-`cuerpo` varchar( 400 ) DEFAULT NULL ,
+`cuerpo` varchar( 600 ) DEFAULT NULL ,
 `idautor` varchar( 30 ) NOT NULL ,
 `estado` int( 1 ) NOT NULL DEFAULT '1',
 `fechapublicacion` date DEFAULT NULL ,
@@ -21,10 +21,9 @@ FOREIGN KEY `fk_anuncios_contactos` ( `idautor` ) REFERENCES contactos( email ) 
 )DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 CREATE TABLE `destinatarios` (
-  `id` int(3) NOT NULL AUTO_INCREMENT,
   `idcontacto` varchar(30) NOT NULL,
   `idanuncio` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`idcontacto`,`idanuncio`),
   FOREIGN KEY `fk_destinatarios_anuncios` (`idanuncio`) REFERENCES anuncios( id ) ON DELETE CASCADE,
   FOREIGN KEY `fk_destinatarios_contactos` (`idcontacto`) REFERENCES contactos( email ) ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -42,9 +41,8 @@ CREATE TABLE `intereses_anuncios` (
   FOREIGN KEY `fk_interesesanuncios_anuncios` (`idanuncio`) REFERENCES anuncios( id ) ON DELETE CASCADE,
   FOREIGN KEY `fk_interesesanuncios_intereses` (`idinteres`) REFERENCES intereses( idintereses ) ON DELETE CASCADE
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
---Mirar sI PONER COMO CLAVE PRIMARIA EL ID O UN CONJUNTO DE EMAIL Y IDINTERES
+
 CREATE TABLE `intereses_contactos` (
-  --`id` int(11) NOT NULL AUTO_INCREMENT,
   `emailcontacto` varchar(30) NOT NULL,
   `idinteres` int(11) NOT NULL,
   PRIMARY KEY (`idinteres`,`emailcontacto`),
