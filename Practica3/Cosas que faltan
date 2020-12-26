@@ -1,3 +1,3 @@
 1. Cuando en el desplegable de crearAnuncios que se añade el tipo como parametro que ira al anunciosController y este lo mande a la vista para 
 ver que muestra, no se si se pondra en el bean quizas mejor
-2. En anunciosView poner algo para añadir destinatarios de anuncios individualizados
+2. Ver si se pueden poner en formato tabla estilo como en mis anuncios los destinatarios en anuncioIndividualizado View 
