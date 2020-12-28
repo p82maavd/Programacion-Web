@@ -2,3 +2,4 @@
 ver que muestra, no se si se pondra en el bean quizas mejor
 2. Ver si se pueden poner en formato tabla estilo como en mis anuncios los destinatarios en anuncioIndividualizado View 
 4.Por la linea 300 de anuncioDAO faltan sentencias sql
+5. Metodos get y POST en el servlets estan juntos. Pasar la parte que interacciona con el formulario al post y actualizar form del Anuncioview
