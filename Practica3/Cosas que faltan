@@ -7,3 +7,4 @@ ver que muestra, no se si se pondra en el bean quizas mejor
 7. En estados controller solo es necesario el anuncio entero en publicar.
 8. Los anunciosFlash no funcionan las fechas
 9. La fecha de publicacion de los anuncios quizas sin hora.
+10. Mirar como poner el js en las diapositivas y añadir control de errores con el. JS 2
