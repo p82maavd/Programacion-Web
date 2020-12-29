@@ -4,3 +4,4 @@ ver que muestra, no se si se pondra en el bean quizas mejor
 4.Por la linea 300 de anuncioDAO faltan sentencias sql
 5. Metodos get y POST en el servlets estan juntos. Pasar la parte que interacciona con el formulario al post y actualizar form del Anuncioview
 6. REVISAR TODAS LAS FECHAS. Comprobar ContactoController al crear un usuario.
+7. En estados controller solo es necesario el anuncio entero en publicar.
