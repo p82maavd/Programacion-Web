@@ -7,7 +7,7 @@ ver que muestra, no se si se pondra en el bean quizas mejor
 7. En estados controller solo es necesario el anuncio entero en publicar.
 8. Los anunciosFlash no funcionan las fechas
 9. La fecha de publicacion de los anuncios quizas sin hora.
-10. Mirar como poner el js en las diapositivas y añadir control de errores con el. JS 2
+10. Mirar como poner el js como en las diapositivas y añadir control de errores con el. JS 2
 
 12. Actualizar nombres del codigo de la llamada asincrona en index
 13. En la funcionalidad de buscar anuncios solo se muestran si esta todo el titulo por ejemplo, cambiar metodos de busqueda para que salga si incluye la parte que se busca.
