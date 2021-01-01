@@ -11,3 +11,4 @@ ver que muestra, no se si se pondra en el bean quizas mejor
 
 12. Actualizar nombres del codigo de la llamada asincrona en index
 13. En la funcionalidad de buscar anuncios solo se muestran si esta todo el titulo por ejemplo, cambiar metodos de busqueda para que salga si incluye la parte que se busca.
+14. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
