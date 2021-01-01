@@ -13,3 +13,4 @@ ver que muestra, no se si se pondra en el bean quizas mejor
 13. En la funcionalidad de buscar anuncios solo se muestran si esta todo el titulo por ejemplo, cambiar metodos de busqueda para que salga si incluye la parte que se busca.
 14. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
 15. Hacer que se actualize la busqueda cada vez que se pulse una tecla, no cada x segundos como en el tablon
+16. Que se muestre el autor en los anuncios
