@@ -1,7 +1,7 @@
 4.Por la linea 300 de anuncioDAO faltan sentencias sql
 
 6. REVISAR TODAS LAS FECHAS. Comprobar ContactoController al crear un usuario. Cambiar formato creacion/edicion anuncio Flash
-7. En estados controller solo es necesario el anuncio entero en publicar.
+
 8. Los anunciosFlash no funcionan las fechas
 
 10. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
