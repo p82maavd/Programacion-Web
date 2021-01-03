@@ -1,11 +1,8 @@
 1.Por la linea 300 de anuncioDAO faltan sentencias sql
-2. REVISAR TODAS LAS FECHAS. Comprobar ContactoController al crear un usuario. Cambiar formato creacion/edicion anuncio Flash
-
-3. Los anunciosFlash no funcionan las fechas
+2. REVISAR TODAS LAS FECHAS. Comprobar ContactoController al crear usuario. Cambiar formato fecha creacion/edicion anuncio Flash. Los anunciosFlash no funcionan las fechas
 
 4. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
-
 5. Actualizar nombres del codigo de la llamada asincrona en index
 6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
 7. Hacer que se actualize la busqueda cada vez que se pulse una tecla, no cada x segundos como en el tablon
-8. Que se muestre el autor y estado en los anuncios
+8. Que se muestre el autor(Tablon y busqueda) y estado en los anuncios(busqueda)
