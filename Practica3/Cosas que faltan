@@ -1,5 +1,5 @@
 1.Por la linea 300 de anuncioDAO faltan sentencias sql
-2. REVISAR TODAS LAS FECHAS. Comprobar ContactoController al crear usuario. Cambiar formato fecha creacion/edicion anuncio Flash. Los anunciosFlash no funcionan las fechas
+2. REVISAR TODAS LAS FECHAS. Comprobar ContactoController al crear usuario. Cambiar formato fecha creacion/edicion anuncio Flash.
 
 4. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
 5. Actualizar nombres del codigo de la llamada asincrona en index
