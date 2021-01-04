@@ -6,6 +6,7 @@
 6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
 8. Que se muestre el autor(Tablon y busqueda)
 9. Repasar el properties, quitar lineas innecesarias.
+13. Ver si borrar la clase DAO. Arreglar para que se reconecte solo si se desconecta
 
 10. Comentar Codigo
   src
