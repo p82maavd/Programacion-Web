@@ -9,6 +9,7 @@
 13. Ver si borrar la clase DAO. Arreglar para que se reconecte solo si se desconecta
 14. Hay que hacer algo para poder añadir intereses desde la webapp
 15. Poner textareas en vez del input en el anuncioView del cuerpo del anuncio
+16. Si da tiempo, poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
 
 10. Comentar Codigo
   src
