@@ -8,6 +8,20 @@
 9. Repasar el properties, quitar lineas innecesarias.
 
 10. Comentar Codigo
+  src
+    business
+    data (Estoy comentado estos)
+    display
+  WebContent
+    mvc
+      controller
+      view
+    js
+      index.js
+      anunciosView.js
+    anuncios.jsp
+    index.jsp
+    
 
 11. Memoria de practicas
 
