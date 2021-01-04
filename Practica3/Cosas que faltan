@@ -4,7 +4,6 @@
 4. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
 5. Actualizar nombres del codigo de la llamada asincrona en index
 6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
-7. Hacer que se actualize la busqueda cada vez que se pulse una tecla, no cada x segundos como en el tablon
 8. Que se muestre el autor(Tablon y busqueda)
 9.
 
