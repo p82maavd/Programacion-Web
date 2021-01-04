@@ -7,6 +7,7 @@
 8. Que se muestre el autor(Tablon y busqueda)
 9. Repasar el properties, quitar lineas innecesarias.
 13. Ver si borrar la clase DAO. Arreglar para que se reconecte solo si se desconecta
+14. Hay que hacer algo para poder añadir intereses desde la webapp
 
 10. Comentar Codigo
   src
