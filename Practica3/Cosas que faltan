@@ -5,7 +5,7 @@
 5. Actualizar nombres del codigo de la llamada asincrona en index
 6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
 8. Que se muestre el autor(Tablon y busqueda)
-9.
+9. Repasar el properties, quitar lineas innecesarias.
 
 10. Comentar Codigo
 
