@@ -1,6 +1,6 @@
 1.Por la linea 300 de anuncioDAO faltan sentencias sql
 2. Cambiar formato fecha creacion/edicion anuncio Flash o aclarar que es yyyy-mm-dd hh:mm:ss.
-3. Organizar css's
+3. Repasar CSS's
 4. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
 5. Actualizar nombres del codigo de la llamada asincrona en index
 6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
