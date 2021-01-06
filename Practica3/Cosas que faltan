@@ -12,6 +12,7 @@
 17. Mensaje error login ponerlo bien
 18. Index no funciona bien. Cambiar funciones on..=funcionjs por addEventListener. y añadirle a los tres otro addEventListener que añada en un input hidden la ultima funcion cambiada y poner condicion en la llamada a las tres funciones
 10. Comentar Codigo
+20. Los anuncios Flash siguen yendo mal
   src
     business
     data (Comentado)
