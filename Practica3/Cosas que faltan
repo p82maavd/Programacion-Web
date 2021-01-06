@@ -10,6 +10,7 @@
 14. setMaxInteractiveInterval
 15. Poner textareas en vez del input en el anuncioView del cuerpo del anuncio
 16. Si da tiempo, poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
+17. Mensaje error login ponerlo bien
 
 10. Comentar Codigo
   src
