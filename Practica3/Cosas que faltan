@@ -6,7 +6,7 @@
   src
     business (Faltan los 4 controller)
     data (Comentado)
-    display
+    display(Comentado)
   WebContent
     mvc
       controller
