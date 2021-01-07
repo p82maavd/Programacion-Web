@@ -1,12 +1,10 @@
 
-5. Actualizar nombres del codigo de la llamada asincrona en index
-16. Si da tiempo, poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
+Comentar codigo y actualizar con lo de discord
+
 10. Comentar Codigo
 
   src
     business (Faltan los 4 controller)
-    data (Comentado)
-    display(Comentado)
   WebContent
     mvc
       controller
@@ -25,3 +23,5 @@ Para Febrero:
 13. Ver si borrar la clase DAO. Arreglar para que se reconecte solo si se desconecta
 X. Optimizar Actualizacion de Intereses de Contactos y Anuncios
 4. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
+5. Actualizar nombres del codigo de la llamada asincrona en index
+16. Poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
