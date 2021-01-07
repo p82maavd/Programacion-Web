@@ -1,13 +1,9 @@
-
 2. Cambiar formato fecha creacion/edicion anuncio Flash o aclarar que es yyyy-mm-dd hh:mm:ss.
 3. Repasar CSS's
 4. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
 5. Actualizar nombres del codigo de la llamada asincrona en index
-6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
-8. Que se muestre el autor(Tablon y busqueda)
 9. Repasar el properties, quitar lineas innecesarias.
 13. Ver si borrar la clase DAO. Arreglar para que se reconecte solo si se desconecta
-14. setMaxInteractiveInterval
 16. Si da tiempo, poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
 17. Mensaje error login ponerlo bien
 10. Comentar Codigo
@@ -30,3 +26,9 @@
 11. Memoria de practicas
 
 12. Evaluacion
+
+
+Para Febrero:
+6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
+8. Que se muestre el autor(busqueda)
+14. setMaxInteractiveInterval
