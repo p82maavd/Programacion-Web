@@ -1,27 +1,10 @@
 
-Comentar codigo y actualizar con lo de discord
-
-10. Comentar Codigo
-
-  src
-    business (Faltan los 4 controller)
-  WebContent
-    mvc
-      controller
-      view
-    
-
-11. Memoria de practicas
-
-12. Evaluacion
-
-
-Para Febrero:
-6. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
-8. Que se muestre el autor(busqueda)
-14. setMaxInteractiveInterval
-13. Ver si borrar la clase DAO. Arreglar para que se reconecte solo si se desconecta
-X. Optimizar Actualizacion de Intereses de Contactos y Anuncios
-4. Mirar como poner el js como en las diapositivas y añadir control de errores del formulario con el. JS 2
-5. Actualizar nombres del codigo de la llamada asincrona en index
-16. Poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
+1. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
+2. Que se muestre el autor(busqueda)
+3. setMaxInteractiveInterval. Comprobar como se comporta la conexion.  Arreglar para que se reconecte solo si se desconecta
+4. Ver si borrar la clase DAO.
+5. Optimizar Actualizacion de Intereses de Contactos y Anuncios. No es necesario creo.
+6. Mirar como poner el js como en las diapositivas. JS 2
+7. Poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
+8. Poder borrar contacto.
+9. Revisar los sendRedirect y los response. ...
