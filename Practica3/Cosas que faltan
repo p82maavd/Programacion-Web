@@ -8,5 +8,4 @@
 7. Poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
 8. Poder borrar contacto.
 9. Revisar los sendRedirect y los response. ...
-10. Modificar regex del email en validacion para que admita ñ's
 11. Organizar fechas linea 80 registerController
