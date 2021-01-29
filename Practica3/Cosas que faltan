@@ -8,4 +8,4 @@
 7. Poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
 8. Poder borrar contacto.
 9. Revisar los sendRedirect y los response. ...
-10. He borrado codigo del arroba de los correos, comprobar si esta hecho con js o con html(input type email creo que vale), si no esta hecho hacerlo
+10. Modificar regex del email en validacion para que admita ñ's
