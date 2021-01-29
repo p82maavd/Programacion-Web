@@ -9,3 +9,4 @@
 8. Poder borrar contacto.
 9. Revisar los sendRedirect y los response. ...
 10. Modificar regex del email en validacion para que admita ñ's
+11. Organizar fechas linea 80 registerController
