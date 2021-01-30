@@ -8,5 +8,14 @@
 7. Poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
 8. Poder borrar contacto.
 9. Revisar los sendRedirect y los response. ...
+    (Assume you have two pages, pageA, and pageB. 
+    In pageA you wrote the include tag. 
+    In this case the control was in pageA til you called the include tag. 
+    At this point the full control goes to pageB. 
+    When It's done, control is returned to pageA starting from the next point of coding after the include tag and continuing to the rest of pageA.
+
+    Well, to get things much clearer, let's say that we have the same pages, pageA and pageB, but this time we will use the forward tag in pageA, not the include tag. 
+    Again, the control will begin in pageA till we call the forward tag in pageA, at this point, control is transfered to pageB, just like the include tag. 
+    But the difference is what happens when pageB completes. In case of the forward tag, control doesn't go back to pageA again.)
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
