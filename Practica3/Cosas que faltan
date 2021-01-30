@@ -17,5 +17,7 @@
     Well, to get things much clearer, let's say that we have the same pages, pageA and pageB, but this time we will use the forward tag in pageA, not the include tag. 
     Again, the control will begin in pageA till we call the forward tag in pageA, at this point, control is transfered to pageB, just like the include tag. 
     But the difference is what happens when pageB completes. In case of the forward tag, control doesn't go back to pageA again.)
+    
+    Probar a poner forward en todos a ver si funciona
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
