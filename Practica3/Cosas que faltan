@@ -1,15 +1,13 @@
 
 1. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
-2. Que se muestre el autor(busqueda)
+
 3. setMaxInteractiveInterval. Comprobar como se comporta la conexion.  Arreglar para que se reconecte solo si se desconecta
 4. Ver si borrar la clase DAO.
-5. Optimizar Actualizacion de Intereses de Contactos y Anuncios. No es necesario creo.
-6. Mirar como poner el js como en las diapositivas. JS 2
-7. Poner bien el select de ordenar
+
+
 8. Poder borrar contacto.
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
-13. Cambiar variables var por let
 14. if(!(anuncioBean.getAutor().equals(contactoBean.getEmailUsuario()))){
 	//Si no eres el autor no puedes modificar un anuncio.
 	response.sendRedirect(request.getContextPath()+"/mvc/controller/loginController.jsp");
