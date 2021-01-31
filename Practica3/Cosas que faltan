@@ -5,7 +5,7 @@
 4. Ver si borrar la clase DAO.
 5. Optimizar Actualizacion de Intereses de Contactos y Anuncios. No es necesario creo.
 6. Mirar como poner el js como en las diapositivas. JS 2
-7. Poner algo para ordenar el tablon Por fecha publicacion(ID) y por propietario(Funcion ya hecha en AnunciosDAO)
+7. Poner bien el select de ordenar
 8. Poder borrar contacto.
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
