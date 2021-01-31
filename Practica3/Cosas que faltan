@@ -10,3 +10,7 @@
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
 13. Cambiar variables var por let
+14. if(!(anuncioBean.getAutor().equals(contactoBean.getEmailUsuario()))){
+	//Si no eres el autor no puedes modificar un anuncio.
+	response.sendRedirect(request.getContextPath()+"/mvc/controller/loginController.jsp");
+} Poner esto en anunciosController en la parte de editar anuncio, en la view no se como ponerlo
