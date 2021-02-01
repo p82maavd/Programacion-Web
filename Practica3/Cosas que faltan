@@ -1,8 +1,4 @@
 
-1. Ver si cambiar en getAnunciosController el codigo que es igual por una funcion. No se si estaria bien ponerla en el Servlet
-
-3. setMaxInteractiveInterval. Comprobar como se comporta la conexion.  Arreglar para que se reconecte solo si se desconecta
-4. Ver si borrar la clase DAO.
 8. cambiar funcion on... Buscar on con search
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
