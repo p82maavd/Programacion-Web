@@ -3,8 +3,6 @@
 
 3. setMaxInteractiveInterval. Comprobar como se comporta la conexion.  Arreglar para que se reconecte solo si se desconecta
 4. Ver si borrar la clase DAO.
-
-5. Hacer que no salga borrar Usuario en registro
 8. cambiar funcion on... Buscar on con search
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
