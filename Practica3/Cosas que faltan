@@ -12,6 +12,6 @@
 } Poner esto en anunciosController en la parte de editar anuncio, en la view no se si esta bien. Revisar la logica, no se si esta bien
 15. Arreglar Ñ's bien
 16. Linea 60 contactoView probar borrar div inneceasario
-17. Probar Anuncio Individualizado
 18. Orden en buscar Anuncios
 19. Hacer el buscar bien (css)
+20. Que no salga null al crear anuncio flash, con js comparas si el container == null y si es null no haces setAttribute
