@@ -7,7 +7,7 @@
 	response.sendRedirect(request.getContextPath()+"/mvc/controller/loginController.jsp");
 } Poner esto en anunciosController en la parte de editar anuncio, en la view no se si esta bien. Revisar la logica, no se si esta bien
 15. Arreglar Ñ's bien
-16. Linea 60 contactoView probar borrar div inneceasario
+
 18. Orden en buscar Anuncios
 19. Hacer el buscar bien (css)
 
