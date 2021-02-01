@@ -5,7 +5,7 @@
 4. Ver si borrar la clase DAO.
 
 5. Hacer que no salga borrar Usuario en registro
-8. Poder borrar contacto.
+8. cambiar funcion on... Buscar on con search
 11. Organizar fechas linea 80 registerController
 12. Revisar comentarios codigo
 14. if(!(anuncioBean.getAutor().equals(contactoBean.getEmailUsuario()))){
