@@ -1,13 +1,7 @@
-
-8. cambiar funcion on... Buscar on con search
-11. Organizar fechas linea 80 registerController
-12. Revisar comentarios codigo
-14. if(!(anuncioBean.getAutor().equals(contactoBean.getEmailUsuario()))){
-	//Si no eres el autor no puedes modificar un anuncio.
-	response.sendRedirect(request.getContextPath()+"/mvc/controller/loginController.jsp");
-} Poner esto en anunciosController en la parte de editar anuncio, en la view no se si esta bien. Revisar la logica, no se si esta bien
-15. Arreglar Ñ's bien
-
-18. Orden en buscar Anuncios
-19. Hacer el buscar bien (css)
+1. cambiar funcion on... Buscar on con search
+2. Organizar fechas linea 80 registerController
+3. Revisar comentarios codigo
+4. Arreglar Ñ's bien
+5. Orden en buscar Anuncios. Optimizar sentencias sql buscarFunciones en anuncioDAO
+6. Hacer el buscar de index bien (css)
 
