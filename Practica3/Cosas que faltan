@@ -4,4 +4,4 @@
 4. Arreglar Ñ's bien
 5. Orden en buscar Anuncios. Optimizar sentencias sql buscarFunciones en anuncioDAO
 6. Hacer el buscar de index bien (css)
-7. Optimizar getAnunciosContacto anuncioDAO
+7. Optimizar buscarFecha anuncioDAO
