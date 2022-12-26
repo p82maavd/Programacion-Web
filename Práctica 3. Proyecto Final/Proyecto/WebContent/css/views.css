@@ -1,0 +1,136 @@
+html, body {
+    display: flex;
+    justify-content: center;
+    font-family: sans-serif;
+    font-size: 15px;
+    color: #666;
+    min-height: 100%;
+    background:aliceblue;
+}
+    
+input[type=text], input[type=password], input[type=date]{
+    width: 100%;
+    padding: 16px 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+    box-sizing: border-box;
+    border-radius: 5px; 
+}
+
+.fechasFlash{
+	width: 25%;
+}
+    
+button {
+    background-color: LightSeaGreen;
+    color: white;
+    padding: 12px 0;
+    margin: 10px auto;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px; 
+    font-weight: 600;
+    font-size: 14px;
+}
+    
+h1 {
+    margin: 0;
+    text-align:center;
+    font-size:26px;
+    font-weight: 1;
+}
+
+h3 {
+    margin: 12px 0;
+    color: LightSeaGreen;
+}
+    
+button:hover {
+    background: LightSeaGreen;
+}
+    
+.formcontainer {
+    text-align: left;
+    margin: 24px 50px 12px;
+    background: aliceblue; 	
+}
+   
+span.psw {
+    float: right;
+    padding-top: 0;
+    padding-right: 20px;
+}
+
+.checkbox a {
+    color: LightSeaGreen;
+}
+    
+.checkbox a:hover {
+    color: LightSeaGreen;
+}
+
+fieldset {
+    border: none;    
+}
+    
+.detallescuenta >div, .detallespersonales >div >div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+form {
+    width: 100%;
+    padding: 20px;
+    background: aliceblue;
+    }
+    
+.main-block {
+    display: flex;
+    justify-content: center;
+    
+    background: #fff;
+}
+
+.submit{
+	
+	 height: 4rem;
+}
+
+html, body {
+    min-height: 100%;
+    }
+div, select, p { 
+    padding: 0;
+    margin: 0;
+    outline: none;
+    color: #666;
+}
+  
+label {
+    padding: 0 5px;
+    text-align: left;
+    vertical-align: middle;
+    width: 25%;
+}
+
+
+tr:hover {
+	background-color: #f5f5f5;
+}
+
+table {
+	position: static;
+	top: 300px;
+	left: 0px;
+	margin: 0 auto;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+}
+

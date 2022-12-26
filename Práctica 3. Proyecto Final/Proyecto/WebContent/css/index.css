@@ -1,0 +1,134 @@
+#menu ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+	width:100%;
+	text-align: center;
+	top:0;
+}
+#menu #apartado{
+	float:left;
+	text-align: center;
+	width:33.33333%;
+}
+
+#menu #apartado a{
+	background: lightseagreen;
+	color: white;
+	padding: 12px 100px;
+	display: block;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	
+}
+#menu #apartado a:hover{
+	background: lightseagreen;
+	opacity:0.8;
+	color: white;
+	transition: all 0.3s;
+}
+	
+body {
+  font-family: Arial;
+  padding: 20px;
+  background: aliceblue;
+}
+
+h6 {
+	
+    font-family: Arial;
+    float: right;
+    font-size: 40%;
+    color: white;
+    font-weight: 100;
+    margin:0;
+    position: relative;
+}
+
+.bloque{
+	background: lightseagreen;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border-radius: 5px;
+}
+.espacioimagen{
+	width:20%;
+	display:inline-block;
+}
+
+#uco{
+	width: 30px;
+    padding-left: 10px;
+}
+
+.zonabusqueda {
+	display: flex;
+    font-size: 40px;
+    float: right;
+    background: lightseagreen;
+    border-radius: 5px;
+    width: 80%;
+    height: 40px;
+}
+
+#barrabusqueda{
+    background: lightseagreen;
+    padding-left: 26%;
+    padding-right: 20%;
+    display: flex;
+    width: 20%;
+    border-radius: 5px;
+    height: 30px;
+}
+
+#busqueda{
+	
+	display: flex;
+    padding: 0;
+    align-items: center;
+    height: 100%;
+    width: 60%;
+    border-width: thin;
+    border-right-width: 0px;
+}
+
+
+#filtrobusqueda{
+  
+  display: flex;
+  padding: 0;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+  border-width: thin;
+}
+
+.izquierda {
+  float: left;
+  width: 80%;
+}
+
+.derecha {
+  float: right;
+  width: 20%;
+  background: aliceblue;
+  border-radius: 5px;
+  text-align:center;
+}
+
+.clase{
+	display:none;
+}
+
+
+.anuncio {
+  background-color: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.filter {
+	display: none;
+}
