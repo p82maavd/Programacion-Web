@@ -1,0 +1,56 @@
+body{
+	background: aliceblue;
+}
+
+#menu ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+	width:100%;
+	text-align: center;
+	
+}
+#menu #apartado{
+	float:left;
+	text-align: center;
+	width:33.33333%;
+	
+}
+
+#menu #apartado a{
+	background: LightSeaGreen;
+	color: white;
+	padding: 12px 100px;
+	display: block;
+}
+
+#menu #submenu{
+	display:none;
+	
+}
+#menu #apartado:hover #submenu{
+	display:block;
+	opacity: 0.9;
+}
+
+#menu #apartado a:hover{
+	background: LightSeaGreen;
+	color: white;
+}
+
+tr:hover {
+	background-color: aliceblue;
+	opacity: 0.8;
+}
+
+table {
+	width: 100%;
+	position: absolute;
+	z-index: -1;
+	top: 90px;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
